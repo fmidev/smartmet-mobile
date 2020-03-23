@@ -1,8 +1,16 @@
 import React from 'react';
+import { translate } from 'react-i18next';
+import i18n from 'i18next';
+import { connect } from 'react-redux';
+import moment from 'moment';
 import {
-  View, Text, StyleSheet, Image, FlatList, ScrollView,
+  View, Text, StyleSheet, Image, FlatList, TouchableHighlight,
 } from 'react-native';
-import { Logo } from '../components/header/homeHeader';
+import { withNavigation } from 'react-navigation';
+import { LoadingView } from '../components';
+import { tsFetch } from '../actions/TimeSeriesActions';
+import Images from '../assets/images';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -22,16 +30,6 @@ const styles = StyleSheet.create({
   },
   dateText: {
     color: 'black',
-  },
-  location: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-    marginTop: 20,
-  },
-  locationText: {
-    color: 'black',
-    marginTop: -3,
-    marginLeft: 5,
   },
   weatherInfo: {
     fontSize: 50,
@@ -88,6 +86,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 10,
   },
+  warningContainer: {
+    backgroundColor: 'rgb(29,36,89)',
+  },
+  listHeader: {
+    backgroundColor: 'lightgray',
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
 });
 
 function Item({ item }) {
@@ -95,10 +101,14 @@ function Item({ item }) {
     <View style={styles.listItem}>
 
       <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-        <Text style={{ fontWeight: 'bold' }}>{item.time}</Text>
+        <Text style={{ fontWeight: 'bold', color: 'black' }}>{moment(item.time).format('ddd').toUpperCase()}</Text>
+        <Text style={{ fontWeight: 'bold' }}>{moment(item.time).format('DD')}</Text>
       </View>
 
-      <Image source={require('../assets/weather_symbol.png')} />
+      <Image
+        source={Images.symbols[item.smartsymbol]}
+        style={{ height: 50, width: 50, marginTop: 6 }}
+      />
 
       <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
         <Text style={{ color: 'red' }}>{item.temperature}</Text>
@@ -120,151 +130,184 @@ function Item({ item }) {
   );
 }
 
-export default class HomeScreen extends React.Component {
-  static navigationOptions = () => ({
-    headerTitle: () => <Logo />,
-    headerBackTitle: 'Warnings',
-    headerLayoutPreset: 'center',
-  });
-
-  state = {
-    data: [
-      {
-        time: '17:00',
-        humidity: `${Math.floor(Math.random() * 100) + 1} %`,
-        temperature: `${Math.floor(Math.random() * 10) + 0}°`,
-        windspeedms: Math.floor(Math.random() * 10) + 0,
-      },
-      {
-        time: '18:00',
-        humidity: `${Math.floor(Math.random() * 100) + 1} %`,
-        temperature: `${Math.floor(Math.random() * 10) + 0}°`,
-        windspeedms: Math.floor(Math.random() * 10) + 0,
-      },
-      {
-        time: '19:00',
-        humidity: `${Math.floor(Math.random() * 100) + 1} %`,
-        temperature: `${Math.floor(Math.random() * 10) + 0}°`,
-        windspeedms: Math.floor(Math.random() * 10) + 0,
-      },
-      {
-        time: '20:00',
-        humidity: `${Math.floor(Math.random() * 100) + 1} %`,
-        temperature: `${Math.floor(Math.random() * 10) + 0}°`,
-        windspeedms: Math.floor(Math.random() * 10) + 0,
-      },
-      {
-        time: '21:00',
-        humidity: `${Math.floor(Math.random() * 100) + 1} %`,
-        temperature: `${Math.floor(Math.random() * 10) + 0}°`,
-        windspeedms: Math.floor(Math.random() * 10) + 0,
-      },
-      {
-        time: '22:00',
-        humidity: `${Math.floor(Math.random() * 100) + 1} %`,
-        temperature: `${Math.floor(Math.random() * 10) + 0}°`,
-        windspeedms: Math.floor(Math.random() * 10) + 0,
-      },
-      {
-        time: '23:00',
-        humidity: `${Math.floor(Math.random() * 100) + 1} %`,
-        temperature: `${Math.floor(Math.random() * 10) + 0}°`,
-        windspeedms: Math.floor(Math.random() * 10) + 0,
-      },
-      {
-        time: '00:00',
-        humidity: `${Math.floor(Math.random() * 100) + 1} %`,
-        temperature: `${Math.floor(Math.random() * 10) + 0}°`,
-        windspeedms: Math.floor(Math.random() * 10) + 0,
-      },
-    ],
+export class HomeScreen extends React.Component {
+  async onChangeLang(lang) {
+    i18n.changeLanguage(lang);
+    try {
+      await AsyncStorage.setItem('@APP:languageCode', lang);
+    } catch (error) {
+      // TODO: Error handling
+    }
   }
 
+  componentDidMount() {
+    this.props.tsFetch();
+  }
 
-  render() {
+  renderLoading() {
     return (
+      <LoadingView />
+    );
+  }
 
-      <ScrollView>
+  renderMainInfo() {
+    const { t } = this.props;
+    let mainInfoData = {};
 
-        <View style={styles.container}>
+    const serverTimeNearestHour = moment(this.props.tsDataObj.serverTime).add(30, 'minutes').utc().format('YYYYMMDDTHH');
+    console.log('serverTimeNearestHour', serverTimeNearestHour);
 
-          <View style={styles.topContainer}>
+    this.props.tsDataObj.data.forEach((element) => {
+      if (element.time.substring(0, 11) === serverTimeNearestHour) {
+        mainInfoData = element;
+      }
+    });
 
-            <View style={styles.dateTextContainer}>
-              <Text style={styles.dateText}>Monday 27 January 16:13</Text>
-            </View>
+    return (
+      <View style={styles.topContainer}>
 
-            <View style={styles.weatherInfoContainer}>
+        <View style={styles.dateTextContainer}>
+          <Text style={styles.dateText}>{this.props.tsDataObj.serverTime}</Text>
+        </View>
 
-              <View>
-                <Text style={styles.weatherInfo}>16°c</Text>
-                <Text style={styles.feelsLike}>Feels like 13°</Text>
-              </View>
+        <View style={styles.weatherInfoContainer}>
 
-              <View style={styles.symbol}>
-                <Image style={{ width: 120, height: 120 }} source={require('../assets/sunny.png')} />
-                <Text style={styles.symbolDescription}>Sunny</Text>
-              </View>
-
-            </View>
-
-            <View style={styles.weatherDetailsContainer}>
-
-              <View style={styles.precipitation}>
-                <Text>
-                  <Image style={{ width: 18, height: 18 }} source={require('../assets/precipitation-icon.png')} />
-                  <Text style={styles.precipitationText}>
-                    40 %
-                    {'\n'}
-                    0.1 mm
-                  </Text>
-                </Text>
-              </View>
-
-              <Text>
-                <Image style={{ width: 30, height: 30 }} source={require('../assets/celestial-status-icon.png')} />
-                <Text style={styles.celestialText}>
-                  08:47 - 16:19
-                </Text>
-              </Text>
-
-
-              <View style={styles.windspeed}>
-                <View style={{
-                  flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20,
-                }}
-                >
-                  <Image
-                    style={{
-                      flex: 1,
-                      width: 40,
-                      height: 40,
-                    }}
-                    source={require('../assets/windspeed-icon.png')}
-                  />
-                  <Text style={{ position: 'absolute', fontSize: 12, color: 'black' }}>6</Text>
-                </View>
-              </View>
-
-            </View>
-
+          <View>
+            <Text style={styles.weatherInfo}>
+              {mainInfoData.temperature}
+              {' '}
+°C
+            </Text>
+            <Text style={styles.feelsLike}>
+              {`${t('common:feelsLike')} °`}
+              {' '}
+              {mainInfoData.feelslike}
+            </Text>
           </View>
 
-          <View style={styles.flatListContainer}>
-            <FlatList
-              style={{ flex: 1 }}
-              data={this.state.data}
-              renderItem={({ item }) => <Item item={item} />}
-              keyExtractor={(item) => item.time}
-              scrollEnabled={false}
-            />
+          <View style={styles.symbol}>
+            <Image style={{ width: 120, height: 120 }} source={Images.symbols[mainInfoData.smartsymbol]} />
+            <Text style={styles.symbolDescription}>{mainInfoData.weather}</Text>
+          </View>
+
+        </View>
+
+        <View style={styles.weatherDetailsContainer}>
+
+          <View style={styles.precipitation}>
+            <Text>
+              <Image style={{ width: 18, height: 18 }} source={require('../assets/images/precipitation-icon.png')} />
+              <Text style={styles.precipitationText}>
+                {mainInfoData.humidity}
+                {' '}
+%
+                {'\n'}
+                {mainInfoData.precipitation1h}
+                {' '}
+mm
+              </Text>
+            </Text>
+          </View>
+
+          <Text>
+            <Image style={{ width: 30, height: 30 }} source={require('../assets/images/celestial-status-icon.png')} />
+            <Text style={styles.celestialText}>
+              {moment(mainInfoData.sunrise).format('HH:mm')}
+              {' '}
+-
+              {moment(mainInfoData.sunset).format('HH:mm')}
+            </Text>
+          </Text>
+
+
+          <View style={styles.windspeed}>
+            <View style={{
+              flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20,
+            }}
+            >
+              <Image
+                style={{
+                  flex: 1,
+                  width: 40,
+                  height: 40,
+                }}
+                source={require('../assets/images/windspeed-icon.png')}
+              />
+              <Text style={{ position: 'absolute', fontSize: 12, color: 'black' }}>{mainInfoData.windspeedms}</Text>
+            </View>
           </View>
 
         </View>
 
 
-      </ScrollView>
+        <TouchableHighlight onPress={() => { this.props.navigation.navigate('Warnings'); }}>
+          <View style={styles.warningContainer}>
+            <Text style={{
+              fontSize: 16, textAlign: 'center', color: 'white', paddingTop: 12, paddingBottom: 32,
+            }}
+            >
+              Warnings - 5 days
+            </Text>
+          </View>
+        </TouchableHighlight>
 
+        <View style={styles.listHeader}>
+          <Text style={{
+            fontSize: 12, color: 'black', marginLeft: 5, fontWeight: 'bold',
+          }}
+          >
+            10 days forecast
+          </Text>
+        </View>
+
+      </View>
     );
   }
+
+  getListData() {
+    const listData = [];
+    this.props.tsDataObj.data.forEach((element) => {
+      if (element.time.substring(9, 11) === '14') {
+        listData.push(element);
+      }
+    });
+    return listData;
+  }
+
+  renderFlatList() {
+    console.log('this.props.tsDataObj', this.props.tsDataObj);
+    return (
+      <View style={styles.container}>
+        <View style={styles.flatListContainer}>
+          <FlatList
+            style={{ flex: 1 }}
+            data={this.getListData()}
+            renderItem={({ item }) => <Item item={item} />}
+            keyExtractor={(item) => item.time}
+            scrollEnabled
+            ListHeaderComponent={() => this.renderMainInfo()}
+          />
+        </View>
+      </View>
+    );
+  }
+
+  render() {
+    if (this.props.loading) {
+      return this.renderLoading();
+    }
+
+    if (this.props.tsDataObj.data.length === 0) {
+      // TODO: return this.renderNoContent();
+    }
+    return this.renderFlatList();
+  }
 }
+
+
+const mapStateToProps = (state) => {
+  const { loading, tsDataObj } = state.tsDataObj;
+  return { loading, tsDataObj };
+};
+
+export default withNavigation(connect(mapStateToProps, { tsFetch })(translate(['home', 'common', 'day'], { wait: true })(HomeScreen)));

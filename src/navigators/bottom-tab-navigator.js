@@ -4,7 +4,6 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {
   HomeNavigator,
   WarningsNavigator,
-  WMSNavigator,
   MapsNavigator,
 } from './screen-stack-navigators';
 
@@ -16,12 +15,9 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
     iconName = 'ios-home';
   } else if (routeName === 'Warnings') {
     iconName = 'ios-warning';
-  } else if (routeName === 'WMS') {
-    iconName = 'logo-youtube';
   } else if (routeName === 'Maps') {
     iconName = 'ios-compass';
   }
-
   return <IconComponent name={iconName} size={25} color={tintColor} />;
 };
 
@@ -29,17 +25,16 @@ const BottomTabNavigator = createBottomTabNavigator(
   {
     Home: HomeNavigator,
     Warnings: WarningsNavigator,
-    WMS: WMSNavigator,
     Maps: MapsNavigator,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => getTabBarIcon(navigation, focused, tintColor),
+      tabBarOptions: {
+        activeTintColor: 'red',
+        inactiveTintColor: 'gray',
+      },
     }),
-    tabBarOptions: {
-      activeTintColor: 'black',
-      inactiveTintColor: 'gray',
-    },
   },
 );
 

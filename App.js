@@ -1,6 +1,26 @@
 import React from 'react';
-import Drawer from './src/navigators/drawer-navigator';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
+import { translate } from 'react-i18next';
+import reducers from './src/reducers';
+import i18n from './src/I18n/index';
+import Stack from './src/navigators/stack-navigator';
 
-const app = () => (<Drawer />);
+const WrappedStack = ({ t }) => <Stack screenProps={{ t }} />;
+const ReloadAppOnLanguageChange = translate('common', {
+  bindI18n: 'languageChanged',
+  bindStore: false,
+})(WrappedStack);
 
-export default app;
+
+export default class App extends React.Component {
+  render() {
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    return (
+      <Provider store={store}>
+        <ReloadAppOnLanguageChange />
+      </Provider>
+    );
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "navigation": {
+    "home": "Heim",
+    "warnings": "Warnungen",
+    "maps": "Karten"
+  },
+  "settings": {
+    "about": "Über",
+    "aboutContent": "FMI 2020",
+    "title": "Einstellungen",
+    "language": "Sprache",
+    "languageName": "Deutsch"
+  },
+  "search": {
+    "title": "Suche"
+  },
+  "common": {
+    "feelsLike": "Lust haben auf",
+    "sunny": "Sonnig"
+  }
+}
