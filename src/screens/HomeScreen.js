@@ -10,6 +10,7 @@ import { withNavigation } from 'react-navigation';
 import { LoadingView } from '../components';
 import { tsFetch } from '../actions/TimeSeriesActions';
 import Images from '../assets/images';
+import ListItem from '../components/ListItem'
 
 
 const styles = StyleSheet.create({
@@ -72,16 +73,6 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginTop: -15,
   },
-  listItem: {
-    margin: 0.5,
-    padding: 0,
-    backgroundColor: '#FFF',
-    width: '100%',
-    flex: 1,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    borderRadius: 0,
-  },
   flatListContainer: {
     flex: 1,
     marginTop: 10,
@@ -96,39 +87,6 @@ const styles = StyleSheet.create({
   },
 });
 
-function Item({ item }) {
-  return (
-    <View style={styles.listItem}>
-
-      <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-        <Text style={{ fontWeight: 'bold', color: 'black' }}>{moment(item.time).format('ddd').toUpperCase()}</Text>
-        <Text style={{ fontWeight: 'bold' }}>{moment(item.time).format('DD')}</Text>
-      </View>
-
-      <Image
-        source={Images.symbols[item.smartsymbol]}
-        style={{ height: 50, width: 50, marginTop: 6 }}
-      />
-
-      <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-        <Text style={{ color: 'red' }}>{item.temperature}</Text>
-      </View>
-
-      <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-        <Text style={{ color: 'green' }}>
-          {item.windspeedms}
-          {' '}
-          m/s
-        </Text>
-      </View>
-
-      <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-        <Text>{item.humidity}</Text>
-      </View>
-
-    </View>
-  );
-}
 
 export class HomeScreen extends React.Component {
   async onChangeLang(lang) {
@@ -282,7 +240,7 @@ mm
           <FlatList
             style={{ flex: 1 }}
             data={this.getListData()}
-            renderItem={({ item }) => <Item item={item} />}
+            renderItem={(item) => <ListItem item={item} />}
             keyExtractor={(item) => item.time}
             scrollEnabled
             ListHeaderComponent={() => this.renderMainInfo()}
