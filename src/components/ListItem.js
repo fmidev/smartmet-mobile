@@ -58,7 +58,41 @@ export default class ListItem extends React.Component {
     // console.log('renderCollapsableContent') // TODO: Check is this normal behaviour 
 
     return (
-      <Text>{item.time}</Text>
+      <View>
+        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+          <Text style={{ fontWeight: 'bold', color: 'black' }}>{moment(item.time).format('HH:mm')}</Text>
+        </View>
+
+        <Image
+          source={Images.symbols[item.smartsymbol]}
+          style={{ height: 50, width: 50, marginTop: 6 }}
+        />
+
+        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+          <Text style={{ color: 'red' }}>{item.temperature}</Text>
+        </View>
+
+        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+          <Text style={{ color: 'red' }}>{item.temperature}</Text>
+        </View>
+
+        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+          <Text style={{ color: 'green' }}>
+            {item.windspeedms}
+            {' '}
+                m/s
+              </Text>
+        </View>
+
+        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+          <Text>{item.humidity}</Text>
+        </View>
+
+        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+          <Text>{item.precipitation1h}</Text>
+        </View>
+
+      </View>
     )
 
   }
