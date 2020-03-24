@@ -4,7 +4,7 @@ const API_URL = `${Config.API_URL}/timeseries?format=json&place=bishkek&producer
 
 console.log('API_URL', API_URL);
 
-export function getTimeSeries() {
+export function getTimeSeries(coords) {
   return fetch(API_URL)
     .then((response) => response.json().then((responseJson) => {
       const tsDataObj = {};
