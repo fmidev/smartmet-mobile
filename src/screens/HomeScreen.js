@@ -240,7 +240,7 @@ mm
           <FlatList
             style={{ flex: 1 }}
             data={this.getListData()}
-            renderItem={(item) => <ListItem item={item} />}
+            renderItem={(item) => <ListItem item={item} tsDataObj={this.props.tsDataObj} />}
             keyExtractor={(item) => item.time}
             scrollEnabled
             ListHeaderComponent={() => this.renderMainInfo()}

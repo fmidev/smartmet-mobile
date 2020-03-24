@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, Image, TouchableWithoutFeedback,
+  View, Text, StyleSheet, Image, TouchableWithoutFeedback, FlatList,
 } from 'react-native';
 import moment from 'moment';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -24,11 +24,43 @@ export default class ListItem extends React.Component {
   constructor(props) {
     super(props)
     this.state = { isHidden: true }
-
   }
 
   toggleListItem = () => {
     this.setState({ isHidden: !this.state.isHidden })
+  }
+
+  getCollapsableContentData = () => {
+    console.log('getCollapsableContentData')
+    const collapsableContentArr = []
+    const itemDay = moment(this.props.item.item.time).format('YYYYMMDD')
+
+    this.props.tsDataObj.data.forEach(element => {
+
+      if ((element.time).includes(itemDay)) {
+        const collapsableItemObj = {}
+        collapsableItemObj.time = element.time
+        collapsableItemObj.smartsymbol = element.smartsymbol
+        collapsableItemObj.temperature = element.temperature
+        collapsableItemObj.feelslike = element.feelslike
+        collapsableItemObj.windspeedms = element.windspeedms
+        collapsableItemObj.winddirection = element.winddirection
+        collapsableItemObj.humidity = element.humidity
+        collapsableItemObj.precipitation1h = element.precipitation1h
+        collapsableContentArr.push(collapsableItemObj);
+      }
+    });
+    // console.log('collapsableContentArr', collapsableContentArr)
+    return collapsableContentArr
+  }
+
+  renderCollapsableContent = (item) => {
+    // console.log('renderCollapsableContent') // TODO: Check is this normal behaviour 
+
+    return (
+      <Text>{item.time}</Text>
+    )
+
   }
 
   render() {
@@ -70,7 +102,16 @@ export default class ListItem extends React.Component {
 
           </View>
         </TouchableWithoutFeedback>
-        {!this.state.isHidden && <Text >TODO: Daily details</Text>}
+        {!this.state.isHidden && <View>
+          <FlatList
+            data={this.getCollapsableContentData()}
+            renderItem={({ item }) => this.renderCollapsableContent(item)}
+            keyExtractor={(item) => item.time}
+            horizontal={true}
+            scrollEnabled
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>}
       </View>
     );
   }
