@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, Image, FlatList, TouchableHighlight, TouchableWithoutFeedback,
+  View, Text, StyleSheet, Image, TouchableWithoutFeedback,
 } from 'react-native';
 import moment from 'moment';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Images from '../assets/images';
 
 const styles = StyleSheet.create({
@@ -23,6 +24,7 @@ export default class ListItem extends React.Component {
   constructor(props) {
     super(props)
     this.state = { isHidden: true }
+
   }
 
   toggleListItem = () => {
@@ -30,6 +32,7 @@ export default class ListItem extends React.Component {
   }
 
   render() {
+    const IconComponent = Ionicons;
     return (
       <View>
         <TouchableWithoutFeedback onPress={this.toggleListItem}>
@@ -52,13 +55,19 @@ export default class ListItem extends React.Component {
               <Text style={{ color: 'green' }}>
                 {this.props.item.item.windspeedms}
                 {' '}
-            m/s
-          </Text>
+                m/s
+              </Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
               <Text>{this.props.item.item.humidity}</Text>
             </View>
+
+            <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+              {this.state.isHidden && <IconComponent name="ios-arrow-dropdown-circle" size={25} />}
+              {!this.state.isHidden && <IconComponent name="ios-arrow-dropup-circle" size={25} />}
+            </View>
+
           </View>
         </TouchableWithoutFeedback>
         {!this.state.isHidden && <Text >TODO: Daily details</Text>}
