@@ -6,7 +6,7 @@ import { SettingsButton, SearchButton, LocationButton } from '../components/Head
 import BottomTabNavigator from './bottom-tab-navigator';
 import SettingsScreen from '../screens/SettingsScreen';
 import SearchScreen from '../screens/SearchScreen';
-
+import HeaderTitle from '../components/HeaderTitle';
 
 const styles = StyleSheet.create({
   buttons: {
@@ -19,7 +19,7 @@ const Navigator = createStackNavigator(
     Home: {
       screen: BottomTabNavigator,
       navigationOptions: ({ navigation }) => ({
-        title: false,
+        title: <HeaderTitle />,
         headerLeft: () => (
           <SettingsButton
             onPress={() => navigation.navigate('Settings')}

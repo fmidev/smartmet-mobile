@@ -10,6 +10,7 @@ export function getTimeSeries(coords) {
     .then((response) => response.json().then((responseJson) => {
       const tsDataObj = {};
       tsDataObj.serverTime = response.headers.get('Date');
+      tsDataObj.placeName = responseJson[0].name;
       tsDataObj.data = responseJson;
       return tsDataObj;
     }))
