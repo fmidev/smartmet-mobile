@@ -10,7 +10,7 @@ import { withNavigation } from 'react-navigation';
 import { LoadingView } from '../components';
 import { tsFetch } from '../actions/TimeSeriesActions';
 import Images from '../assets/images';
-import ListItem from '../components/ListItem'
+import ListItem from '../components/ListItem';
 
 
 const styles = StyleSheet.create({
@@ -232,6 +232,10 @@ mm
     return listData;
   }
 
+  onRefresh() {
+    this.props.tsFetch();
+  }
+
   renderFlatList() {
     console.log('this.props.tsDataObj', this.props.tsDataObj);
     return (
@@ -244,6 +248,8 @@ mm
             keyExtractor={(item) => item.time}
             scrollEnabled
             ListHeaderComponent={() => this.renderMainInfo()}
+            onRefresh={() => this.onRefresh()}
+            refreshing={this.props.loading}
           />
         </View>
       </View>
