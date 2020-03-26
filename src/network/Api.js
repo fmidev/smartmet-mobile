@@ -1,9 +1,9 @@
 import Config from 'react-native-config';
 
-const API_URL = `${Config.API_URL}/timeseries?format=json&producer=gfs_centralasia_surface&precision=normal&param=time,name,temperature,feelslike,humidity,precipitation1h,windspeedms,winddirection,weather,sunrise,sunset,smartsymbol&starttime=data&endtime=data`;
+const timeseriesUrl = `${Config.API_URL}/timeseries?format=json&precision=normal&param=time,name,temperature,feelslike,humidity,precipitation1h,windspeedms,winddirection,weather,sunrise,sunset,smartsymbol&starttime=data&endtime=data&producer=${Config.DATA_PRODUCER}`;
 
 export function getTimeSeries(coords) {
-  const apiUrlCoords = API_URL + '&latlon=' + coords.lat + ',' + coords.lon
+  const apiUrlCoords = timeseriesUrl + '&latlon=' + coords.lat + ',' + coords.lon
   console.log('coords', coords)
   console.log('apiUrlCoords', apiUrlCoords);
   return fetch(apiUrlCoords)
