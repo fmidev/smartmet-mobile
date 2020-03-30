@@ -30,14 +30,26 @@ const styles = StyleSheet.create({
 });
 
 export class SearchScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => ({
-    header: () => (
-      <View style={styles.header}>
-        <HeaderBackButton style={styles.headerBackButton} onPress={() => navigation.goBack(null)} />
-        <TextInput style={styles.textInput} />
-      </View>
-    ),
-  });
+
+  componentDidMount() {
+    this.props.navigation.setParams({ handleKeyPress: this._callAutocomplete });
+  }
+
+  _callAutocomplete() {
+    console.log('_callAutocomplete')
+  }
+
+  static navigationOptions = ({ navigation }) => {
+    const { params = {} } = navigation.state;
+    return {
+      header: () => (
+        <View style={styles.header}>
+          <HeaderBackButton style={styles.headerBackButton} onPress={() => navigation.goBack(null)} />
+          <TextInput style={styles.textInput} onKeyPress={() => params.handleKeyPress()} />
+        </View>
+      ),
+    }
+  };
 
   render() {
     return (
