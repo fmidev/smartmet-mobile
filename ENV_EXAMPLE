@@ -1,2 +1,3 @@
 API_URL=http://localhost:8090
 DATA_PRODUCER=gfs_surface
+AUTOCOMPLETE_KEYWORD=extended_names
