@@ -7,9 +7,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Images from '../assets/images';
 
 const styles = StyleSheet.create({
+  listItemContainer: {
+    backgroundColor: 'lightgray',
+  },
   listItem: {
     margin: 0.5,
-    padding: 0,
+    paddingBottom: 7,
     backgroundColor: '#FFF',
     width: '100%',
     flex: 1,
@@ -17,6 +20,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 0,
   },
+  collapsableContent: {
+    // backgroundColor: 'azure',
+    backgroundColor: 'rgb(222,236,246)',
+    marginRight: 1,
+    paddingBottom: 15,
+  }
 });
 
 export default class ListItem extends React.Component {
@@ -58,7 +67,7 @@ export default class ListItem extends React.Component {
     // console.log('renderCollapsableContent') // TODO: Check is this normal behaviour 
 
     return (
-      <View>
+      <View style={styles.collapsableContent} >
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
           <Text style={{ fontWeight: 'bold', color: 'black' }}>{moment(item.time).format('HH:mm')}</Text>
         </View>
@@ -69,11 +78,15 @@ export default class ListItem extends React.Component {
         />
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={{ color: 'red' }}>{item.temperature}</Text>
+          <Text style={{ color: 'black' }}>{item.temperature}</Text>
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={{ color: 'red' }}>{item.feelslike}</Text>
+          <Image
+            source={require('../assets/images/feels-the-same.png')}
+            style={{ height: 50, width: 50, marginTop: 6 }}
+          />
+          <Text style={{ color: 'black' }}>{item.feelslike}</Text>
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
@@ -85,11 +98,11 @@ export default class ListItem extends React.Component {
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text>{item.humidity}</Text>
+          <Text style={{ color: 'darkslategrey' }}>{item.humidity}</Text>
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text>{item.precipitation1h}</Text>
+          <Text style={{ color: 'darkslategrey' }}>{item.precipitation1h}</Text>
         </View>
 
       </View>
@@ -100,7 +113,7 @@ export default class ListItem extends React.Component {
   render() {
     const IconComponent = Ionicons;
     return (
-      <View>
+      <View style={styles.listItemContainer} >
         <TouchableWithoutFeedback onPress={this.toggleListItem}>
           <View style={styles.listItem} >
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
@@ -114,7 +127,7 @@ export default class ListItem extends React.Component {
             />
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-              <Text style={{ color: 'red' }}>{this.props.item.item.temperature}</Text>
+              <Text style={{ color: 'black', fontWeight: 'bold' }}>{this.props.item.item.temperature}</Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
@@ -126,7 +139,7 @@ export default class ListItem extends React.Component {
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-              <Text>{this.props.item.item.humidity}</Text>
+              <Text style={{ color: 'darkslategrey' }}>{this.props.item.item.humidity}</Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>

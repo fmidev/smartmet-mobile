@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   weatherInfo: {
     fontSize: 50,
-    color: '#E6004C',
+    color: 'black',
   },
   feelsLike: {
     fontSize: 12,
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
   },
   listHeader: {
     backgroundColor: 'lightgray',
-    paddingTop: 15,
-    paddingBottom: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
   },
 });
 
@@ -201,7 +201,7 @@ mm
         <TouchableHighlight onPress={() => { this.props.navigation.navigate('Warnings'); }}>
           <View style={styles.warningContainer}>
             <Text style={{
-              fontSize: 16, textAlign: 'center', color: 'white', paddingTop: 12, paddingBottom: 32,
+              fontSize: 16, textAlign: 'center', color: 'white', paddingTop: 26, paddingBottom: 32,
             }}
             >
               Warnings - 5 days
