@@ -73,7 +73,7 @@ export default class ListItem extends React.Component {
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={{ color: 'red' }}>{item.temperature}</Text>
+          <Text style={{ color: 'red' }}>{item.feelslike}</Text>
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
