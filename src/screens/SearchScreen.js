@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, TextInput, FlatList,
+  View, Text, StyleSheet, TextInput, FlatList, TouchableWithoutFeedback,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { HeaderBackButton } from 'react-navigation-stack';
@@ -44,14 +44,6 @@ const styles = StyleSheet.create({
   }
 });
 
-function ResultsSection({ item }) {
-  return (
-    <View style={styles.resultItem} >
-      <Text style={styles.resultItemText} >{item.name}</Text>
-    </View>
-  )
-}
-
 export class SearchScreen extends React.Component {
 
   componentDidMount() {
@@ -85,7 +77,13 @@ export class SearchScreen extends React.Component {
 
         <FlatList
           data={this.props.acDataObj}
-          renderItem={({ item }) => <ResultsSection item={item} />}
+          renderItem={({ item }) =>
+          <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('Home'); }}>
+            <View style={styles.resultItem} >
+              <Text style={styles.resultItemText} >{item.name}</Text>
+            </View>
+          </TouchableWithoutFeedback>
+        }
           keyExtractor={item => item.name}
         />
 
