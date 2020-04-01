@@ -5,6 +5,7 @@ import {
 import { connect } from 'react-redux';
 import { HeaderBackButton } from 'react-navigation-stack';
 import { autocompleteInit, autocompleteFetch } from '../actions/AutocompleteActions';
+import { tsFetchUpdate } from '../actions/TimeSeriesActions';
 
 const styles = StyleSheet.create({
   header: {
@@ -71,6 +72,11 @@ export class SearchScreen extends React.Component {
     }
   };
 
+  navigateHomeWithPlace = (place) => {
+    this.props.navigation.navigate('Home');
+    this.props.tsFetchUpdate(place);
+  }
+
   render() {
     return (
       <View style={styles.autocompleteContainer}>
@@ -79,7 +85,7 @@ export class SearchScreen extends React.Component {
           keyboardShouldPersistTaps={'handled'}
           data={this.props.acDataObj}
           renderItem={({ item }) =>
-          <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('Home'); }}>
+          <TouchableWithoutFeedback onPress={() => { this.navigateHomeWithPlace(item.name) }}>
             <View style={styles.resultItem} >
               <Text style={styles.resultItemText} >{item.name}</Text>
             </View>
@@ -99,4 +105,4 @@ const mapStateToProps = (state) => {
   return { loading, pattern, acDataObj };
 };
 
-export default connect(mapStateToProps, { autocompleteInit, autocompleteFetch })(SearchScreen);
+export default connect(mapStateToProps, { autocompleteInit, autocompleteFetch, tsFetchUpdate })(SearchScreen);

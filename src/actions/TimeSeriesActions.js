@@ -15,7 +15,7 @@ export const tsFetch = () => (dispatch) => {
       const coords = {}
       coords.lat = position.coords.latitude
       coords.lon = position.coords.longitude
-      getTimeSeries(coords)
+      getTimeSeries(coords, null)
         .then((responseJson) => {
           const tsDataObj = responseJson;
           dispatch({
@@ -31,3 +31,18 @@ export const tsFetch = () => (dispatch) => {
       console.error(err.message); // TODO: Error handling
     });
 };
+
+export const tsFetchUpdate = (place) => (dispatch) => {
+  dispatch({ type: TS_FETCH });
+  getTimeSeries(null, place)
+    .then((responseJson) => {
+      const tsDataObj = responseJson;
+      dispatch({
+        type: TS_FETCH_SUCCESS,
+        payload: { tsDataObj },
+      });
+    })
+    .catch((err) => {
+      console.error(err.message); // TODO: Error handling
+    });
+}

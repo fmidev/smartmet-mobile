@@ -4,11 +4,17 @@ const timeseriesUrl = `${Config.API_URL}/timeseries?format=json&precision=normal
 
 const autocompleteUrl = `${Config.API_URL}/autocomplete?keyword=${Config.AUTOCOMPLETE_KEYWORD}`;
 
-export function getTimeSeries(coords) {
-  const apiUrlCoords = timeseriesUrl + '&latlon=' + coords.lat + ',' + coords.lon
-  console.log('coords', coords)
-  console.log('apiUrlCoords', apiUrlCoords);
-  return fetch(apiUrlCoords)
+export function getTimeSeries(coords, place) {
+  let apiUrl
+  if (coords) {
+    apiUrl = timeseriesUrl + '&latlon=' + coords.lat + ',' + coords.lon
+  } 
+  if (place) {
+    apiUrl = timeseriesUrl + '&place=' + place
+  }
+  console.log('apiUrl', apiUrl)
+
+  return fetch(apiUrl)
     .then((response) => response.json().then((responseJson) => {
       const tsDataObj = {};
       tsDataObj.serverTime = response.headers.get('Date');
