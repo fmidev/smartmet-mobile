@@ -65,7 +65,7 @@ export class SearchScreen extends React.Component {
       header: () => (
         <View style={styles.header}>
           <HeaderBackButton style={styles.headerBackButton} onPress={() => navigation.goBack(null)} />
-          <TextInput style={styles.textInput} onKeyPress={(e) => params.handleKeyPress(e.nativeEvent.key)} />
+          <TextInput style={styles.textInput} autoFocus={true} onKeyPress={(e) => params.handleKeyPress(e.nativeEvent.key)} />
         </View>
       ),
     }
@@ -76,6 +76,7 @@ export class SearchScreen extends React.Component {
       <View style={styles.autocompleteContainer}>
 
         <FlatList
+          keyboardShouldPersistTaps={'handled'}
           data={this.props.acDataObj}
           renderItem={({ item }) =>
           <TouchableWithoutFeedback onPress={() => { this.props.navigation.navigate('Home'); }}>
