@@ -237,7 +237,14 @@ mm
   }
 
   renderFlatList() {
-    console.log('this.props.tsDataObj', this.props.tsDataObj);
+
+    if (this.props.navigation.state.params) {
+      if (this.props.navigation.state.params.refreshLocation) {
+        this.onRefresh()
+        this.props.navigation.state.params.refreshLocation = false
+      }
+    }
+
     return (
       <View style={styles.container}>
         <View style={styles.flatListContainer}>
