@@ -1,6 +1,6 @@
 import Config from 'react-native-config';
 
-const timeseriesUrl = `${Config.API_URL}/timeseries?format=json&precision=normal&param=time,name,temperature,feelslike,humidity,precipitation1h,windspeedms,winddirection,weather,sunrise,sunset,smartsymbol&starttime=data&endtime=data&producer=${Config.DATA_PRODUCER}`;
+const timeseriesUrl = `${Config.API_URL}/timeseries?format=json&precision=normal&param=time,utctime,name,temperature,feelslike,humidity,precipitation1h,windspeedms,winddirection,weather,sunrise,sunset,smartsymbol&starttime=data&endtime=data&producer=${Config.DATA_PRODUCER}`;
 
 const autocompleteUrl = `${Config.API_URL}/autocomplete?keyword=${Config.AUTOCOMPLETE_KEYWORD}`;
 
@@ -8,7 +8,7 @@ export function getTimeSeries(coords, place) {
   let apiUrl
   if (coords) {
     apiUrl = timeseriesUrl + '&latlon=' + coords.lat + ',' + coords.lon
-  } 
+  }
   if (place) {
     apiUrl = timeseriesUrl + '&place=' + place
   }

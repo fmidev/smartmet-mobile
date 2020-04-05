@@ -116,7 +116,7 @@ export class HomeScreen extends React.Component {
     console.log('serverTimeNearestHour', serverTimeNearestHour);
 
     this.props.tsDataObj.data.forEach((element) => {
-      if (element.time.substring(0, 11) === serverTimeNearestHour) {
+      if (element.utctime.substring(0, 11) === serverTimeNearestHour) {
         mainInfoData = element;
       }
     });
