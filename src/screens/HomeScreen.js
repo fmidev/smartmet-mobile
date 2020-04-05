@@ -1,4 +1,5 @@
 import React from 'react';
+import Config from 'react-native-config';
 import { translate } from 'react-i18next';
 import i18n from 'i18next';
 import { connect } from 'react-redux';
@@ -226,7 +227,7 @@ mm
   getListData() {
     const listData = [];
     this.props.tsDataObj.data.forEach((element) => {
-      if (element.time.substring(9, 11) === '14') {
+      if (element.time.substring(9, 11) === Config.WEEKDAY_LIST_FORECAST_HOUR) {
         listData.push(element);
       }
     });
