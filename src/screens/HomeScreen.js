@@ -118,6 +118,7 @@ export class HomeScreen extends React.Component {
     this.props.tsDataObj.data.forEach((element) => {
       if (element.utctime.substring(0, 11) === serverTimeNearestHour) {
         mainInfoData = element;
+        this.props.tsDataObj.localAnalysisTime = element.time
       }
     });
 
@@ -125,7 +126,7 @@ export class HomeScreen extends React.Component {
       <View style={styles.topContainer}>
 
         <View style={styles.dateTextContainer}>
-          <Text style={styles.dateText}>{this.props.tsDataObj.serverTime}</Text>
+          <Text style={styles.dateText}>{moment(this.props.tsDataObj.localAnalysisTime).format('YYYY-MM-DD HH:mm:ss')}</Text>
         </View>
 
         <View style={styles.weatherInfoContainer}>
