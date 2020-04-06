@@ -127,7 +127,7 @@ export class HomeScreen extends React.Component {
       <View style={styles.topContainer}>
 
         <View style={styles.dateTextContainer}>
-          <Text style={styles.dateText}>{moment(this.props.tsDataObj.localAnalysisTime).format('YYYY-MM-DD HH:mm:ss')}</Text>
+          <Text style={styles.dateText}>{moment(this.props.tsDataObj.localAnalysisTime).format('dddd MMMM D HH:mm')}</Text>
         </View>
 
         <View style={styles.weatherInfoContainer}>
