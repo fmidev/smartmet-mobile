@@ -225,9 +225,11 @@ mm
   }
 
   getListData() {
+    const currentServerTimeUtc = moment.utc(this.props.tsDataObj.serverTime)
     const listData = [];
     this.props.tsDataObj.data.forEach((element) => {
-      if (element.time.substring(9, 11) === Config.WEEKDAY_LIST_FORECAST_HOUR) {
+      let dataTimeUtc = moment.utc(element.utctime)
+      if (dataTimeUtc.isSameOrAfter(currentServerTimeUtc, 'day') && element.time.substring(9, 11) === Config.WEEKDAY_LIST_FORECAST_HOUR) {
         listData.push(element);
       }
     });
