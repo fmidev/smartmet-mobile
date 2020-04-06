@@ -229,7 +229,7 @@ mm
     const listData = [];
     this.props.tsDataObj.data.forEach((element) => {
       let dataTimeUtc = moment.utc(element.utctime)
-      if (dataTimeUtc.isSameOrAfter(currentServerTimeUtc, 'day') && element.time.substring(9, 11) === Config.WEEKDAY_LIST_FORECAST_HOUR) {
+      if (dataTimeUtc.isSameOrAfter(currentServerTimeUtc, 'second') && element.time.substring(9, 11) === Config.WEEKDAY_LIST_FORECAST_HOUR) {
         listData.push(element);
       }
     });
