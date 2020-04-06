@@ -225,11 +225,15 @@ mm
   }
 
   getListData() {
-    const currentServerTimeUtc = moment.utc(this.props.tsDataObj.serverTime)
     const listData = [];
+    const dataTimeUtc = moment(this.props.tsDataObj.data[0].utctime)
+    const dataTimeLocal = moment(this.props.tsDataObj.data[0].time)
+    const utcLocalDiff = moment.duration(dataTimeLocal.diff(dataTimeUtc));
+    const currentServerTimeUtc = moment.utc(this.props.tsDataObj.serverTime);
+    const currentServerTimeLocal = currentServerTimeUtc.add(utcLocalDiff, 'hours')
+
     this.props.tsDataObj.data.forEach((element) => {
-      let dataTimeUtc = moment.utc(element.utctime)
-      if (dataTimeUtc.isSameOrAfter(currentServerTimeUtc, 'second') && element.time.substring(9, 11) === Config.WEEKDAY_LIST_FORECAST_HOUR) {
+      if (element.time.substring(9, 11) === Config.WEEKDAY_LIST_FORECAST_HOUR && currentServerTimeLocal.format('DD') <= moment(element.time).format('DD')) {
         listData.push(element);
       }
     });
