@@ -216,7 +216,7 @@ mm
             fontSize: 12, color: 'black', marginLeft: 5, fontWeight: 'bold',
           }}
           >
-            10 days forecast
+            Forecast
           </Text>
         </View>
 
@@ -231,10 +231,12 @@ mm
     const utcLocalDiff = moment.duration(dataTimeLocal.diff(dataTimeUtc));
     const currentServerTimeUtc = moment.utc(this.props.tsDataObj.serverTime);
     const currentServerTimeLocal = currentServerTimeUtc.add(utcLocalDiff, 'hours')
+    let listLength = 0;
 
     this.props.tsDataObj.data.forEach((element) => {
-      if (element.time.substring(9, 11) === Config.WEEKDAY_LIST_FORECAST_HOUR && currentServerTimeLocal.format('DD') <= moment(element.time).format('DD')) {
+      if (element.time.substring(9, 11) === Config.WEEKDAY_LIST_FORECAST_HOUR && currentServerTimeLocal.format('DD') <= moment(element.time).format('DD') && listLength < Config.WEEKDAY_LIST_LENGTH) {
         listData.push(element);
+        listLength++;
       }
     });
     return listData;
