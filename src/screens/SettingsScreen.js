@@ -191,7 +191,7 @@ export class SettingsScreen extends React.Component {
                           title={currentUnitAbb}
                           bottomDivider
                           checkmark={appLanguage === currentUnitAbb}
-                          onPress={() => this.onChangeUnit(item.unitName, currentUnitAbb)}
+                          onPress={() => { this[RBSheet + item.unitName].close(); this.onChangeUnit(item.unitName, currentUnitAbb); }}
                         />
                       ))
                     }
