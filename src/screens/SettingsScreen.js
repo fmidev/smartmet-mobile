@@ -158,7 +158,7 @@ export class SettingsScreen extends React.Component {
                   this.state.selectedUnits.map(key => {
                     if (key.unitName === item.unitName)
                       return (
-                        <Text style={styles.settingslistitemAbb}>{key.unitAbb}</Text>
+                        <Text style={styles.settingslistitemAbb} key={key}>{key.unitAbb}</Text>
                       );
                   })
                 }
