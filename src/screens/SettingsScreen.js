@@ -6,7 +6,26 @@ import i18n from 'i18next';
 import { ListItem } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import RBSheet from "react-native-raw-bottom-sheet";
-const ITEMS = [...Array(5).keys()];
+
+const UNITS = [
+  {
+    unitName: 'Temperature',
+    unitAbb: ['C', 'F']
+  },
+  {
+    unitName: 'Precipitation',
+    unitAbb: ['mm', 'in']
+  },
+  {
+    unitName: 'Wind',
+    unitAbb: ['m/s', 'km/h', 'mph', 'Bft', 'kn'],
+  },
+  {
+    unitName: 'Pressure',
+    unitAbb: ['hPa', 'inHg', 'mmHg', 'mbar'],
+  },
+]
+
 const styles = StyleSheet.create({
   header: {
     paddingTop: 7,
@@ -24,7 +43,7 @@ const styles = StyleSheet.create({
   units: {
     margin: 0.5,
     paddingTop: 15,
-    paddingLeft: 18,
+    paddingLeft: 10,
     paddingBottom: 15,
     backgroundColor: '#FFF',
     width: '100%',
@@ -33,6 +52,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 0,
   },
+  settingslistitem: {
+    color: 'gray',
+    fontSize: 16,
+  },
+  rbTitle: {
+    color: 'black',
+    fontSize: 16,
+  }
 });
 
 export class SettingsScreen extends React.Component {
@@ -52,20 +79,21 @@ export class SettingsScreen extends React.Component {
 
   renderItem({ item }) {
     return (
-      <View style={styles.units} >
-        <TouchableOpacity onPress={() => this[RBSheet + item].open()}>
-          <Text>TESTITEM {item}</Text>
-        </TouchableOpacity>
-        <RBSheet
-          ref={ref => {
-            this[RBSheet + item] = ref;
-          }}
-        >
-          <View>
-            <Text>TESTITEM {item}</Text>
-          </View>
-        </RBSheet>
-      </View >
+      <TouchableOpacity onPress={() => this[RBSheet + item.unitName].open()}>
+        <View style={styles.units} >
+          <Text style={styles.settingslistitem} > {item.unitName} </Text>
+          <RBSheet
+            ref={ref => {
+              this[RBSheet + item.unitName] = ref;
+            }}
+          >
+            <View>
+              <Text style={styles.rbTitle}> {item.unitName} </Text>
+              <Text> {item.unitAbb.splice(',').join('\n')}</Text>
+            </View>
+          </RBSheet>
+        </View>
+      </TouchableOpacity>
     );
   }
 
@@ -73,28 +101,30 @@ export class SettingsScreen extends React.Component {
     const { t } = this.props;
     const availableLanguages = Object.keys(i18n.translator.resourceStore.data);
     const appLanguage = i18n.language;
-
     return (
-      <View style={styles.container}>
+
+      < View style={styles.container} >
         <Text style={styles.header}>
           {t('settings:language')}
         </Text>
-        {availableLanguages.map((currentLang, i) => (
-          <ListItem
-            key={i}
-            title={currentLang}
-            bottomDivider
-            checkmark={appLanguage === currentLang}
-            onPress={() => this.onChangeLang(currentLang)}
-          />
-        ))}
-        <Text style={styles.header}>
+        {
+          availableLanguages.map((currentLang, i) => (
+            <ListItem
+              key={i}
+              title={currentLang}
+              bottomDivider
+              checkmark={appLanguage === currentLang}
+              onPress={() => this.onChangeLang(currentLang)}
+            />
+          ))
+        }
+        < Text style={styles.header} >
           UNITS
-        </Text>
+        </Text >
         <FlatList
-          data={ITEMS}
+          data={UNITS}
           renderItem={this.renderItem}
-          keyExtractor={(_, index) => index.toString()}
+          keyExtractor={(item) => item.unitName}
         />
         <Text style={styles.header}>
           {t('settings:about')}
@@ -102,7 +132,7 @@ export class SettingsScreen extends React.Component {
         <Text style={styles.about}>
           {t('settings:aboutContent')}
         </Text>
-      </View>
+      </View >
     );
   }
 }
