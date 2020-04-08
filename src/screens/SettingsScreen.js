@@ -56,24 +56,50 @@ const styles = StyleSheet.create({
     color: 'gray',
     fontSize: 16,
   },
+  settingslistitemAbb: {
+    color: 'cornflowerblue',
+    fontSize: 16,
+    textAlign: 'right',
+    flex: 1,
+    paddingRight: 15,
+  },
   rbTitle: {
     color: 'black',
     fontSize: 16,
+    paddingTop: 15,
+    paddingLeft: 10,
   }
 });
 
 export class SettingsScreen extends React.Component {
+
+  state = {
+    selectedUnits: []
+  }
+
+  componentDidMount() {
+    UNITS.forEach(element => {
+      //console.log(element.unitName)
+      this.getItem(element.unitName).then(res => {
+        console.log(res)
+        // selectedUnits.push({ unitName: element.unitName, unitAbb: res })
+        this.setState(prevState => ({
+          selectedUnits: [...prevState.selectedUnits, { unitName: element.unitName, unitAbb: res }]
+        }))
+
+      })
+    });
+  }
+
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('settings:title'),
     headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack(null)} />,
   });
 
-
-
   async getItem(item) {
     try {
       const value = await AsyncStorage.getItem(item);
-      console.log(value);
+      //console.log(value);
       return value;
     } catch (error) {
       // Handle errors here
@@ -127,6 +153,16 @@ export class SettingsScreen extends React.Component {
             <TouchableOpacity onPress={() => this[RBSheet + item.unitName].open()}>
               <View style={styles.units} >
                 <Text style={styles.settingslistitem} > {item.unitName} </Text>
+
+                {
+                  this.state.selectedUnits.map(key => {
+                    if (key.unitName === item.unitName)
+                      return (
+                        <Text style={styles.settingslistitemAbb}>{key.unitAbb}</Text>
+                      );
+                  })
+                }
+
                 <RBSheet
                   ref={ref => {
                     this[RBSheet + item.unitName] = ref;
