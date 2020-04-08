@@ -99,10 +99,17 @@ export class SettingsScreen extends React.Component {
   async getItem(item) {
     try {
       const value = await AsyncStorage.getItem(item);
-      //console.log(value);
       return value;
     } catch (error) {
-      // Handle errors here
+      // TODO: Error handling
+    }
+  }
+
+  async setItem(key, value) {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (error) {
+      // TODO: Error handling
     }
   }
 
@@ -116,11 +123,17 @@ export class SettingsScreen extends React.Component {
   }
 
   async onChangeUnit(key, value) {
-    try {
-      await AsyncStorage.setItem(key, value);
-    } catch (error) {
-      // TODO: Error handling
-    }
+    this.setItem(key, value).then(res => {
+      this.getItem(key).then(res => {
+        const newSelectedUnits = this.state.selectedUnits.slice();
+        newSelectedUnits.forEach(element => {
+          if (element.unitName === key) {
+            element.unitAbb = res;
+          }
+        });
+        this.setState({ selectedUnits: newSelectedUnits })
+      })
+    })
   }
 
   render() {
