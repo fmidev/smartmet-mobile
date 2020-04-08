@@ -68,6 +68,18 @@ export class SettingsScreen extends React.Component {
     headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack(null)} />,
   });
 
+
+
+  async getItem(item) {
+    try {
+      const value = await AsyncStorage.getItem(item);
+      console.log(value);
+      return value;
+    } catch (error) {
+      // Handle errors here
+    }
+  }
+
   async onChangeLang(lang) {
     i18n.changeLanguage(lang);
     try {
@@ -77,24 +89,12 @@ export class SettingsScreen extends React.Component {
     }
   }
 
-  renderItem({ item }) {
-    return (
-      <TouchableOpacity onPress={() => this[RBSheet + item.unitName].open()}>
-        <View style={styles.units} >
-          <Text style={styles.settingslistitem} > {item.unitName} </Text>
-          <RBSheet
-            ref={ref => {
-              this[RBSheet + item.unitName] = ref;
-            }}
-          >
-            <View>
-              <Text style={styles.rbTitle}> {item.unitName} </Text>
-              <Text> {item.unitAbb.splice(',').join('\n')}</Text>
-            </View>
-          </RBSheet>
-        </View>
-      </TouchableOpacity>
-    );
+  async onChangeUnit(key, value) {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (error) {
+      // TODO: Error handling
+    }
   }
 
   render() {
@@ -123,7 +123,34 @@ export class SettingsScreen extends React.Component {
         </Text >
         <FlatList
           data={UNITS}
-          renderItem={this.renderItem}
+          renderItem={({ item }) =>
+            <TouchableOpacity onPress={() => this[RBSheet + item.unitName].open()}>
+              <View style={styles.units} >
+                <Text style={styles.settingslistitem} > {item.unitName} </Text>
+                <RBSheet
+                  ref={ref => {
+                    this[RBSheet + item.unitName] = ref;
+                  }}
+                >
+                  <View>
+                    <Text style={styles.rbTitle}> {item.unitName} </Text>
+
+                    {
+                      item.unitAbb.map((currentUnitAbb, i) => (
+                        <ListItem
+                          key={i}
+                          title={currentUnitAbb}
+                          bottomDivider
+                          checkmark={appLanguage === currentUnitAbb}
+                          onPress={() => this.onChangeUnit(item.unitName, currentUnitAbb)}
+                        />
+                      ))
+                    }
+                  </View>
+                </RBSheet>
+              </View>
+            </TouchableOpacity>
+          }
           keyExtractor={(item) => item.unitName}
         />
         <Text style={styles.header}>
