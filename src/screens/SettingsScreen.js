@@ -6,25 +6,10 @@ import i18n from 'i18next';
 import { ListItem } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import RBSheet from "react-native-raw-bottom-sheet";
-
-const UNITS = [
-  {
-    unitName: 'Temperature',
-    unitAbb: ['C', 'F']
-  },
-  {
-    unitName: 'Precipitation',
-    unitAbb: ['mm', 'in']
-  },
-  {
-    unitName: 'Wind',
-    unitAbb: ['m/s', 'km/h', 'mph', 'Bft', 'kn'],
-  },
-  {
-    unitName: 'Pressure',
-    unitAbb: ['hPa', 'inHg', 'mmHg', 'mbar'],
-  },
-]
+import { settingsChange } from '../actions/SettingsActions';
+import { UNITS } from '../Constants';
+import { connect } from 'react-redux';
+import { asyncStorageSetItem } from '../components/Helper'
 
 const styles = StyleSheet.create({
   header: {
@@ -55,6 +40,7 @@ const styles = StyleSheet.create({
   settingslistitem: {
     color: 'gray',
     fontSize: 16,
+    textTransform: 'capitalize',
   },
   settingslistitemAbb: {
     color: 'cornflowerblue',
@@ -73,45 +59,10 @@ const styles = StyleSheet.create({
 
 export class SettingsScreen extends React.Component {
 
-  state = {
-    selectedUnits: []
-  }
-
-  componentDidMount() {
-    UNITS.forEach(element => {
-      //console.log(element.unitName)
-      this.getItem(element.unitName).then(res => {
-        console.log(res)
-        // selectedUnits.push({ unitName: element.unitName, unitAbb: res })
-        this.setState(prevState => ({
-          selectedUnits: [...prevState.selectedUnits, { unitName: element.unitName, unitAbb: res }]
-        }))
-
-      })
-    });
-  }
-
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('settings:title'),
     headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack(null)} />,
   });
-
-  async getItem(item) {
-    try {
-      const value = await AsyncStorage.getItem(item);
-      return value;
-    } catch (error) {
-      // TODO: Error handling
-    }
-  }
-
-  async setItem(key, value) {
-    try {
-      await AsyncStorage.setItem(key, value);
-    } catch (error) {
-      // TODO: Error handling
-    }
-  }
 
   async onChangeLang(lang) {
     i18n.changeLanguage(lang);
@@ -123,17 +74,12 @@ export class SettingsScreen extends React.Component {
   }
 
   async onChangeUnit(key, value) {
-    this.setItem(key, value).then(res => {
-      this.getItem(key).then(res => {
-        const newSelectedUnits = this.state.selectedUnits.slice();
-        newSelectedUnits.forEach(element => {
-          if (element.unitName === key) {
-            element.unitAbb = res;
-          }
-        });
-        this.setState({ selectedUnits: newSelectedUnits })
-      })
-    })
+    value = value.toString()
+    asyncStorageSetItem(key, value).then(() => {
+      this.props.settingsChange(key, value);
+    }).catch((error) => {
+      console.log('Error', error);
+    });
   }
 
   render() {
@@ -142,7 +88,7 @@ export class SettingsScreen extends React.Component {
     const appLanguage = i18n.language;
     return (
 
-      < View style={styles.container} >
+      <View style={styles.container} >
         <Text style={styles.header}>
           {t('settings:language')}
         </Text>
@@ -168,7 +114,7 @@ export class SettingsScreen extends React.Component {
                 <Text style={styles.settingslistitem} > {item.unitName} </Text>
 
                 {
-                  this.state.selectedUnits.map(key => {
+                  this.props.unitsInUse.map(key => {
                     if (key.unitName === item.unitName)
                       return (
                         <Text style={styles.settingslistitemAbb} key={key}>{key.unitAbb}</Text>
@@ -185,13 +131,12 @@ export class SettingsScreen extends React.Component {
                     <Text style={styles.rbTitle}> {item.unitName} </Text>
 
                     {
-                      item.unitAbb.map((currentUnitAbb, i) => (
+                      item.unitTypes.map((currentUnitAbb) => (
                         <ListItem
-                          key={i}
-                          title={currentUnitAbb}
+                          key={currentUnitAbb.unitAbb}
+                          title={currentUnitAbb.unitAbb}
                           bottomDivider
-                          checkmark={appLanguage === currentUnitAbb}
-                          onPress={() => { this[RBSheet + item.unitName].close(); this.onChangeUnit(item.unitName, currentUnitAbb); }}
+                          onPress={() => { this[RBSheet + item.unitName].close(); this.onChangeUnit(item.unitName, currentUnitAbb.unitId); }}
                         />
                       ))
                     }
@@ -213,4 +158,9 @@ export class SettingsScreen extends React.Component {
   }
 }
 
-export default translate(['home', 'common'], { wait: true })(SettingsScreen);
+const mapStateToProps = (state) => {
+  const { unitsInUse } = state.unitsInUse
+  return { unitsInUse };
+};
+
+export default connect(mapStateToProps, { settingsChange })(translate(['home', 'common', 'day'], { wait: true })(SettingsScreen));

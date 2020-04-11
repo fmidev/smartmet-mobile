@@ -21,7 +21,8 @@
 **Development**
 ---
 
-1. Create **.env** file in the project root and copy the properties from ENV_EXAMPLE
+1. Create **.env** file in the project root and copy the properties from ENV_EXAMPLE. Check descriptions from env-table.
+
 2. Create **.env.production** file in the project root and copy the properties from ENV_EXAMPLE (optional)
 
 #### Run in development environment (Android)
@@ -55,6 +56,41 @@
 This project is following Airbnb JavaScript Style Guide: https://github.com/airbnb/javascript
 
 Check all files: ```yarn eslintall```
+
+**ENV Table**
+---
+
+| UNIT_TEMPERATURE | Description |
+| ---------------- | ----------- |
+| 1                | Celsius     |
+| 2                | Fahrenheit  |
+
+---
+
+| UNIT_PRECIPITATION | Description |
+| ------------------ | ----------- |
+| 1                  | Millimeter  |
+| 2                  | Inch        |
+
+---
+
+| UNIT_WIND   | Description |
+| ----------- | ----------- |
+| 1           | m/s         |
+| 2           | km/h        |
+| 3           | mph         |
+| 4           | Bft         |
+| 5           | kn          |
+
+---
+
+| UNIT_PRESSURE | Description |
+| ------------- | ----------- |
+| 1             | hPa         |
+| 2             | inHg        |
+| 3             | mmHg        |
+| 4             | mbar        |
+
 
 **How to Contribute**
 ---

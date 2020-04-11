@@ -10,6 +10,7 @@ import {
 import { withNavigation } from 'react-navigation';
 import { LoadingView } from '../components';
 import { tsFetch } from '../actions/TimeSeriesActions';
+import { settingsInit } from '../actions/SettingsActions';
 import Images from '../assets/images';
 import ListItem from '../components/ListItem';
 
@@ -100,6 +101,7 @@ export class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
+    this.props.settingsInit();
     this.props.tsFetch();
   }
 
@@ -288,7 +290,8 @@ mm
 
 const mapStateToProps = (state) => {
   const { loading, tsDataObj } = state.tsDataObj;
-  return { loading, tsDataObj };
+  const { unitsInUse } = state.unitsInUse
+  return { loading, tsDataObj, unitsInUse };
 };
 
-export default withNavigation(connect(mapStateToProps, { tsFetch })(translate(['home', 'common', 'day'], { wait: true })(HomeScreen)));
+export default withNavigation(connect(mapStateToProps, { tsFetch, settingsInit })(translate(['home', 'common', 'day'], { wait: true })(HomeScreen)));
