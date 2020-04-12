@@ -143,7 +143,7 @@ export class HomeScreen extends React.Component {
             <Text style={styles.feelsLike}>
               {`${t('common:feelsLike')} °`}
               {' '}
-              {mainInfoData.feelslike}
+              {converter(this.props.parameterUnitMap['temperature'], mainInfoData.feelslike)}
             </Text>
           </View>
 
@@ -263,7 +263,7 @@ mm
           <FlatList
             style={{ flex: 1 }}
             data={this.getListData()}
-            renderItem={(item) => <ListItem item={item} tsDataObj={this.props.tsDataObj} />}
+            renderItem={(item) => <ListItem item={item} tsDataObj={this.props.tsDataObj} parameterUnitMap={this.props.parameterUnitMap} />}
             keyExtractor={(item) => item.time}
             scrollEnabled
             ListHeaderComponent={() => this.renderMainInfo()}

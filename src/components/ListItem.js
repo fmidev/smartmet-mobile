@@ -5,6 +5,7 @@ import {
 import moment from 'moment';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Images from '../assets/images';
+import { converter } from '../components/Helper'
 
 const styles = StyleSheet.create({
   listItemContainer: {
@@ -49,8 +50,8 @@ export default class ListItem extends React.Component {
         const collapsableItemObj = {}
         collapsableItemObj.time = element.time
         collapsableItemObj.smartsymbol = element.smartsymbol
-        collapsableItemObj.temperature = element.temperature
-        collapsableItemObj.feelslike = element.feelslike
+        collapsableItemObj.temperature = converter(this.props.parameterUnitMap['temperature'], element.temperature)
+        collapsableItemObj.feelslike = converter(this.props.parameterUnitMap['temperature'], element.feelslike)
         collapsableItemObj.windspeedms = element.windspeedms
         collapsableItemObj.winddirection = element.winddirection
         collapsableItemObj.humidity = element.humidity
@@ -125,7 +126,7 @@ export default class ListItem extends React.Component {
             />
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-              <Text style={{ color: 'black', fontWeight: 'bold' }}>{this.props.item.item.temperature}</Text>
+              <Text style={{ color: 'black', fontWeight: 'bold' }}>{converter(this.props.parameterUnitMap['temperature'], this.props.item.item.temperature)}</Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
