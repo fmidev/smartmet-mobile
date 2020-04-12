@@ -6,5 +6,6 @@ import SettingsReducer from './SettingsReducer';
 export default combineReducers({
   tsDataObj: TimeSeriesReducer,
   acDataObj: AutocompleteReducer,
-  unitsInUse: SettingsReducer,
+  parameterUnitMap: SettingsReducer,
+  parameterUnitAbbMap: SettingsReducer,
 });

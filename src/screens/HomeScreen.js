@@ -13,6 +13,7 @@ import { tsFetch } from '../actions/TimeSeriesActions';
 import { settingsInit } from '../actions/SettingsActions';
 import Images from '../assets/images';
 import ListItem from '../components/ListItem';
+import { converter } from '../components/Helper'
 
 
 const styles = StyleSheet.create({
@@ -136,9 +137,9 @@ export class HomeScreen extends React.Component {
 
           <View>
             <Text style={styles.weatherInfo}>
-              {mainInfoData.temperature}
+              {converter(this.props.parameterUnitMap['temperature'], mainInfoData.temperature)}
               {' '}
-°C
+              °{this.props.parameterUnitAbbMap['temperature']}
             </Text>
             <Text style={styles.feelsLike}>
               {`${t('common:feelsLike')} °`}
@@ -276,6 +277,7 @@ mm
   }
 
   render() {
+    console.log('this.props', this.props)
     if (this.props.loading) {
       return this.renderLoading();
     }
@@ -290,8 +292,9 @@ mm
 
 const mapStateToProps = (state) => {
   const { loading, tsDataObj } = state.tsDataObj;
-  const { unitsInUse } = state.unitsInUse
-  return { loading, tsDataObj, unitsInUse };
+  const { parameterUnitMap } = state.parameterUnitMap
+  const { parameterUnitAbbMap } = state.parameterUnitAbbMap
+  return { loading, tsDataObj, parameterUnitMap, parameterUnitAbbMap };
 };
 
 export default withNavigation(connect(mapStateToProps, { tsFetch, settingsInit })(translate(['home', 'common', 'day'], { wait: true })(HomeScreen)));

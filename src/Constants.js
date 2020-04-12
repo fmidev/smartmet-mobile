@@ -4,11 +4,13 @@ export const UNITS = [
     unitTypes: [
       {
         unitId: 1,
-        unitAbb: 'C'
+        unitAbb: 'C',
+        unit: 'celsius'
       },
       {
         unitId: 2,
-        unitAbb: 'F'
+        unitAbb: 'F',
+        unit: 'fahrenheit'
       }
     ]
   },
@@ -17,11 +19,13 @@ export const UNITS = [
     unitTypes: [
       {
         unitId: 1,
-        unitAbb: 'mm'
+        unitAbb: 'mm',
+        unit: 'millimeter'
       },
       {
         unitId: 2,
-        unitAbb: 'in'
+        unitAbb: 'in',
+        unit: 'inch'
       }
     ]
   },
@@ -30,23 +34,28 @@ export const UNITS = [
     unitTypes: [
       {
         unitId: 1,
-        unitAbb: 'm/s'
+        unitAbb: 'm/s',
+        unit: 'meters per second'
       },
       {
         unitId: 2,
-        unitAbb: 'km/h'
+        unitAbb: 'km/h',
+        unit: 'kilometers per hour'
       },
       {
         unitId: 3,
-        unitAbb: 'mph'
+        unitAbb: 'mph',
+        unit: 'miles per hour'
       },
       {
         unitId: 4,
-        unitAbb: 'Bft'
+        unitAbb: 'Bft',
+        unit: 'beaufort'
       },
       {
         unitId: 5,
-        unitAbb: 'kn'
+        unitAbb: 'kn',
+        unit: 'knot'
       }
     ]
   },
@@ -55,19 +64,23 @@ export const UNITS = [
     unitTypes: [
       {
         unitId: 1,
-        unitAbb: 'hPa'
+        unitAbb: 'hPa',
+        unit: 'hehtopascal'
       },
       {
         unitId: 2,
-        unitAbb: 'inHg'
+        unitAbb: 'inHg',
+        unit: 'inch of mercury'
       },
       {
         unitId: 3,
-        unitAbb: 'mmHg'
+        unitAbb: 'mmHg',
+        unit: 'millimeter of mercury'
       },
       {
         unitId: 4,
-        unitAbb: 'mbar'
+        unitAbb: 'mbar',
+        unit: 'millibar'
       }
     ]
   }

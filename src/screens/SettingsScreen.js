@@ -112,16 +112,7 @@ export class SettingsScreen extends React.Component {
             <TouchableOpacity onPress={() => this[RBSheet + item.unitName].open()}>
               <View style={styles.units} >
                 <Text style={styles.settingslistitem} > {item.unitName} </Text>
-
-                {
-                  this.props.unitsInUse.map(key => {
-                    if (key.unitName === item.unitName)
-                      return (
-                        <Text style={styles.settingslistitemAbb} key={key}>{key.unitAbb}</Text>
-                      );
-                  })
-                }
-
+                <Text style={styles.settingslistitemAbb} >{this.props.parameterUnitAbbMap[item.unitName]} </Text>
                 <RBSheet
                   ref={ref => {
                     this[RBSheet + item.unitName] = ref;
@@ -159,8 +150,9 @@ export class SettingsScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { unitsInUse } = state.unitsInUse
-  return { unitsInUse };
+  const { parameterUnitMap } = state.parameterUnitMap
+  const { parameterUnitAbbMap } = state.parameterUnitAbbMap
+  return { parameterUnitMap, parameterUnitAbbMap };
 };
 
 export default connect(mapStateToProps, { settingsChange })(translate(['home', 'common', 'day'], { wait: true })(SettingsScreen));

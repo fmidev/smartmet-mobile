@@ -3,7 +3,49 @@ import Config from 'react-native-config';
 import { UNITS } from '../Constants';
 import { asyncStorageGetItem } from '../components/Helper'
 
-const getUnitAbb = function (unitName, unitId) {
+
+export const settingsInit = () => (dispatch) => {
+  let parameterUnitMap = {}
+  let parameterUnitAbbMap = {}
+  UNITS.forEach(element => {
+    asyncStorageGetItem(element.unitName).then(res => {
+      if (res) {
+        let unit = getUnit(element.unitName, parseInt(res))
+        let unitAbb = getUnitAbb(element.unitName, parseInt(res))
+        parameterUnitMap[element.unitName] = unit
+        parameterUnitAbbMap[element.unitName] = unitAbb
+      } else {
+        let unitId = getUnitId(element.unitName)
+        let unit = getUnit(element.unitName, parseInt(unitId))
+        let unitAbb = getUnitAbb(element.unitName, parseInt(unitId))
+        parameterUnitMap[element.unitName] = unit
+        parameterUnitAbbMap[element.unitName] = unitAbb
+      }
+
+    })
+  });
+
+  dispatch({
+    type: SETTINGS_INIT,
+    payload: [parameterUnitMap, parameterUnitAbbMap],
+  });
+}
+
+export const settingsChange = (unitName, unitId) => (dispatch) => {
+  let parameterUnitMap = {}
+  let parameterUnitAbbMap = {}
+  let unit = getUnit(unitName, parseInt(unitId))
+  let unitAbb = getUnitAbb(unitName, parseInt(unitId))
+  parameterUnitMap[unitName] = unit
+  parameterUnitAbbMap[unitName] = unitAbb
+
+  dispatch({
+    type: SETTINGS_CHANGE,
+    payload: [parameterUnitMap, parameterUnitAbbMap],
+  });
+}
+
+const getUnitAbb = (unitName, unitId) => {
   for (var i = 0; i < UNITS.length; i++) {
     if (UNITS[i].unitName === unitName) {
       for (var k = 0; k < UNITS[i].unitTypes.length; k++) {
@@ -15,72 +57,29 @@ const getUnitAbb = function (unitName, unitId) {
   }
 }
 
-export const settingsInit = () => (dispatch) => {
-
-  const unitsInUse = []
-
-  if (Config.UNIT_TEMPERATURE) {
-    console.log('UNIT_TEMPERATURE set to: ', Config.UNIT_TEMPERATURE)
-  }
-  if (Config.UNIT_PRECIPITATION) {
-    console.log('UNIT_PRECIPITATION set to: ', Config.UNIT_PRECIPITATION)
-  }
-  if (Config.UNIT_WIND) {
-    console.log('UNIT_WIND set to: ', Config.UNIT_WIND)
-  }
-  if (Config.UNIT_PRESSURE) {
-    console.log('UNIT_PRESSURE set to: ', Config.UNIT_PRESSURE)
-  }
-
-  UNITS.forEach(element => {
-    asyncStorageGetItem(element.unitName).then(res => {
-      let unitObj = {}
-      if (res) {
-        unitObj.unitName = element.unitName
-        unitObj.unitId = res
-        let unitAbb = getUnitAbb(element.unitName, parseInt(unitObj.unitId))
-        unitObj.unitAbb = unitAbb
-      } else {
-        unitObj.unitName = element.unitName
-        unitObj.unitId = getUnitId(element.unitName)
-        let unitAbb = getUnitAbb(element.unitName, parseInt(unitObj.unitId))
-        unitObj.unitAbb = unitAbb
+const getUnit = (unitName, unitId) => {
+  for (var i = 0; i < UNITS.length; i++) {
+    if (UNITS[i].unitName === unitName) {
+      for (var k = 0; k < UNITS[i].unitTypes.length; k++) {
+        if (UNITS[i].unitTypes[k].unitId === unitId) {
+          return UNITS[i].unitTypes[k].unit
+        }
       }
-      unitsInUse.push(unitObj)
-    })
-  });
-
-  getUnitId = (unitName) => {
-    switch (unitName) {
-      case 'temperature':
-        return Config.UNIT_TEMPERATURE
-      case 'precipitation':
-        return Config.UNIT_PRECIPITATION
-      case 'wind':
-        return Config.UNIT_WIND
-      case 'pressure':
-        return Config.UNIT_PRESSURE
-      default:
-        return false
     }
   }
-
-  dispatch({
-    type: SETTINGS_INIT,
-    payload: unitsInUse,
-  });
 }
 
-export const settingsChange = (unitName, unitId) => (dispatch) => {
-  const unitObj = {}
-  unitObj.unitName = unitName
-  unitObj.unitId = unitId
-  let unitAbb = getUnitAbb(unitObj.unitName, parseInt(unitObj.unitId))
-  unitObj.unitAbb = unitAbb
-
-  dispatch({
-    type: SETTINGS_CHANGE,
-    payload: unitObj,
-  });
-
+const getUnitId = (unitName) => {
+  switch (unitName) {
+    case 'temperature':
+      return Config.UNIT_TEMPERATURE
+    case 'precipitation':
+      return Config.UNIT_PRECIPITATION
+    case 'wind':
+      return Config.UNIT_WIND
+    case 'pressure':
+      return Config.UNIT_PRESSURE
+    default:
+      return false
+  }
 }

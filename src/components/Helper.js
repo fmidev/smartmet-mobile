@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-export function convertCelsius(outputUnit, value) {
-  switch (outputUnit) {
-    case 'C':
-
+export function converter(unit, value) {
+  switch (unit) {
+    case 'fahrenheit':
       return (value * 9 / 5) + 32
+    case 'celsius':
+      return value
     default:
       return value
   }
