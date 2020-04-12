@@ -56,7 +56,6 @@ export class SearchScreen extends React.Component {
   }
 
   _callAutocomplete(pressedKey) {
-    console.log('_callAutocomplete')
     this.props.autocompleteFetch(pressedKey);
   }
 
@@ -85,12 +84,12 @@ export class SearchScreen extends React.Component {
           keyboardShouldPersistTaps={'handled'}
           data={this.props.acDataObj}
           renderItem={({ item }) =>
-          <TouchableWithoutFeedback onPress={() => { this.navigateHomeWithPlace(item.name) }}>
-            <View style={styles.resultItem} >
-              <Text style={styles.resultItemText} >{item.name}</Text>
-            </View>
-          </TouchableWithoutFeedback>
-        }
+            <TouchableWithoutFeedback onPress={() => { this.navigateHomeWithPlace(item.name) }}>
+              <View style={styles.resultItem} >
+                <Text style={styles.resultItemText} >{item.name}</Text>
+              </View>
+            </TouchableWithoutFeedback>
+          }
           keyExtractor={item => item.name}
         />
 

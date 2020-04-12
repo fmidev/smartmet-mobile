@@ -40,7 +40,6 @@ export default class ListItem extends React.Component {
   }
 
   getCollapsableContentData = () => {
-    console.log('getCollapsableContentData')
     const collapsableContentArr = []
     const itemDay = moment(this.props.item.item.time).format('YYYYMMDD')
 
@@ -59,7 +58,6 @@ export default class ListItem extends React.Component {
         collapsableContentArr.push(collapsableItemObj);
       }
     });
-    // console.log('collapsableContentArr', collapsableContentArr)
     return collapsableContentArr
   }
 
