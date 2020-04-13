@@ -3,6 +3,7 @@ import { SETTINGS_INIT, SETTINGS_CHANGE } from '../actions/types';
 const INITIAL_STATE = {
   parameterUnitMap: {},
   parameterUnitAbbMap: {},
+  parameterUnitPrecisionMap: {},
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,6 +13,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         parameterUnitMap: action.payload[0],
         parameterUnitAbbMap: action.payload[1],
+        parameterUnitPrecisionMap: action.payload[2],
       }
 
     case SETTINGS_CHANGE:
@@ -23,9 +25,14 @@ export default (state = INITIAL_STATE, action) => {
         ...state.parameterUnitAbbMap,
         ...action.payload[1]
       }
+      let newparameterUnitPrecisionMap = {
+        ...state.parameterUnitPrecisionMap,
+        ...action.payload[2]
+      }
       return {
         parameterUnitMap: newparameterUnitMap,
-        parameterUnitAbbMap: newparameterUnitAbbMap
+        parameterUnitAbbMap: newparameterUnitAbbMap,
+        parameterUnitPrecisionMap: newparameterUnitPrecisionMap,
       }
 
     default:

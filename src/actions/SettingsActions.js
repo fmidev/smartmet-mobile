@@ -7,19 +7,18 @@ import { asyncStorageGetItem } from '../components/Helper'
 export const settingsInit = () => (dispatch) => {
   let parameterUnitMap = {}
   let parameterUnitAbbMap = {}
+  let parameterUnitPrecisionMap = {}
   UNITS.forEach(element => {
-    asyncStorageGetItem(element.unitName).then(res => {
+    asyncStorageGetItem(element.parameterName).then(res => {
       if (res) {
-        let unit = getUnit(element.unitName, parseInt(res))
-        let unitAbb = getUnitAbb(element.unitName, parseInt(res))
-        parameterUnitMap[element.unitName] = unit
-        parameterUnitAbbMap[element.unitName] = unitAbb
+        parameterUnitMap[element.parameterName] = getUnitTypeValue(element.parameterName, parseInt(res), 'unit')
+        parameterUnitAbbMap[element.parameterName] = getUnitTypeValue(element.parameterName, parseInt(res), 'unitAbb')
+        parameterUnitPrecisionMap[element.parameterName] = getUnitTypeValue(element.parameterName, parseInt(res), 'unitPrecision')
       } else {
-        let unitId = getUnitId(element.unitName)
-        let unit = getUnit(element.unitName, parseInt(unitId))
-        let unitAbb = getUnitAbb(element.unitName, parseInt(unitId))
-        parameterUnitMap[element.unitName] = unit
-        parameterUnitAbbMap[element.unitName] = unitAbb
+        let unitId = getUnitId(element.parameterName)
+        parameterUnitMap[element.parameterName] = getUnitTypeValue(element.parameterName, parseInt(unitId), 'unit')
+        parameterUnitAbbMap[element.parameterName] = getUnitTypeValue(element.parameterName, parseInt(unitId), 'unitAbb')
+        parameterUnitPrecisionMap[element.parameterName] = getUnitTypeValue(element.parameterName, parseInt(unitId), 'unitPrecision')
       }
 
     })
@@ -27,50 +26,38 @@ export const settingsInit = () => (dispatch) => {
 
   dispatch({
     type: SETTINGS_INIT,
-    payload: [parameterUnitMap, parameterUnitAbbMap],
+    payload: [parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap],
   });
 }
 
-export const settingsChange = (unitName, unitId) => (dispatch) => {
+export const settingsChange = (parameterName, unitId) => (dispatch) => {
   let parameterUnitMap = {}
   let parameterUnitAbbMap = {}
-  let unit = getUnit(unitName, parseInt(unitId))
-  let unitAbb = getUnitAbb(unitName, parseInt(unitId))
-  parameterUnitMap[unitName] = unit
-  parameterUnitAbbMap[unitName] = unitAbb
+  let parameterUnitPrecisionMap = {}
+  parameterUnitMap[parameterName] = getUnitTypeValue(parameterName, parseInt(unitId), 'unit')
+  parameterUnitAbbMap[parameterName] = getUnitTypeValue(parameterName, parseInt(unitId), 'unitAbb')
+  parameterUnitPrecisionMap[parameterName] = getUnitTypeValue(parameterName, parseInt(unitId), 'unitPrecision')
 
   dispatch({
     type: SETTINGS_CHANGE,
-    payload: [parameterUnitMap, parameterUnitAbbMap],
+    payload: [parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap],
   });
 }
 
-const getUnitAbb = (unitName, unitId) => {
+const getUnitTypeValue = (parameterName, unitId, unitTypeKey) => {
   for (var i = 0; i < UNITS.length; i++) {
-    if (UNITS[i].unitName === unitName) {
+    if (UNITS[i].parameterName === parameterName) {
       for (var k = 0; k < UNITS[i].unitTypes.length; k++) {
         if (UNITS[i].unitTypes[k].unitId === unitId) {
-          return UNITS[i].unitTypes[k].unitAbb
+          return UNITS[i].unitTypes[k][unitTypeKey]
         }
       }
     }
   }
 }
 
-const getUnit = (unitName, unitId) => {
-  for (var i = 0; i < UNITS.length; i++) {
-    if (UNITS[i].unitName === unitName) {
-      for (var k = 0; k < UNITS[i].unitTypes.length; k++) {
-        if (UNITS[i].unitTypes[k].unitId === unitId) {
-          return UNITS[i].unitTypes[k].unit
-        }
-      }
-    }
-  }
-}
-
-const getUnitId = (unitName) => {
-  switch (unitName) {
+const getUnitId = (parameterName) => {
+  switch (parameterName) {
     case 'temperature':
       return Config.UNIT_TEMPERATURE
     case 'precipitation':

@@ -6,6 +6,8 @@ export function converter(unit, value) {
       return (value * 9 / 5) + 32
     case 'celsius':
       return value
+    case 'inch':
+      return value / 25.4
     default:
       return value
   }

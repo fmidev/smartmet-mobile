@@ -136,14 +136,14 @@ export class HomeScreen extends React.Component {
 
           <View>
             <Text style={styles.weatherInfo}>
-              {converter(this.props.parameterUnitMap['temperature'], mainInfoData.temperature)}
+              {converter(this.props.parameterUnitMap['temperature'], mainInfoData.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
               {' '}
               °{this.props.parameterUnitAbbMap['temperature']}
             </Text>
             <Text style={styles.feelsLike}>
               {`${t('common:feelsLike')} °`}
               {' '}
-              {converter(this.props.parameterUnitMap['temperature'], mainInfoData.feelslike)}
+              {converter(this.props.parameterUnitMap['temperature'], mainInfoData.feelslike).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
             </Text>
           </View>
 
@@ -160,11 +160,11 @@ export class HomeScreen extends React.Component {
             <Text>
               <Image style={{ width: 18, height: 18 }} source={require('../assets/images/precipitation-icon.png')} />
               <Text style={styles.precipitationText}>
-                {mainInfoData.humidity}
+                {mainInfoData.humidity.toFixed(this.props.parameterUnitPrecisionMap['humidity'])}
                 {' '}
 %
                 {'\n'}
-                {mainInfoData.precipitation1h}
+                {mainInfoData.precipitation1h.toFixed(this.props.parameterUnitPrecisionMap['precipitation'])}
                 {' '}
 mm
               </Text>
@@ -195,7 +195,7 @@ mm
                 }}
                 source={require('../assets/images/windspeed-icon.png')}
               />
-              <Text style={{ position: 'absolute', fontSize: 12, color: 'black' }}>{mainInfoData.windspeedms}</Text>
+              <Text style={{ position: 'absolute', fontSize: 12, color: 'black' }}>{mainInfoData.windspeedms.toFixed(this.props.parameterUnitPrecisionMap['wind'])}</Text>
             </View>
           </View>
 
@@ -263,7 +263,7 @@ mm
           <FlatList
             style={{ flex: 1 }}
             data={this.getListData()}
-            renderItem={(item) => <ListItem item={item} tsDataObj={this.props.tsDataObj} parameterUnitMap={this.props.parameterUnitMap} />}
+            renderItem={(item) => <ListItem item={item} tsDataObj={this.props.tsDataObj} parameterUnitMap={this.props.parameterUnitMap} parameterUnitPrecisionMap={this.props.parameterUnitPrecisionMap} />}
             keyExtractor={(item) => item.time}
             scrollEnabled
             ListHeaderComponent={() => this.renderMainInfo()}
@@ -283,6 +283,7 @@ mm
     if (this.props.tsDataObj.data.length === 0) {
       // TODO: return this.renderNoContent();
     }
+    console.log(this.props)
     return this.renderFlatList();
   }
 }
@@ -292,7 +293,8 @@ const mapStateToProps = (state) => {
   const { loading, tsDataObj } = state.tsDataObj;
   const { parameterUnitMap } = state.parameterUnitMap
   const { parameterUnitAbbMap } = state.parameterUnitAbbMap
-  return { loading, tsDataObj, parameterUnitMap, parameterUnitAbbMap };
+  const { parameterUnitPrecisionMap } = state.parameterUnitPrecisionMap
+  return { loading, tsDataObj, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
 export default withNavigation(connect(mapStateToProps, { tsFetch, settingsInit })(translate(['home', 'common', 'day'], { wait: true })(HomeScreen)));

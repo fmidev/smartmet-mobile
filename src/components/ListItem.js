@@ -50,8 +50,8 @@ export default class ListItem extends React.Component {
         const collapsableItemObj = {}
         collapsableItemObj.time = element.time
         collapsableItemObj.smartsymbol = element.smartsymbol
-        collapsableItemObj.temperature = converter(this.props.parameterUnitMap['temperature'], element.temperature)
-        collapsableItemObj.feelslike = converter(this.props.parameterUnitMap['temperature'], element.feelslike)
+        collapsableItemObj.temperature = converter(this.props.parameterUnitMap['temperature'], element.temperature.toFixed(this.props.parameterUnitPrecisionMap['temperature']))
+        collapsableItemObj.feelslike = converter(this.props.parameterUnitMap['temperature'], element.feelslike.toFixed(this.props.parameterUnitPrecisionMap['temperature']))
         collapsableItemObj.windspeedms = element.windspeedms
         collapsableItemObj.winddirection = element.winddirection
         collapsableItemObj.humidity = element.humidity
@@ -126,7 +126,7 @@ export default class ListItem extends React.Component {
             />
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-              <Text style={{ color: 'black', fontWeight: 'bold' }}>{converter(this.props.parameterUnitMap['temperature'], this.props.item.item.temperature)}</Text>
+              <Text style={{ color: 'black', fontWeight: 'bold' }}>{converter(this.props.parameterUnitMap['temperature'], this.props.item.item.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}</Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>

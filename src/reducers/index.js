@@ -8,4 +8,5 @@ export default combineReducers({
   acDataObj: AutocompleteReducer,
   parameterUnitMap: SettingsReducer,
   parameterUnitAbbMap: SettingsReducer,
+  parameterUnitPrecisionMap: SettingsReducer,
 });

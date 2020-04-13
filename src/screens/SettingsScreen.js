@@ -109,17 +109,17 @@ export class SettingsScreen extends React.Component {
         <FlatList
           data={UNITS}
           renderItem={({ item }) =>
-            <TouchableOpacity onPress={() => this[RBSheet + item.unitName].open()}>
+            <TouchableOpacity onPress={() => this[RBSheet + item.parameterName].open()}>
               <View style={styles.units} >
-                <Text style={styles.settingslistitem} > {item.unitName} </Text>
-                <Text style={styles.settingslistitemAbb} >{this.props.parameterUnitAbbMap[item.unitName]} </Text>
+                <Text style={styles.settingslistitem} > {item.parameterName} </Text>
+                <Text style={styles.settingslistitemAbb} >{this.props.parameterUnitAbbMap[item.parameterName]} </Text>
                 <RBSheet
                   ref={ref => {
-                    this[RBSheet + item.unitName] = ref;
+                    this[RBSheet + item.parameterName] = ref;
                   }}
                 >
                   <View>
-                    <Text style={styles.rbTitle}> {item.unitName} </Text>
+                    <Text style={styles.rbTitle}> {item.parameterName} </Text>
 
                     {
                       item.unitTypes.map((currentUnitAbb) => (
@@ -127,7 +127,7 @@ export class SettingsScreen extends React.Component {
                           key={currentUnitAbb.unitAbb}
                           title={currentUnitAbb.unitAbb}
                           bottomDivider
-                          onPress={() => { this[RBSheet + item.unitName].close(); this.onChangeUnit(item.unitName, currentUnitAbb.unitId); }}
+                          onPress={() => { this[RBSheet + item.parameterName].close(); this.onChangeUnit(item.parameterName, currentUnitAbb.unitId); }}
                         />
                       ))
                     }
@@ -136,7 +136,7 @@ export class SettingsScreen extends React.Component {
               </View>
             </TouchableOpacity>
           }
-          keyExtractor={(item) => item.unitName}
+          keyExtractor={(item) => item.parameterName}
         />
         <Text style={styles.header}>
           {t('settings:about')}
