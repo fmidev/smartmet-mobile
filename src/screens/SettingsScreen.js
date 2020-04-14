@@ -54,6 +54,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingTop: 15,
     paddingLeft: 10,
+    textTransform: 'capitalize',
+  },
+  listItemRBSheetTitle: {
+    fontSize: 14,
   }
 });
 
@@ -117,6 +121,7 @@ export class SettingsScreen extends React.Component {
                   ref={ref => {
                     this[RBSheet + item.parameterName] = ref;
                   }}
+                  height={300}
                 >
                   <View>
                     <Text style={styles.rbTitle}> {item.parameterName} </Text>
@@ -126,6 +131,7 @@ export class SettingsScreen extends React.Component {
                         <ListItem
                           key={currentUnitAbb.unitAbb}
                           title={currentUnitAbb.unitAbb}
+                          titleStyle={styles.listItemRBSheetTitle}
                           bottomDivider
                           onPress={() => { this[RBSheet + item.parameterName].close(); this.onChangeUnit(item.parameterName, currentUnitAbb.unitId); }}
                         />

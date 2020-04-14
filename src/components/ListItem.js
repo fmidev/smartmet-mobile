@@ -92,8 +92,8 @@ export default class ListItem extends React.Component {
           <Text style={{ color: 'green' }}>
             {item.windspeedms}
             {' '}
-                m/s
-              </Text>
+            {this.props.parameterUnitAbbMap['wind']}
+          </Text>
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
@@ -133,7 +133,7 @@ export default class ListItem extends React.Component {
               <Text style={{ color: 'green' }}>
                 {converter(this.props.parameterUnitMap['wind'], this.props.item.item.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}
                 {' '}
-                m/s
+                {this.props.parameterUnitAbbMap['wind']}
               </Text>
             </View>
 

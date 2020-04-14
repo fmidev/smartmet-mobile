@@ -8,6 +8,14 @@ export function converter(unit, value) {
       return value
     case 'inch':
       return value / 25.4
+    case 'kilometers per hour':
+      return value * 3.6
+    case 'miles per hour':
+      return value * 2.2369
+    case 'beaufort':
+      return value * 1.1268 // TODO: Check this
+    case 'knot':
+      return value * 1.9438
     default:
       return value
   }

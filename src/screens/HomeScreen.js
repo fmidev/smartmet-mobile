@@ -166,7 +166,7 @@ export class HomeScreen extends React.Component {
                 {'\n'}
                 {converter(this.props.parameterUnitMap['precipitation'], mainInfoData.precipitation1h).toFixed(this.props.parameterUnitPrecisionMap['precipitation'])}
                 {' '}
-mm
+                {this.props.parameterUnitAbbMap['precipitation']}
               </Text>
             </Text>
           </View>
@@ -263,7 +263,7 @@ mm
           <FlatList
             style={{ flex: 1 }}
             data={this.getListData()}
-            renderItem={(item) => <ListItem item={item} tsDataObj={this.props.tsDataObj} parameterUnitMap={this.props.parameterUnitMap} parameterUnitPrecisionMap={this.props.parameterUnitPrecisionMap} />}
+            renderItem={(item) => <ListItem item={item} tsDataObj={this.props.tsDataObj} parameterUnitMap={this.props.parameterUnitMap} parameterUnitAbbMap={this.props.parameterUnitAbbMap} parameterUnitPrecisionMap={this.props.parameterUnitPrecisionMap} />}
             keyExtractor={(item) => item.time}
             scrollEnabled
             ListHeaderComponent={() => this.renderMainInfo()}
