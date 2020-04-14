@@ -50,12 +50,12 @@ export default class ListItem extends React.Component {
         const collapsableItemObj = {}
         collapsableItemObj.time = element.time
         collapsableItemObj.smartsymbol = element.smartsymbol
-        collapsableItemObj.temperature = converter(this.props.parameterUnitMap['temperature'], element.temperature.toFixed(this.props.parameterUnitPrecisionMap['temperature']))
-        collapsableItemObj.feelslike = converter(this.props.parameterUnitMap['temperature'], element.feelslike.toFixed(this.props.parameterUnitPrecisionMap['temperature']))
-        collapsableItemObj.windspeedms = element.windspeedms
+        collapsableItemObj.temperature = converter(this.props.parameterUnitMap['temperature'], element.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])
+        collapsableItemObj.feelslike = converter(this.props.parameterUnitMap['temperature'], element.feelslike).toFixed(this.props.parameterUnitPrecisionMap['temperature'])
+        collapsableItemObj.windspeedms = converter(this.props.parameterUnitMap['wind'], element.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])
         collapsableItemObj.winddirection = element.winddirection
-        collapsableItemObj.humidity = element.humidity
-        collapsableItemObj.precipitation1h = element.precipitation1h
+        collapsableItemObj.humidity = element.humidity.toFixed(0)
+        collapsableItemObj.precipitation1h = converter(this.props.parameterUnitMap['precipitation'], element.precipitation1h).toFixed(this.props.parameterUnitPrecisionMap['precipitation'])
         collapsableContentArr.push(collapsableItemObj);
       }
     });
@@ -131,14 +131,14 @@ export default class ListItem extends React.Component {
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
               <Text style={{ color: 'green' }}>
-                {this.props.item.item.windspeedms}
+                {converter(this.props.parameterUnitMap['wind'], this.props.item.item.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}
                 {' '}
                 m/s
               </Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-              <Text style={{ color: 'darkslategrey' }}>{this.props.item.item.humidity}</Text>
+              <Text style={{ color: 'darkslategrey' }}>{this.props.item.item.humidity.toFixed(0)}</Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>

@@ -160,11 +160,11 @@ export class HomeScreen extends React.Component {
             <Text>
               <Image style={{ width: 18, height: 18 }} source={require('../assets/images/precipitation-icon.png')} />
               <Text style={styles.precipitationText}>
-                {mainInfoData.humidity.toFixed(this.props.parameterUnitPrecisionMap['humidity'])}
+                {mainInfoData.humidity.toFixed(0)}
                 {' '}
 %
                 {'\n'}
-                {mainInfoData.precipitation1h.toFixed(this.props.parameterUnitPrecisionMap['precipitation'])}
+                {converter(this.props.parameterUnitMap['precipitation'], mainInfoData.precipitation1h).toFixed(this.props.parameterUnitPrecisionMap['precipitation'])}
                 {' '}
 mm
               </Text>
@@ -195,7 +195,7 @@ mm
                 }}
                 source={require('../assets/images/windspeed-icon.png')}
               />
-              <Text style={{ position: 'absolute', fontSize: 12, color: 'black' }}>{mainInfoData.windspeedms.toFixed(this.props.parameterUnitPrecisionMap['wind'])}</Text>
+              <Text style={{ position: 'absolute', fontSize: 12, color: 'black' }}>{converter(this.props.parameterUnitMap['wind'], mainInfoData.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}</Text>
             </View>
           </View>
 
