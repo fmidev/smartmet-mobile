@@ -192,8 +192,9 @@ export class HomeScreen extends React.Component {
                   flex: 1,
                   width: 40,
                   height: 40,
+                  transform: [{ rotate: mainInfoData.winddirection.toString() + 'deg' }]
                 }}
-                source={require('../assets/images/windspeed-icon.png')}
+                source={require('../assets/images/winddir-icon.png')}
               />
               <Text style={{ position: 'absolute', fontSize: 12, color: 'black' }}>{converter(this.props.parameterUnitMap['wind'], mainInfoData.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}</Text>
             </View>
