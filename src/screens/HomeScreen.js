@@ -42,14 +42,14 @@ const styles = StyleSheet.create({
   feelsLike: {
     fontSize: 12,
     color: 'black',
-    marginTop: 32,
-    marginLeft: 12,
+    marginTop: 37,
+    marginLeft: 6,
   },
   symbolDescription: {
     fontSize: 12,
     color: 'black',
-    marginTop: 0,
-    marginLeft: 42,
+    marginTop: 4,
+    marginLeft: 15,
   },
   symbol: {
     left: 50,
@@ -149,7 +149,7 @@ export class HomeScreen extends React.Component {
 
           <View style={styles.symbol}>
             <Image style={{ width: 120, height: 120 }} source={Images.symbols[mainInfoData.smartsymbol]} />
-            <Text style={styles.symbolDescription}>{mainInfoData.weather}</Text>
+            <Text style={styles.symbolDescription}>{`${t('weather:' + mainInfoData.weather)} `} </Text>
           </View>
 
         </View>

@@ -1,0 +1,49 @@
+{
+  "navigation": {
+    "home": "үй",
+    "warnings": "Эскертүүлөр",
+    "maps": "Карталар"
+  },
+  "settings": {
+    "about": "жөнүндө",
+    "aboutContent": "FMI 2020",
+    "title": "наам",
+    "language": "тил",
+    "languageName": "Тилдин аты"
+  },
+  "search": {
+    "title": "наам"
+  },
+  "common": {
+    "feelsLike": "Сыяктуу сезилет",
+    "sunny": "ачык"
+  },
+  "weather": {
+    "sunny": "ачык",
+    "partly cloudy": "Булуттуу",
+    "cloudy": "булуттуу",
+    "light showers": "Аз жаайт",
+    "showers": "-чачын",
+    "heavy showers": "Оор жаайт",
+    "light rain": "Жамгыр жаайт",
+    "rain": "жаан",
+    "heavy rain": "Катуу жаан",
+    "light snow showers": "Кар жаашы мүмкүн",
+    "snow showers": "Кар жаашы мүмкүн",
+    "heavy snow showers": "Кар жаашы мүмкүн",
+    "light snowfall": "Кар жаайт",
+    "snowfall": "кар жаайт",
+    "heavy snowfall": "Кар жаайт",
+    "thundershowers": "Thundershowers",
+    "heavy thundershowers": "Күн күркүрөйт",
+    "thunder": "күндүн күркүрөөсү",
+    "heavy thunder": "Күндүн күркүрөгөнү",
+    "light sleet showers": "Жамгыр жаайт",
+    "sleet showers": "Жаан жаайт",
+    "heavy sleet showers": "Жаан-чачындуу жаайт",
+    "light sleet rain": "нөшөрлүү жамгыр",
+    "sleet rain": "нөшөрлүү жамгыр",
+    "heavy sleet rain": "нөшөрлөп жааган жамгыр",
+    "fog": "туман"
+  }
+}
