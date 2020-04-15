@@ -6,16 +6,53 @@
   },
   "settings": {
     "about": "About",
-    "aboutContent": "FMI 2020",
-    "title": "Settings",
+    "settings": "Settings",
     "language": "Language",
-    "languageName": "English"
-  },
-  "search": {
-    "title": "Search"
+    "units": "Units",
+    "temperature": "Temperature",
+    "precipitation": "Precipitation",
+    "wind": "Wind",
+    "pressure": "Pressure"
   },
   "common": {
-    "feelsLike": "Feels like",
-    "sunny": "Sunny"
+    "feels like": "Feels like",
+    "forecast": "Forecast"
+  },
+  "weather": {
+    "sunny": "Sunny",
+    "partly cloudy": "Partly cloudy",
+    "cloudy": "Cloudy",
+    "light showers": "Light showers",
+    "showers": "Showers",
+    "heavy showers": "Heavy showers",
+    "light rain": "Light rain",
+    "rain": "Rain",
+    "heavy rain": "Heavy rain",
+    "light snow showers": "Light snow showers",
+    "snow showers": "Snow showers",
+    "heavy snow showers": "Heavey snow showers",
+    "light snowfall": "Light snowfall",
+    "snowfall": "Snowfall",
+    "heavy snowfall": "Heavy snowfall",
+    "thundershowers": "Thundershowers",
+    "heavy thundershowers": "Heavy thundershowers",
+    "thunder": "Thunder",
+    "heavy thunder": "Heavy thunder",
+    "light sleet showers": "Light sleet showers",
+    "sleet showers": "Sleet showers",
+    "heavy sleet showers": "Heavy sleet showers",
+    "light sleet rain": "Light sleet rain",
+    "sleet rain": "Sleet rain",
+    "heavy sleet rain": "Heavy sleet rain",
+    "fog": "Fog"
+  },
+  "weekday abbreviations": {
+    "mon": "MON",
+    "tue": "TUE",
+    "wed": "WED",
+    "thu": "THU",
+    "fri": "FRI",
+    "sat": "SAT",
+    "sun": "SUN"
   }
 }

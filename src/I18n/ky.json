@@ -1,22 +1,22 @@
 {
   "navigation": {
-    "home": "үй",
+    "home": "үй экраны",
     "warnings": "Эскертүүлөр",
     "maps": "Карталар"
   },
   "settings": {
     "about": "жөнүндө",
-    "aboutContent": "FMI 2020",
-    "title": "наам",
+    "settings": "Орнотуулар",
     "language": "тил",
-    "languageName": "Тилдин аты"
-  },
-  "search": {
-    "title": "наам"
+    "units": "бирдик",
+    "temperature": "Температура",
+    "precipitation": "Жаан-чачын",
+    "wind": "шамал",
+    "pressure": "басым"
   },
   "common": {
-    "feelsLike": "Сыяктуу сезилет",
-    "sunny": "ачык"
+    "feels like": "Сыяктуу сезилет",
+    "forecast": "Болжол"
   },
   "weather": {
     "sunny": "ачык",
@@ -45,5 +45,14 @@
     "sleet rain": "нөшөрлүү жамгыр",
     "heavy sleet rain": "нөшөрлөп жааган жамгыр",
     "fog": "туман"
+  },
+  "weekday abbreviations": {
+    "mon": "ДҮЙ",
+    "tue": "ШЕЙ",
+    "wed": "ШАР",
+    "thu": "БЕЙ",
+    "fri": "ЖУМ",
+    "sat": "ИШЕ",
+    "sun": "ЖЕК"
   }
 }

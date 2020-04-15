@@ -141,7 +141,7 @@ export class HomeScreen extends React.Component {
               °{this.props.parameterUnitAbbMap['temperature']}
             </Text>
             <Text style={styles.feelsLike}>
-              {`${t('common:feelsLike')} °`}
+              {`${t('common:feels like')} °`}
               {' '}
               {converter(this.props.parameterUnitMap['temperature'], mainInfoData.feelslike).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
             </Text>
@@ -219,7 +219,7 @@ export class HomeScreen extends React.Component {
             fontSize: 12, color: 'black', marginLeft: 5, fontWeight: 'bold',
           }}
           >
-            Forecast
+            {`${t('common:forecast')}`}
           </Text>
         </View>
 

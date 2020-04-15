@@ -1,4 +1,5 @@
 import React from 'react';
+import { translate } from 'react-i18next';
 import {
   View, Text, StyleSheet, Image, TouchableWithoutFeedback, FlatList,
 } from 'react-native';
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class ListItem extends React.Component {
+export class ListItem extends React.Component {
 
   constructor(props) {
     super(props)
@@ -110,13 +111,14 @@ export default class ListItem extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
     const IconComponent = Ionicons;
     return (
       <View style={styles.listItemContainer} >
         <TouchableWithoutFeedback onPress={this.toggleListItem}>
           <View style={styles.listItem} >
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-              <Text style={{ fontWeight: 'bold', color: 'black' }}>{moment(this.props.item.item.time).format('ddd').toUpperCase()}</Text>
+              <Text style={{ fontWeight: 'bold', color: 'black' }}>{`${t('weekday abbreviations:' + moment(this.props.item.item.time).format('ddd').toLowerCase())}`}</Text>
               <Text style={{ fontWeight: 'bold' }}>{moment(this.props.item.item.time).format('DD')}</Text>
             </View>
 
@@ -162,3 +164,5 @@ export default class ListItem extends React.Component {
     );
   }
 }
+
+export default translate(['weekday abbreviations'], { wait: true })(ListItem);

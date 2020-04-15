@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 export class SettingsScreen extends React.Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
-    title: screenProps.t('settings:title'),
+    title: screenProps.t('settings:settings'),
     headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack(null)} />,
   });
 
@@ -108,14 +108,14 @@ export class SettingsScreen extends React.Component {
           ))
         }
         < Text style={styles.header} >
-          UNITS
+          {t('settings:units')}
         </Text >
         <FlatList
           data={UNITS}
           renderItem={({ item }) =>
             <TouchableOpacity onPress={() => this[RBSheet + item.parameterName].open()}>
               <View style={styles.units} >
-                <Text style={styles.settingslistitem} > {item.parameterName} </Text>
+                <Text style={styles.settingslistitem} >  {t('settings:' + item.parameterName)} </Text>
                 <Text style={styles.settingslistitemAbb} >{this.props.parameterUnitAbbMap[item.parameterName]} </Text>
                 <RBSheet
                   ref={ref => {
@@ -148,7 +148,7 @@ export class SettingsScreen extends React.Component {
           {t('settings:about')}
         </Text>
         <Text style={styles.about}>
-          {t('settings:aboutContent')}
+          FMI 2020
         </Text>
       </View >
     );
