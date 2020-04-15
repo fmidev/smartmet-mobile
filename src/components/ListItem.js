@@ -64,6 +64,7 @@ export class ListItem extends React.Component {
   }
 
   renderCollapsableContent = (item) => {
+    const { t } = this.props;
     // console.log('renderCollapsableContent') // TODO: Check is this normal behaviour 
 
     return (
@@ -93,7 +94,7 @@ export class ListItem extends React.Component {
           <Text style={{ color: 'green' }}>
             {item.windspeedms}
             {' '}
-            {this.props.parameterUnitAbbMap['wind']}
+            {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}
           </Text>
         </View>
 
@@ -135,7 +136,7 @@ export class ListItem extends React.Component {
               <Text style={{ color: 'green' }}>
                 {converter(this.props.parameterUnitMap['wind'], this.props.item.item.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}
                 {' '}
-                {this.props.parameterUnitAbbMap['wind']}
+                {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}
               </Text>
             </View>
 
@@ -165,4 +166,4 @@ export class ListItem extends React.Component {
   }
 }
 
-export default translate(['weekday abbreviations'], { wait: true })(ListItem);
+export default translate(['weekday abbreviations', 'unit abbreviations'], { wait: true })(ListItem);

@@ -130,7 +130,7 @@ export class SettingsScreen extends React.Component {
                       item.unitTypes.map((currentUnitAbb) => (
                         <ListItem
                           key={currentUnitAbb.unitAbb}
-                          title={currentUnitAbb.unitAbb}
+                          title={t('unit abbreviations:' + currentUnitAbb.unitAbb)}
                           titleStyle={styles.listItemRBSheetTitle}
                           bottomDivider
                           onPress={() => { this[RBSheet + item.parameterName].close(); this.onChangeUnit(item.parameterName, currentUnitAbb.unitId); }}
