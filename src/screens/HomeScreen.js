@@ -209,7 +209,7 @@ export class HomeScreen extends React.Component {
               fontSize: 16, textAlign: 'center', color: 'white', paddingTop: 26, paddingBottom: 32,
             }}
             >
-              Warnings - 5 days
+              {`${t('common:warnings')}`}
             </Text>
           </View>
         </TouchableHighlight>
@@ -284,7 +284,6 @@ export class HomeScreen extends React.Component {
     if (this.props.tsDataObj.data.length === 0) {
       // TODO: return this.renderNoContent();
     }
-    console.log(this.props)
     return this.renderFlatList();
   }
 }

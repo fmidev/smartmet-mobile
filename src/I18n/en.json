@@ -1,4 +1,9 @@
 {
+  "common": {
+    "feels like": "Feels like",
+    "forecast": "Forecast",
+    "warnings": "Warnings"
+  },
   "navigation": {
     "home": "Home",
     "warnings": "Warnings",
@@ -13,10 +18,6 @@
     "precipitation": "Precipitation",
     "wind": "Wind",
     "pressure": "Pressure"
-  },
-  "common": {
-    "feels like": "Feels like",
-    "forecast": "Forecast"
   },
   "weather": {
     "sunny": "Sunny",
@@ -54,5 +55,20 @@
     "fri": "FRI",
     "sat": "SAT",
     "sun": "SUN"
+  },
+  "unit abbreviations": {
+    "C": "C",
+    "F": "F",
+    "mm": "mm",
+    "in": "in",
+    "m/s": "m/s",
+    "km/h": "km/h",
+    "mph": "mph",
+    "Bft": "Bft",
+    "kn": "kn",
+    "hPa": "hPa",
+    "inHg": "inHg",
+    "mmHg": "mmHg",
+    "mbar": "mbar"
   }
 }

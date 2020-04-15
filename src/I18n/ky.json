@@ -1,4 +1,9 @@
 {
+  "common": {
+    "feels like": "Сыяктуу сезилет",
+    "forecast": "Болжол",
+    "warnings": "Эскертүүлөр"
+  },
   "navigation": {
     "home": "үй экраны",
     "warnings": "Эскертүүлөр",
@@ -13,10 +18,6 @@
     "precipitation": "Жаан-чачын",
     "wind": "шамал",
     "pressure": "басым"
-  },
-  "common": {
-    "feels like": "Сыяктуу сезилет",
-    "forecast": "Болжол"
   },
   "weather": {
     "sunny": "ачык",
@@ -54,5 +55,20 @@
     "fri": "ЖУМ",
     "sat": "ИШЕ",
     "sun": "ЖЕК"
+  },
+  "unit abbreviations": {
+    "C": "C",
+    "F": "F",
+    "mm": "мм",
+    "in": "боюнча",
+    "m/s": "м/с",
+    "km/h": "км/ч",
+    "mph": "мили",
+    "Bft": "час",
+    "kn": "KN",
+    "hPa": "гПа",
+    "inHg": "час",
+    "mmHg": "ммHg",
+    "mbar": "мбар"
   }
 }

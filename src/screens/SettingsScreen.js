@@ -116,7 +116,7 @@ export class SettingsScreen extends React.Component {
             <TouchableOpacity onPress={() => this[RBSheet + item.parameterName].open()}>
               <View style={styles.units} >
                 <Text style={styles.settingslistitem} >  {t('settings:' + item.parameterName)} </Text>
-                <Text style={styles.settingslistitemAbb} >{this.props.parameterUnitAbbMap[item.parameterName]} </Text>
+                <Text style={styles.settingslistitemAbb} >{t('unit abbreviations:' + this.props.parameterUnitAbbMap[item.parameterName])}</Text>
                 <RBSheet
                   ref={ref => {
                     this[RBSheet + item.parameterName] = ref;
@@ -124,7 +124,7 @@ export class SettingsScreen extends React.Component {
                   height={300}
                 >
                   <View>
-                    <Text style={styles.rbTitle}> {item.parameterName} </Text>
+                    <Text style={styles.rbTitle}>  {t('settings:' + item.parameterName)} </Text>
 
                     {
                       item.unitTypes.map((currentUnitAbb) => (
@@ -161,4 +161,4 @@ const mapStateToProps = (state) => {
   return { parameterUnitMap, parameterUnitAbbMap };
 };
 
-export default connect(mapStateToProps, { settingsChange })(translate(['home', 'common', 'day'], { wait: true })(SettingsScreen));
+export default connect(mapStateToProps, { settingsChange })(translate(['settings', 'unit abbreviations'], { wait: true })(SettingsScreen));
