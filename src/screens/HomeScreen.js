@@ -166,7 +166,7 @@ export class HomeScreen extends React.Component {
                 {'\n'}
                 {converter(this.props.parameterUnitMap['precipitation'], mainInfoData.precipitation1h).toFixed(this.props.parameterUnitPrecisionMap['precipitation'])}
                 {' '}
-                {this.props.parameterUnitAbbMap['precipitation']}
+                {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['precipitation'])}`}
               </Text>
             </Text>
           </View>
@@ -297,4 +297,4 @@ const mapStateToProps = (state) => {
   return { loading, tsDataObj, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
-export default withNavigation(connect(mapStateToProps, { tsFetch, settingsInit })(translate(['home', 'common', 'day'], { wait: true })(HomeScreen)));
+export default withNavigation(connect(mapStateToProps, { tsFetch, settingsInit })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));

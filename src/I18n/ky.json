@@ -10,6 +10,8 @@
     "maps": "Карталар"
   },
   "settings": {
+    "english": "Англисче",
+    "kyrgyz": "Кыргызча",
     "about": "жөнүндө",
     "settings": "Орнотуулар",
     "language": "тил",

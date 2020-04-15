@@ -2,8 +2,8 @@ import i18n from 'i18next';
 import { reactI18nextModule } from 'react-i18next';
 import locale from 'react-native-locale-detector';
 import AsyncStorage from '@react-native-community/async-storage';
-import en from './en.json';
-import ky from './ky.json';
+import english from './en.json';
+import kyrgyz from './ky.json';
 
 const STORAGE_KEY = '@APP:languageCode';
 
@@ -24,8 +24,8 @@ i18n
   .use(languageDetector)
   .use(reactI18nextModule)
   .init({
-    fallbackLng: 'en',
-    resources: { en, ky },
+    fallbackLng: 'english',
+    resources: { english, kyrgyz },
     ns: ['common'],
     defaultNS: 'common',
     debug: true,

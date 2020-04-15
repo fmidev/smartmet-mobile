@@ -100,7 +100,7 @@ export class SettingsScreen extends React.Component {
           availableLanguages.map((currentLang, i) => (
             <ListItem
               key={i}
-              title={currentLang}
+              title={t('settings:' + currentLang)}
               bottomDivider
               checkmark={appLanguage === currentLang}
               onPress={() => this.onChangeLang(currentLang)}
