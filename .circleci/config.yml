@@ -25,6 +25,11 @@ jobs:
           paths:
             - node_modules
 
+      - run:
+          name: yarn install
+          command: |
+            yarn install
+ 
  #     - run:
  #         name: jest tests
  #         command: |
