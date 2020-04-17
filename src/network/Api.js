@@ -29,6 +29,7 @@ export function getTimeSeries(coords, place) {
 
 export function getAutocomplete(pattern) {
   const acUrlPattern = autocompleteUrl + '&pattern=' + pattern;
+  console.log('acUrlPattern', acUrlPattern)
   return fetch(acUrlPattern)
     .then((response) => response.json().then((responseJson) => {
       return responseJson;

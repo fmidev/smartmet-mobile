@@ -174,10 +174,11 @@ export class HomeScreen extends React.Component {
           <Text>
             <Image style={{ width: 30, height: 30 }} source={require('../assets/images/celestial-status-icon.png')} />
             <Text style={styles.celestialText}>
-              {moment(mainInfoData.sunrise).format('HH:mm')}
+              {moment(mainInfoData.sunrise).format('LT')}
               {' '}
 -
-              {moment(mainInfoData.sunset).format('HH:mm')}
+              {' '}
+              {moment(mainInfoData.sunset).format('LT')}
             </Text>
           </Text>
 
