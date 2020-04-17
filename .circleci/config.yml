@@ -136,7 +136,11 @@ jobs:
             - vendor/bundle
 
       - run:
-          command: bundle exec fastlane test
+          command: pod install
+          working_directory: ios
+      
+      - run:
+          command: bundle exec fastlane beta
           working_directory: ios
 
       - run:
