@@ -71,7 +71,7 @@ jobs:
             - vendor/bundle
 
       - run:
-          name: fastlane tests
+          name: Fastlane Tests
           command: |
             mkdir -p test-results/fastlane
             bundle exec fastlane test
