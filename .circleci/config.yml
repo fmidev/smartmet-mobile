@@ -108,7 +108,6 @@ jobs:
       - run:
           name: yarn install
           command: |
-            yarn global add expo-cli
             yarn global add react-native-cli
             yarn install
 
