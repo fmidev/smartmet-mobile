@@ -87,6 +87,8 @@ jobs:
   ios:
     macos:
       xcode: "11.4"
+    environment:
+      FL_OUTPUT_DIR: output
     working_directory: ~/smartmet-mobile
 
     # use a --login shell so our "set Ruby version" command gets picked up for later steps
@@ -94,14 +96,6 @@ jobs:
 
     steps:
       - checkout
-
-#      - run:
-#          name: Update node
-#          command:  npm -g install node@8.10
-          
-#      - run:
-#          name: set Ruby version
-#          command:  echo "ruby-2.4" > ~/.ruby-version
 
       - restore_cache:
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
@@ -157,11 +151,11 @@ jobs:
 #            mv fastlane/report.xml test-results/fastlane
 #            mv fastlane/test_output/report.junit test-results/xcode/junit.xml
 
-      - store_test_results:
-          path: ios/test-results
+#      - store_test_results:
+#          path: ios/test-results
 
       - store_artifacts:
-          path: ios/test-results
+          path: output
 
 workflows:
   version: 2
