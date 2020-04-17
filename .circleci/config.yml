@@ -96,6 +96,10 @@ jobs:
       - checkout
 
       - run:
+          name: Update node
+          command:  npm -g install node@8.10
+          
+      - run:
           name: set Ruby version
           command:  echo "ruby-2.4" > ~/.ruby-version
 
