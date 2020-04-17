@@ -3,7 +3,7 @@ import Config from 'react-native-config';
 import { translate } from 'react-i18next';
 import i18n from 'i18next';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import moment from 'moment-with-locales-es6';
 import {
   View, Text, StyleSheet, Image, FlatList, TouchableHighlight,
 } from 'react-native';
@@ -42,14 +42,14 @@ const styles = StyleSheet.create({
   feelsLike: {
     fontSize: 12,
     color: 'black',
-    marginTop: 32,
-    marginLeft: 12,
+    marginTop: 37,
+    marginLeft: 6,
   },
   symbolDescription: {
     fontSize: 12,
     color: 'black',
-    marginTop: 0,
-    marginLeft: 42,
+    marginTop: 4,
+    marginLeft: 15,
   },
   symbol: {
     left: 50,
@@ -129,7 +129,7 @@ export class HomeScreen extends React.Component {
       <View style={styles.topContainer}>
 
         <View style={styles.dateTextContainer}>
-          <Text style={styles.dateText}>{moment(this.props.tsDataObj.localAnalysisTime).format('dddd MMMM D HH:mm')}</Text>
+          <Text style={styles.dateText}>{moment(this.props.tsDataObj.localAnalysisTime).format('LLLL')}</Text>
         </View>
 
         <View style={styles.weatherInfoContainer}>
@@ -141,7 +141,7 @@ export class HomeScreen extends React.Component {
               °{this.props.parameterUnitAbbMap['temperature']}
             </Text>
             <Text style={styles.feelsLike}>
-              {`${t('common:feelsLike')} °`}
+              {`${t('common:feels like')} °`}
               {' '}
               {converter(this.props.parameterUnitMap['temperature'], mainInfoData.feelslike).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
             </Text>
@@ -149,7 +149,7 @@ export class HomeScreen extends React.Component {
 
           <View style={styles.symbol}>
             <Image style={{ width: 120, height: 120 }} source={Images.symbols[mainInfoData.smartsymbol]} />
-            <Text style={styles.symbolDescription}>{mainInfoData.weather}</Text>
+            <Text style={styles.symbolDescription}>{`${t('weather:' + mainInfoData.weather)} `} </Text>
           </View>
 
         </View>
@@ -166,7 +166,7 @@ export class HomeScreen extends React.Component {
                 {'\n'}
                 {converter(this.props.parameterUnitMap['precipitation'], mainInfoData.precipitation1h).toFixed(this.props.parameterUnitPrecisionMap['precipitation'])}
                 {' '}
-                {this.props.parameterUnitAbbMap['precipitation']}
+                {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['precipitation'])}`}
               </Text>
             </Text>
           </View>
@@ -174,10 +174,11 @@ export class HomeScreen extends React.Component {
           <Text>
             <Image style={{ width: 30, height: 30 }} source={require('../assets/images/celestial-status-icon.png')} />
             <Text style={styles.celestialText}>
-              {moment(mainInfoData.sunrise).format('HH:mm')}
+              {moment(mainInfoData.sunrise).format('LT')}
               {' '}
 -
-              {moment(mainInfoData.sunset).format('HH:mm')}
+              {' '}
+              {moment(mainInfoData.sunset).format('LT')}
             </Text>
           </Text>
 
@@ -192,8 +193,9 @@ export class HomeScreen extends React.Component {
                   flex: 1,
                   width: 40,
                   height: 40,
+                  transform: [{ rotate: mainInfoData.winddirection.toString() + 'deg' }]
                 }}
-                source={require('../assets/images/windspeed-icon.png')}
+                source={require('../assets/images/winddir-icon.png')}
               />
               <Text style={{ position: 'absolute', fontSize: 12, color: 'black' }}>{converter(this.props.parameterUnitMap['wind'], mainInfoData.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}</Text>
             </View>
@@ -208,7 +210,7 @@ export class HomeScreen extends React.Component {
               fontSize: 16, textAlign: 'center', color: 'white', paddingTop: 26, paddingBottom: 32,
             }}
             >
-              Warnings - 5 days
+              {`${t('common:warnings')}`}
             </Text>
           </View>
         </TouchableHighlight>
@@ -218,7 +220,7 @@ export class HomeScreen extends React.Component {
             fontSize: 12, color: 'black', marginLeft: 5, fontWeight: 'bold',
           }}
           >
-            Forecast
+            {`${t('common:forecast')}`}
           </Text>
         </View>
 
@@ -276,6 +278,7 @@ export class HomeScreen extends React.Component {
   }
 
   render() {
+    moment.locale(i18n.language)
     if (this.props.loading) {
       return this.renderLoading();
     }
@@ -283,7 +286,6 @@ export class HomeScreen extends React.Component {
     if (this.props.tsDataObj.data.length === 0) {
       // TODO: return this.renderNoContent();
     }
-    console.log(this.props)
     return this.renderFlatList();
   }
 }
@@ -297,4 +299,4 @@ const mapStateToProps = (state) => {
   return { loading, tsDataObj, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
-export default withNavigation(connect(mapStateToProps, { tsFetch, settingsInit })(translate(['home', 'common', 'day'], { wait: true })(HomeScreen)));
+export default withNavigation(connect(mapStateToProps, { tsFetch, settingsInit })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));

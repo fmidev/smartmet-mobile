@@ -1,0 +1,67 @@
+{
+  "common": {
+    "feels like": "Сыяктуу сезилет",
+    "forecast": "Болжол",
+    "warnings": "Эскертүүлөр"
+  },
+  "navigation": {
+    "home": "үй экраны",
+    "warnings": "Эскертүүлөр",
+    "maps": "Карталар"
+  },
+  "settings": {
+    "en": "English",
+    "ky": "Кыргызча",
+    "about": "жөнүндө",
+    "settings": "Орнотуулар",
+    "language": "тил",
+    "units": "бирдик",
+    "temperature": "Температура",
+    "precipitation": "Жаан-чачын",
+    "wind": "шамал",
+    "pressure": "басым"
+  },
+  "weather": {
+    "sunny": "ачык",
+    "partly cloudy": "Булуттуу",
+    "cloudy": "булуттуу",
+    "light showers": "Аз жаайт",
+    "showers": "-чачын",
+    "heavy showers": "Оор жаайт",
+    "light rain": "Жамгыр жаайт",
+    "rain": "жаан",
+    "heavy rain": "Катуу жаан",
+    "light snow showers": "Кар жаашы мүмкүн",
+    "snow showers": "Кар жаашы мүмкүн",
+    "heavy snow showers": "Кар жаашы мүмкүн",
+    "light snowfall": "Кар жаайт",
+    "snowfall": "кар жаайт",
+    "heavy snowfall": "Кар жаайт",
+    "thundershowers": "Thundershowers",
+    "heavy thundershowers": "Күн күркүрөйт",
+    "thunder": "күндүн күркүрөөсү",
+    "heavy thunder": "Күндүн күркүрөгөнү",
+    "light sleet showers": "Жамгыр жаайт",
+    "sleet showers": "Жаан жаайт",
+    "heavy sleet showers": "Жаан-чачындуу жаайт",
+    "light sleet rain": "нөшөрлүү жамгыр",
+    "sleet rain": "нөшөрлүү жамгыр",
+    "heavy sleet rain": "нөшөрлөп жааган жамгыр",
+    "fog": "туман"
+  },
+  "unit abbreviations": {
+    "C": "C",
+    "F": "F",
+    "mm": "мм",
+    "in": "IN",
+    "m/s": "м/с",
+    "km/h": "км/ч",
+    "mph": "мили",
+    "Bft": "час",
+    "kn": "KN",
+    "hPa": "гПа",
+    "inHg": "час",
+    "mmHg": "ммHg",
+    "mbar": "мбар"
+  }
+}

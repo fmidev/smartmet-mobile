@@ -1,8 +1,10 @@
 import React from 'react';
+import i18n from 'i18next';
+import { translate } from 'react-i18next';
 import {
   View, Text, StyleSheet, Image, TouchableWithoutFeedback, FlatList,
 } from 'react-native';
-import moment from 'moment';
+import moment from 'moment-with-locales-es6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Images from '../assets/images';
 import { converter } from '../components/Helper'
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class ListItem extends React.Component {
+export class ListItem extends React.Component {
 
   constructor(props) {
     super(props)
@@ -63,6 +65,7 @@ export default class ListItem extends React.Component {
   }
 
   renderCollapsableContent = (item) => {
+    const { t } = this.props;
     // console.log('renderCollapsableContent') // TODO: Check is this normal behaviour 
 
     return (
@@ -92,7 +95,7 @@ export default class ListItem extends React.Component {
           <Text style={{ color: 'green' }}>
             {item.windspeedms}
             {' '}
-            {this.props.parameterUnitAbbMap['wind']}
+            {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}
           </Text>
         </View>
 
@@ -110,7 +113,9 @@ export default class ListItem extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
     const IconComponent = Ionicons;
+    moment.locale(i18n.language)
     return (
       <View style={styles.listItemContainer} >
         <TouchableWithoutFeedback onPress={this.toggleListItem}>
@@ -133,7 +138,7 @@ export default class ListItem extends React.Component {
               <Text style={{ color: 'green' }}>
                 {converter(this.props.parameterUnitMap['wind'], this.props.item.item.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}
                 {' '}
-                {this.props.parameterUnitAbbMap['wind']}
+                {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}
               </Text>
             </View>
 
@@ -162,3 +167,5 @@ export default class ListItem extends React.Component {
     );
   }
 }
+
+export default translate(['weekday abbreviations', 'unit abbreviations'], { wait: true })(ListItem);
