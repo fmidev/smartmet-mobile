@@ -1,9 +1,10 @@
 import React from 'react';
+import i18n from 'i18next';
 import { translate } from 'react-i18next';
 import {
   View, Text, StyleSheet, Image, TouchableWithoutFeedback, FlatList,
 } from 'react-native';
-import moment from 'moment';
+import moment from 'moment-with-locales-es6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Images from '../assets/images';
 import { converter } from '../components/Helper'
@@ -114,12 +115,13 @@ export class ListItem extends React.Component {
   render() {
     const { t } = this.props;
     const IconComponent = Ionicons;
+    moment.locale(i18n.language)
     return (
       <View style={styles.listItemContainer} >
         <TouchableWithoutFeedback onPress={this.toggleListItem}>
           <View style={styles.listItem} >
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-              <Text style={{ fontWeight: 'bold', color: 'black' }}>{`${t('weekday abbreviations:' + moment(this.props.item.item.time).format('ddd').toLowerCase())}`}</Text>
+              <Text style={{ fontWeight: 'bold', color: 'black' }}>{moment(this.props.item.item.time).format('ddd')}</Text>
               <Text style={{ fontWeight: 'bold' }}>{moment(this.props.item.item.time).format('DD')}</Text>
             </View>
 

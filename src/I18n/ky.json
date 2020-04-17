@@ -10,8 +10,8 @@
     "maps": "Карталар"
   },
   "settings": {
-    "english": "Англисче",
-    "kyrgyz": "Кыргызча",
+    "en": "English",
+    "ky": "Кыргызча",
     "about": "жөнүндө",
     "settings": "Орнотуулар",
     "language": "тил",
@@ -48,15 +48,6 @@
     "sleet rain": "нөшөрлүү жамгыр",
     "heavy sleet rain": "нөшөрлөп жааган жамгыр",
     "fog": "туман"
-  },
-  "weekday abbreviations": {
-    "mon": "ДҮЙ",
-    "tue": "ШЕЙ",
-    "wed": "ШАР",
-    "thu": "БЕЙ",
-    "fri": "ЖУМ",
-    "sat": "ИШЕ",
-    "sun": "ЖЕК"
   },
   "unit abbreviations": {
     "C": "C",

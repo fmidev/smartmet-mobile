@@ -10,8 +10,8 @@
     "maps": "Maps"
   },
   "settings": {
-    "english": "English",
-    "kyrgyz": "Kyrgyz",
+    "en": "English",
+    "ky": "Кыргызча",
     "about": "About",
     "settings": "Settings",
     "language": "Language",
@@ -48,15 +48,6 @@
     "sleet rain": "Sleet rain",
     "heavy sleet rain": "Heavy sleet rain",
     "fog": "Fog"
-  },
-  "weekday abbreviations": {
-    "mon": "MON",
-    "tue": "TUE",
-    "wed": "WED",
-    "thu": "THU",
-    "fri": "FRI",
-    "sat": "SAT",
-    "sun": "SUN"
   },
   "unit abbreviations": {
     "C": "C",

@@ -3,7 +3,7 @@ import Config from 'react-native-config';
 import { translate } from 'react-i18next';
 import i18n from 'i18next';
 import { connect } from 'react-redux';
-import moment from 'moment';
+import moment from 'moment-with-locales-es6';
 import {
   View, Text, StyleSheet, Image, FlatList, TouchableHighlight,
 } from 'react-native';
@@ -129,7 +129,7 @@ export class HomeScreen extends React.Component {
       <View style={styles.topContainer}>
 
         <View style={styles.dateTextContainer}>
-          <Text style={styles.dateText}>{moment(this.props.tsDataObj.localAnalysisTime).format('dddd MMMM D HH:mm')}</Text>
+          <Text style={styles.dateText}>{moment(this.props.tsDataObj.localAnalysisTime).format('LLLL')}</Text>
         </View>
 
         <View style={styles.weatherInfoContainer}>
@@ -277,6 +277,7 @@ export class HomeScreen extends React.Component {
   }
 
   render() {
+    moment.locale(i18n.language)
     if (this.props.loading) {
       return this.renderLoading();
     }
