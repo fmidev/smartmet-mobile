@@ -20,8 +20,12 @@ platform :ios do
     setup_circle_ci
   end
   
-  desc "Ad-hoc build"
   lane :beta do
+    build_app(scheme: "SmartMetMobile")
+  end
+  
+  desc "Ad-hoc build"
+  lane :adhoc do
     match(type: "adhoc")
     gym(export_method: "ad-hoc")
   end
