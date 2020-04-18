@@ -18,6 +18,7 @@ const Navigator = createStackNavigator(
   {
     Home: {
       screen: BottomTabNavigator,
+      headerMode: 'none',
       navigationOptions: ({ navigation }) => ({
         title: <HeaderTitle />,
         headerLeft: () => (
