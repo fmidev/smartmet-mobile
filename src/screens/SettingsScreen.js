@@ -12,13 +12,18 @@ import { connect } from 'react-redux';
 import { asyncStorageSetItem } from '../components/Helper'
 
 const styles = StyleSheet.create({
+  container: {
+    color: 'black',
+  },
   header: {
+    color: 'black',
     paddingTop: 7,
     paddingLeft: 10,
     paddingBottom: 7,
     textTransform: 'uppercase',
   },
   about: {
+    color: 'black',
     backgroundColor: 'white',
     paddingTop: 30,
     paddingLeft: 10,
@@ -38,7 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
   },
   settingslistitem: {
-    color: 'gray',
+    color: 'black',
     fontSize: 16,
     textTransform: 'capitalize',
   },
