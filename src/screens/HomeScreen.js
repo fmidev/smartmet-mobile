@@ -42,39 +42,44 @@ const styles = StyleSheet.create({
   feelsLike: {
     fontSize: 12,
     color: 'black',
-    marginTop: 37,
+    marginTop: 32,
     marginLeft: 6,
   },
   symbolDescription: {
     fontSize: 12,
     color: 'black',
-    marginTop: 4,
-    marginLeft: 15,
+    marginTop: 0,
+    marginLeft: 40,
   },
   symbol: {
     left: 50,
-    marginTop: -22,
+    marginTop: -28,
   },
   weatherDetailsContainer: {
-    alignSelf: 'center',
-    marginTop: 30,
-    flexDirection: 'row',
+    marginTop: 35,
+    flex: 1, flexDirection: 'row', justifyContent: 'space-between'
   },
   precipitation: {
-    marginRight: 60,
-    marginTop: 5,
+    marginLeft: 20,
   },
-  precipitationText: {
-    fontSize: 12,
-    color: 'black',
+  celestialSymbol: {
+    marginLeft: 58,
+  },
+  celestialTextContainer: {
+    marginTop: 10,
+    marginRight: 48,
+  },
+  windspeed: {
+    marginRight: 20,
+    marginTop: -20,
   },
   celestialText: {
     color: 'black',
     fontSize: 12,
   },
-  windspeed: {
-    marginLeft: 40,
-    marginTop: -15,
+  precipitationText: {
+    fontSize: 12,
+    color: 'black',
   },
   flatListContainer: {
     flex: 1,
@@ -171,8 +176,10 @@ export class HomeScreen extends React.Component {
             </Text>
           </View>
 
-          <Text>
+          <View style={styles.celestialSymbol}>
             <Image style={{ width: 30, height: 30 }} source={require('../assets/images/celestial-status-icon.png')} />
+          </View>
+          <View style={styles.celestialTextContainer}>
             <Text style={styles.celestialText}>
               {moment(mainInfoData.sunrise).format('LT')}
               {' '}
@@ -180,7 +187,7 @@ export class HomeScreen extends React.Component {
               {' '}
               {moment(mainInfoData.sunset).format('LT')}
             </Text>
-          </Text>
+          </View>
 
 
           <View style={styles.windspeed}>
