@@ -42,6 +42,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 0,
   },
+  listItemLanguages: {
+    marginLeft: 4,
+    color: 'black',
+    fontSize: 16,
+  },
   settingslistitem: {
     color: 'black',
     fontSize: 16,
@@ -105,7 +110,8 @@ export class SettingsScreen extends React.Component {
           availableLanguages.map((currentLang, i) => (
             <ListItem
               key={i}
-              title={t('settings:' + currentLang)}
+              title={<Text style={styles.listItemLanguages} >{t('settings:' + currentLang)}</Text>
+              }
               bottomDivider
               checkmark={appLanguage === currentLang}
               onPress={() => this.onChangeLang(currentLang)}
