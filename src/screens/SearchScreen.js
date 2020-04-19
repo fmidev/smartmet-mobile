@@ -1,28 +1,29 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, TextInput, FlatList, TouchableWithoutFeedback,
+  View, Platform, Text, StyleSheet, TextInput, FlatList, TouchableWithoutFeedback,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { HeaderBackButton } from 'react-navigation-stack';
 import { autocompleteInit, autocompleteFetch } from '../actions/AutocompleteActions';
 import { tsFetchUpdate } from '../actions/TimeSeriesActions';
-
+console.log('Platform.OS', Platform.OS)
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     backgroundColor: 'white',
-    paddingTop: 10,
+    paddingTop: Platform.OS === 'ios' ? 45 : 10,
+    height: Platform.OS === 'ios' ? 'auto' : 60,
     paddingBottom: 10,
     paddingRight: 30,
-    height: 60,
   },
   textInput: {
     backgroundColor: '#E6E8E9',
     borderRadius: 2,
     color: 'black',
+    marginLeft: Platform.OS === 'ios' ? 12 : 2,
     fontSize: 16,
     flexDirection: 'row',
-    width: 332,
+    width: Platform.OS === 'ios' ? 325 : 332,
   },
   autocompleteContainer: {
     paddingTop: 1,
@@ -64,7 +65,7 @@ export class SearchScreen extends React.Component {
     return {
       header: () => (
         <View style={styles.header}>
-          <HeaderBackButton style={styles.headerBackButton} onPress={() => navigation.goBack(null)} />
+          <HeaderBackButton onPress={() => navigation.goBack(null)} />
           <TextInput style={styles.textInput} autoFocus={true} onKeyPress={(e) => params.handleKeyPress(e.nativeEvent.key)} />
         </View>
       ),
