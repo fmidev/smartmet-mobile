@@ -80,7 +80,7 @@ export class ListItem extends React.Component {
         />
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={{ color: 'black' }}>{item.temperature}</Text>
+          <Text style={{ color: 'black' }}>{item.temperature}°</Text>
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
@@ -131,7 +131,7 @@ export class ListItem extends React.Component {
             />
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-              <Text style={{ color: 'black', fontWeight: 'bold' }}>{converter(this.props.parameterUnitMap['temperature'], this.props.item.item.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}</Text>
+              <Text style={{ color: 'black', fontWeight: 'bold' }}>{converter(this.props.parameterUnitMap['temperature'], this.props.item.item.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}°</Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
