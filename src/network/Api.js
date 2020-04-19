@@ -4,14 +4,8 @@ const timeseriesUrl = `${Config.API_URL}/timeseries?format=json&precision=full&p
 
 const autocompleteUrl = `${Config.API_URL}/autocomplete?keyword=${Config.AUTOCOMPLETE_KEYWORD}`;
 
-export function getTimeSeries(coords, place) {
-  let apiUrl
-  if (coords) {
-    apiUrl = timeseriesUrl + '&latlon=' + coords.lat + ',' + coords.lon
-  }
-  if (place) {
-    apiUrl = timeseriesUrl + '&place=' + place
-  }
+export function getTimeSeries(coords, lang) {
+  let apiUrl = timeseriesUrl + '&latlon=' + coords.lat + ',' + coords.lon + '&lang=' + lang
   console.log('apiUrl', apiUrl)
 
   return fetch(apiUrl)
@@ -27,9 +21,9 @@ export function getTimeSeries(coords, place) {
     });
 }
 
-export function getAutocomplete(pattern) {
-  const acUrlPattern = autocompleteUrl + '&pattern=' + pattern;
-  console.log('acUrlPattern', acUrlPattern)
+export function getAutocomplete(pattern, lang) {
+  const acUrlPattern = autocompleteUrl + '&pattern=' + pattern.toUpperCase() + '&lang=' + lang;
+  console.log('acUrl', acUrlPattern)
   return fetch(acUrlPattern)
     .then((response) => response.json().then((responseJson) => {
       return responseJson;

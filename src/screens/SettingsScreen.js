@@ -7,6 +7,8 @@ import { ListItem } from 'react-native-elements';
 import AsyncStorage from '@react-native-community/async-storage';
 import RBSheet from "react-native-raw-bottom-sheet";
 import { settingsChange } from '../actions/SettingsActions';
+import { setLang } from '../actions/QueryParamActions';
+import { tsFetchUpdate } from '../actions/TimeSeriesActions';
 import { UNITS } from '../Constants';
 import { connect } from 'react-redux';
 import { asyncStorageSetItem } from '../components/Helper'
@@ -82,6 +84,8 @@ export class SettingsScreen extends React.Component {
     i18n.changeLanguage(lang);
     try {
       await AsyncStorage.setItem('@APP:languageCode', lang);
+      this.props.setLang(i18n.language);
+      this.props.tsFetchUpdate();
     } catch (error) {
       // TODO: Error handling
     }
@@ -172,4 +176,4 @@ const mapStateToProps = (state) => {
   return { parameterUnitMap, parameterUnitAbbMap };
 };
 
-export default connect(mapStateToProps, { settingsChange })(translate(['settings', 'unit abbreviations'], { wait: true })(SettingsScreen));
+export default connect(mapStateToProps, { settingsChange, setLang, tsFetchUpdate })(translate(['settings', 'unit abbreviations'], { wait: true })(SettingsScreen));

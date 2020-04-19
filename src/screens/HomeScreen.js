@@ -11,6 +11,7 @@ import { withNavigation } from 'react-navigation';
 import { LoadingView } from '../components';
 import { tsFetch } from '../actions/TimeSeriesActions';
 import { settingsInit } from '../actions/SettingsActions';
+import { setLang } from '../actions/QueryParamActions';
 import Images from '../assets/images';
 import ListItem from '../components/ListItem';
 import { converter } from '../components/Helper'
@@ -107,6 +108,7 @@ export class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
+    this.props.setLang(i18n.language);
     this.props.settingsInit();
     this.props.tsFetch();
   }
@@ -306,4 +308,4 @@ const mapStateToProps = (state) => {
   return { loading, tsDataObj, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
-export default withNavigation(connect(mapStateToProps, { tsFetch, settingsInit })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));
+export default withNavigation(connect(mapStateToProps, { tsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));

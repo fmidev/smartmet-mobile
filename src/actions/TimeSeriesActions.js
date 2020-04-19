@@ -1,4 +1,4 @@
-import { TS_FETCH, TS_FETCH_SUCCESS } from './types';
+import { TS_FETCH, TS_FETCH_SUCCESS, PLACE_SET } from './types';
 import Geolocation from "@react-native-community/geolocation";
 import { getTimeSeries } from '../network/Api';
 
@@ -8,14 +8,19 @@ const getPosition = function (options) {
   });
 }
 
-export const tsFetch = () => (dispatch) => {
+export const tsFetch = () => (dispatch, getState) => {
   dispatch({ type: TS_FETCH });
   getPosition()
     .then((position) => {
       const coords = {}
       coords.lat = position.coords.latitude
       coords.lon = position.coords.longitude
-      getTimeSeries(coords, null)
+      dispatch({
+        type: PLACE_SET,
+        payload: coords,
+      });
+
+      getTimeSeries(coords, getState().lang.lang)
         .then((responseJson) => {
           const tsDataObj = responseJson;
           dispatch({
@@ -32,9 +37,9 @@ export const tsFetch = () => (dispatch) => {
     });
 };
 
-export const tsFetchUpdate = (place) => (dispatch) => {
+export const tsFetchUpdate = () => (dispatch, getState) => {
   dispatch({ type: TS_FETCH });
-  getTimeSeries(null, place)
+  getTimeSeries(getState().coords.coords, getState().lang.lang)
     .then((responseJson) => {
       const tsDataObj = responseJson;
       dispatch({

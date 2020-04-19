@@ -2,10 +2,12 @@ import React from 'react';
 import {
   View, Platform, Text, StyleSheet, TextInput, FlatList, TouchableWithoutFeedback,
 } from 'react-native';
+import i18n from 'i18next';
 import { connect } from 'react-redux';
 import { HeaderBackButton } from 'react-navigation-stack';
 import { autocompleteInit, autocompleteFetch } from '../actions/AutocompleteActions';
 import { tsFetchUpdate } from '../actions/TimeSeriesActions';
+import { setPlace } from '../actions/QueryParamActions';
 console.log('Platform.OS', Platform.OS)
 const styles = StyleSheet.create({
   header: {
@@ -57,7 +59,7 @@ export class SearchScreen extends React.Component {
   }
 
   _callAutocomplete(pressedKey) {
-    this.props.autocompleteFetch(pressedKey);
+    this.props.autocompleteFetch(pressedKey, i18n.language);
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -72,9 +74,10 @@ export class SearchScreen extends React.Component {
     }
   };
 
-  navigateHomeWithPlace = (place) => {
+  navigateHomeWithCoords = (coords) => {
+    this.props.setPlace(coords)
     this.props.navigation.navigate('Home');
-    this.props.tsFetchUpdate(place);
+    this.props.tsFetchUpdate();
   }
 
   render() {
@@ -85,7 +88,7 @@ export class SearchScreen extends React.Component {
           keyboardShouldPersistTaps={'handled'}
           data={this.props.acDataObj}
           renderItem={({ item }) =>
-            <TouchableWithoutFeedback onPress={() => { this.navigateHomeWithPlace(item.name) }}>
+            <TouchableWithoutFeedback onPress={() => { this.navigateHomeWithCoords({ lat: item.lat, lon: item.lon }) }}>
               <View style={styles.resultItem} >
                 <Text style={styles.resultItemText} >{item.name}</Text>
               </View>
@@ -105,4 +108,4 @@ const mapStateToProps = (state) => {
   return { loading, pattern, acDataObj };
 };
 
-export default connect(mapStateToProps, { autocompleteInit, autocompleteFetch, tsFetchUpdate })(SearchScreen);
+export default connect(mapStateToProps, { autocompleteInit, autocompleteFetch, tsFetchUpdate, setPlace })(SearchScreen);

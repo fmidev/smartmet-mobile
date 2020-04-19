@@ -5,3 +5,5 @@ export const AUTOCOMPLETE_FETCH = 'autocomplete_fetch';
 export const AUTOCOMPLETE_FETCH_SUCCESS = 'autocomplete_fetch_success';
 export const SETTINGS_INIT = 'settings_init';
 export const SETTINGS_CHANGE = 'settings_change'
+export const LANG_SET = 'queryparam_set'
+export const PLACE_SET = 'place_set'

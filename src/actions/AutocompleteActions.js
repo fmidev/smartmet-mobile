@@ -1,7 +1,7 @@
 import { AUTOCOMPLETE_INIT, AUTOCOMPLETE_FETCH, AUTOCOMPLETE_FETCH_SUCCESS } from './types';
 import { getAutocomplete } from '../network/Api';
 
-export const autocompleteFetch = (pressedKey) => (dispatch, getState) => {
+export const autocompleteFetch = (pressedKey, lang) => (dispatch, getState) => {
 
   dispatch({
     type: AUTOCOMPLETE_FETCH,
@@ -10,7 +10,7 @@ export const autocompleteFetch = (pressedKey) => (dispatch, getState) => {
 
   const pattern = getState().acDataObj.pattern.join("")
 
-  getAutocomplete(pattern)
+  getAutocomplete(pattern, lang)
     .then((responseJson) => {
 
       let acDataObj = []
