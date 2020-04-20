@@ -27,6 +27,8 @@ const styles = StyleSheet.create({
     // backgroundColor: 'azure',
     backgroundColor: 'rgb(222,236,246)',
     marginRight: 1,
+    paddingLeft: 4,
+    paddingRight: 4,
     paddingBottom: 15,
   }
 });
@@ -88,7 +90,7 @@ export class ListItem extends React.Component {
             source={require('../assets/images/feels-the-same.png')}
             style={{ height: 50, width: 50, marginTop: 6 }}
           />
-          <Text style={{ color: 'black' }}>{item.feelslike}</Text>
+          <Text style={{ color: 'black' }}>{item.feelslike}°</Text>
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
@@ -100,11 +102,11 @@ export class ListItem extends React.Component {
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={{ color: 'darkslategrey' }}>{item.humidity}</Text>
+          <Text style={{ color: 'darkslategrey' }}>{item.humidity} %</Text>
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={{ color: 'darkslategrey' }}>{item.precipitation1h}</Text>
+          <Text style={{ color: 'darkslategrey' }}>{item.precipitation1h} {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['precipitation'])}`} </Text>
         </View>
 
       </View>
@@ -143,7 +145,7 @@ export class ListItem extends React.Component {
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-              <Text style={{ color: 'darkslategrey' }}>{this.props.item.item.humidity.toFixed(0)}</Text>
+              <Text style={{ color: 'darkslategrey' }}>{this.props.item.item.humidity.toFixed(0)}  %</Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
