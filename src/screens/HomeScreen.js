@@ -43,22 +43,28 @@ const styles = StyleSheet.create({
   feelsLike: {
     fontSize: 12,
     color: 'black',
-    marginTop: 32,
-    marginLeft: 6,
+    marginLeft: 65,
   },
   symbolDescription: {
     fontSize: 12,
     color: 'black',
-    marginTop: 0,
-    marginLeft: 40,
+    marginRight: 85,
   },
   symbol: {
     left: 50,
     marginTop: -28,
   },
+  weatherTextContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   weatherDetailsContainer: {
     marginTop: 35,
-    flex: 1, flexDirection: 'row', justifyContent: 'space-between'
+    marginBottom: 10,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   precipitation: {
     marginLeft: 20,
@@ -140,29 +146,28 @@ export class HomeScreen extends React.Component {
         </View>
 
         <View style={styles.weatherInfoContainer}>
-
           <View>
             <Text style={styles.weatherInfo}>
               {converter(this.props.parameterUnitMap['temperature'], mainInfoData.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
               {' '}
               °{this.props.parameterUnitAbbMap['temperature']}
             </Text>
-            <Text style={styles.feelsLike}>
-              {`${t('common:feels like')} °`}
-              {' '}
-              {converter(this.props.parameterUnitMap['temperature'], mainInfoData.feelslike).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
-            </Text>
           </View>
-
           <View style={styles.symbol}>
             <Image style={{ width: 120, height: 120 }} source={Images.symbols[mainInfoData.smartsymbol]} />
-            <Text style={styles.symbolDescription}>{`${t('weather:' + mainInfoData.weather)} `} </Text>
           </View>
+        </View>
 
+        <View style={styles.weatherTextContainer}>
+          <Text style={styles.feelsLike}>
+            {`${t('common:feels like')} °`}
+            {' '}
+            {converter(this.props.parameterUnitMap['temperature'], mainInfoData.feelslike).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
+          </Text>
+          <Text style={styles.symbolDescription}>{`${t('weather:' + mainInfoData.weather)} `} </Text>
         </View>
 
         <View style={styles.weatherDetailsContainer}>
-
           <View style={styles.precipitation}>
             <Text>
               <Image style={{ width: 18, height: 18 }} source={require('../assets/images/precipitation-icon.png')} />
@@ -177,7 +182,6 @@ export class HomeScreen extends React.Component {
               </Text>
             </Text>
           </View>
-
           <View style={styles.celestialSymbol}>
             <Image style={{ width: 30, height: 30 }} source={require('../assets/images/celestial-status-icon.png')} />
           </View>
@@ -190,8 +194,6 @@ export class HomeScreen extends React.Component {
               {moment(mainInfoData.sunset).format('LT')}
             </Text>
           </View>
-
-
           <View style={styles.windspeed}>
             <View style={{
               flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20,
@@ -209,7 +211,6 @@ export class HomeScreen extends React.Component {
               <Text style={{ position: 'absolute', fontSize: 12, color: 'black' }}>{converter(this.props.parameterUnitMap['wind'], mainInfoData.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}</Text>
             </View>
           </View>
-
         </View>
 
 
