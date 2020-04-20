@@ -12,7 +12,7 @@ export const UNITS = [
         unitId: 2,
         unitAbb: 'F',
         unit: 'fahrenheit',
-        unitPrecision: 1
+        unitPrecision: 0
       }
     ]
   },
