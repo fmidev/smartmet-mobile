@@ -117,6 +117,12 @@ export class HomeScreen extends React.Component {
     this.props.setLang(i18n.language);
     this.props.settingsInit();
     this.props.tsFetch();
+
+    let serverTimeNextDivisibleByThree = moment(this.props.tsDataObj.serverTime)
+    while (parseInt(serverTimeNextDivisibleByThree.utc().format('HH')) % 3 !== 0) {
+      serverTimeNextDivisibleByThree.add(60, 'minutes')
+    }
+    this.serverTimeNextDivisibleByThree = serverTimeNextDivisibleByThree
   }
 
   renderLoading() {
@@ -129,10 +135,8 @@ export class HomeScreen extends React.Component {
     const { t } = this.props;
     let mainInfoData = {};
 
-    const serverTimeNearestHour = moment(this.props.tsDataObj.serverTime).add(30, 'minutes').utc().format('YYYYMMDDTHH');
-
     this.props.tsDataObj.data.forEach((element) => {
-      if (element.utctime.substring(0, 11) === serverTimeNearestHour) {
+      if (element.utctime.substring(0, 11) === this.serverTimeNextDivisibleByThree.utc().format('YYYYMMDDTHH')) {
         mainInfoData = element;
         this.props.tsDataObj.localAnalysisTime = element.time
       }
@@ -248,7 +252,7 @@ export class HomeScreen extends React.Component {
     let listLength = 0;
 
     this.props.tsDataObj.data.forEach((element) => {
-      if (element.time.substring(9, 11) === Config.WEEKDAY_LIST_FORECAST_HOUR && currentServerTimeLocal.format('DD') <= moment(element.time).format('DD') && listLength < Config.WEEKDAY_LIST_LENGTH) {
+      if (parseInt(element.time.substring(9, 11)) === 12 && currentServerTimeLocal.format('DD') < moment(element.time).format('DD') && listLength < Config.WEEKDAY_LIST_LENGTH) {
         listData.push(element);
         listLength++;
       }
@@ -275,7 +279,7 @@ export class HomeScreen extends React.Component {
           <FlatList
             style={{ flex: 1 }}
             data={this.getListData()}
-            renderItem={(item) => <ListItem item={item} tsDataObj={this.props.tsDataObj} parameterUnitMap={this.props.parameterUnitMap} parameterUnitAbbMap={this.props.parameterUnitAbbMap} parameterUnitPrecisionMap={this.props.parameterUnitPrecisionMap} />}
+            renderItem={(item) => <ListItem item={item} tsDataObj={this.props.tsDataObj} serverTimeNextDivisibleByThree={this.serverTimeNextDivisibleByThree} parameterUnitMap={this.props.parameterUnitMap} parameterUnitAbbMap={this.props.parameterUnitAbbMap} parameterUnitPrecisionMap={this.props.parameterUnitPrecisionMap} />}
             keyExtractor={(item) => item.time}
             scrollEnabled
             ListHeaderComponent={() => this.renderMainInfo()}

@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     borderRadius: 0,
   },
   collapsableContent: {
-    // backgroundColor: 'azure',
     backgroundColor: 'rgb(222,236,246)',
     marginRight: 1,
     paddingLeft: 4,
@@ -50,7 +49,7 @@ export class ListItem extends React.Component {
 
     this.props.tsDataObj.data.forEach(element => {
 
-      if ((element.time).includes(itemDay)) {
+      if (moment(element.utctime) >= this.props.serverTimeNextDivisibleByThree.utc().set({ minute: 0, second: 0, millisecond: 0 }) && (element.time).includes(itemDay)) {
         const collapsableItemObj = {}
         collapsableItemObj.time = element.time
         collapsableItemObj.smartsymbol = element.smartsymbol
