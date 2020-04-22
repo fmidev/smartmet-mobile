@@ -117,12 +117,6 @@ export class HomeScreen extends React.Component {
     this.props.setLang(i18n.language);
     this.props.settingsInit();
     this.props.tsFetch();
-
-    let serverTimeNextDivisibleByThree = moment(this.props.tsDataObj.serverTime)
-    while (parseInt(serverTimeNextDivisibleByThree.utc().format('HH')) % 3 !== 0) {
-      serverTimeNextDivisibleByThree.add(60, 'minutes')
-    }
-    this.serverTimeNextDivisibleByThree = serverTimeNextDivisibleByThree
   }
 
   renderLoading() {
@@ -136,7 +130,7 @@ export class HomeScreen extends React.Component {
     let mainInfoData = {};
 
     this.props.tsDataObj.data.forEach((element) => {
-      if (element.utctime.substring(0, 11) === this.serverTimeNextDivisibleByThree.utc().format('YYYYMMDDTHH')) {
+      if (element.utctime.substring(0, 11) === this.props.tsDataObj.nextHourDivisibleByThreeFromServerTime.utc().format('YYYYMMDDTHH')) {
         mainInfoData = element;
         this.props.tsDataObj.localAnalysisTime = element.time
       }
@@ -247,12 +241,13 @@ export class HomeScreen extends React.Component {
     const dataTimeUtc = moment(this.props.tsDataObj.data[0].utctime)
     const dataTimeLocal = moment(this.props.tsDataObj.data[0].time)
     const utcLocalDiff = moment.duration(dataTimeLocal.diff(dataTimeUtc));
-    const currentServerTimeUtc = moment.utc(this.props.tsDataObj.serverTime);
-    const currentServerTimeLocal = currentServerTimeUtc.add(utcLocalDiff, 'hours')
     let listLength = 0;
+    const nextHourDivisibleByThreeFromServerTimeLocal = this.props.tsDataObj.nextHourDivisibleByThreeFromServerTime.clone();
+    nextHourDivisibleByThreeFromServerTimeLocal.add(utcLocalDiff, 'hours')
 
     this.props.tsDataObj.data.forEach((element) => {
-      if (parseInt(element.time.substring(9, 11)) === 12 && currentServerTimeLocal.format('DD') < moment(element.time).format('DD') && listLength < Config.WEEKDAY_LIST_LENGTH) {
+      console.log('pekka ennen', element.time)
+      if (parseInt(element.time.substring(9, 11)) === 12 && moment(element.time).isSameOrAfter(nextHourDivisibleByThreeFromServerTimeLocal.format('YYYYMMDDTHHmm'), 'day') && listLength < Config.WEEKDAY_LIST_LENGTH) {
         listData.push(element);
         listLength++;
       }
@@ -279,7 +274,7 @@ export class HomeScreen extends React.Component {
           <FlatList
             style={{ flex: 1 }}
             data={this.getListData()}
-            renderItem={(item) => <ListItem item={item} tsDataObj={this.props.tsDataObj} serverTimeNextDivisibleByThree={this.serverTimeNextDivisibleByThree} parameterUnitMap={this.props.parameterUnitMap} parameterUnitAbbMap={this.props.parameterUnitAbbMap} parameterUnitPrecisionMap={this.props.parameterUnitPrecisionMap} />}
+            renderItem={(item) => <ListItem item={item} tsDataObj={this.props.tsDataObj} nextHourDivisibleByThreeFromServerTime={this.props.tsDataObj.nextHourDivisibleByThreeFromServerTime} parameterUnitMap={this.props.parameterUnitMap} parameterUnitAbbMap={this.props.parameterUnitAbbMap} parameterUnitPrecisionMap={this.props.parameterUnitPrecisionMap} />}
             keyExtractor={(item) => item.time}
             scrollEnabled
             ListHeaderComponent={() => this.renderMainInfo()}

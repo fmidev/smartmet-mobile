@@ -49,7 +49,7 @@ export class ListItem extends React.Component {
 
     this.props.tsDataObj.data.forEach(element => {
 
-      if (moment(element.utctime) >= this.props.serverTimeNextDivisibleByThree.utc().set({ minute: 0, second: 0, millisecond: 0 }) && (element.time).includes(itemDay)) {
+      if (moment(element.utctime).isSameOrAfter(this.props.nextHourDivisibleByThreeFromServerTime.format('YYYYMMDDTHHmm'), 'hour') && (element.time).includes(itemDay)) {
         const collapsableItemObj = {}
         collapsableItemObj.time = element.time
         collapsableItemObj.smartsymbol = element.smartsymbol

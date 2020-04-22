@@ -1,4 +1,5 @@
 import Config from 'react-native-config';
+import moment from 'moment-with-locales-es6';
 
 const timeseriesUrl = `${Config.API_URL}/timeseries?format=json&precision=full&param=time,utctime,name,temperature,feelslike,humidity,precipitation1h,windspeedms,winddirection,weather,sunrise,sunset,smartsymbol&starttime=data&timestep=data&endtime=data&producer=${Config.DATA_PRODUCER}`;
 
@@ -11,7 +12,15 @@ export function getTimeSeries(coords, lang) {
   return fetch(apiUrl)
     .then((response) => response.json().then((responseJson) => {
       const tsDataObj = {};
+      // tsDataObj.serverTime = 'Wed, 22 Apr 2020 18:54:41 GMT' // DEBUG
       tsDataObj.serverTime = response.headers.get('Date');
+      // console.log('serverTime', tsDataObj.serverTime) // DEBUG
+      tsDataObj.nextHourDivisibleByThreeFromServerTime = moment(tsDataObj.serverTime)
+      tsDataObj.nextHourDivisibleByThreeFromServerTime.add(30, 'minutes').startOf('hour');
+      while (parseInt(tsDataObj.nextHourDivisibleByThreeFromServerTime.utc().format('HH')) % 3 !== 0) {
+        tsDataObj.nextHourDivisibleByThreeFromServerTime.add(1, 'hour')
+      }
+      // console.log('Api.js: tsDataObj.nextHourDivisibleByThreeFromServerTime', tsDataObj.nextHourDivisibleByThreeFromServerTime.utc().format('YYYYMMDDTHHmm')) // DEBUG
       tsDataObj.placeName = responseJson[0].name;
       tsDataObj.data = responseJson;
       return tsDataObj;
