@@ -16,7 +16,7 @@ export function getTimeSeries(coords, lang) {
       tsDataObj.serverTime = response.headers.get('Date');
       // console.log('serverTime', tsDataObj.serverTime) // DEBUG
       tsDataObj.nextHourDivisibleByThreeFromServerTime = moment(tsDataObj.serverTime)
-      tsDataObj.nextHourDivisibleByThreeFromServerTime.add(30, 'minutes').startOf('hour');
+      roundUp(tsDataObj.nextHourDivisibleByThreeFromServerTime, 'hour')
       while (parseInt(tsDataObj.nextHourDivisibleByThreeFromServerTime.utc().format('HH')) % 3 !== 0) {
         tsDataObj.nextHourDivisibleByThreeFromServerTime.add(1, 'hour')
       }
@@ -41,4 +41,8 @@ export function getAutocomplete(pattern, lang) {
     .catch((error) => {
       console.error(error);
     });
+}
+
+function roundUp(momentObj, roundBy) {
+  return momentObj.add(1, roundBy).startOf(roundBy);
 }
