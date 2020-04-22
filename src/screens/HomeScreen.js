@@ -246,7 +246,7 @@ export class HomeScreen extends React.Component {
     nextHourDivisibleByThreeFromServerTimeLocal.add(utcLocalDiff, 'hours')
 
     this.props.tsDataObj.data.forEach((element) => {
-      if (parseInt(element.time.substring(9, 11)) === 12 && moment(element.time).isSameOrAfter(nextHourDivisibleByThreeFromServerTimeLocal.format('YYYYMMDDTHHmm'), 'day') && listLength < Config.WEEKDAY_LIST_LENGTH) {
+      if (parseInt(element.time.substring(9, 11)) === 18 && moment(element.time).isSameOrAfter(nextHourDivisibleByThreeFromServerTimeLocal.format('YYYYMMDDTHHmm'), 'day') && listLength < Config.WEEKDAY_LIST_LENGTH) {
         listData.push(element);
         listLength++;
       }
