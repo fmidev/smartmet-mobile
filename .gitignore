@@ -56,6 +56,5 @@ buck-out/
 *.jsbundle
 
 ios/Pods/
-android/app/src/main/res/values/api-keys.xml
 .env
 .env.production

@@ -25,14 +25,6 @@
 
 2. Create **.env.production** file in the project root and copy the properties from ENV_EXAMPLE (optional)
 
-3. Create **android/app/src/main/res/values/api-keys.xml** file with the content below and enter Google API key between string-tags:
-
-```
-<resources>
-    <string name="GOOGLE_API_KEY"></string>
-</resources>
-```
-
 #### Run in development environment (Android)
 
 1. Open **{PROJECT_DIR}/android** in Android Studio and wait build to be completed
