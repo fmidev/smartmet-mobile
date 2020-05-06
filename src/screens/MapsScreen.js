@@ -157,14 +157,16 @@ export default class MapsScreen extends Component {
                 ref={ref => {
                   this[RBSheet] = ref;
                 }}
-                height={350}
+                height={420}
               >
                 <View>
                   {
                     layerObj.layers.map((currentLayer) => (
                       <ListItem
                         key={currentLayer}
-                        title={currentLayer}
+                        containerStyle={styles.layersList}
+                        title={<Text style={styles.layerTitle} >{currentLayer}</Text>
+                        }
                         bottomDivider
                         onPress={() => { this[RBSheet].close(); this.onChangeLayer(currentLayer); }}
                       />
@@ -231,4 +233,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'transparent',
   },
+  layersList: {
+    padding: 6,
+    borderBottomWidth: 1.5,
+    borderBottomColor: 'black',
+  },
+  layerTitle: {
+    fontSize: 18,
+  }
 });
