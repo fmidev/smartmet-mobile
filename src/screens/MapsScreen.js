@@ -48,8 +48,12 @@ export default class MapsScreen extends Component {
   }
 
   componentDidMount() {
+    this.createWmsQueries()
+    this.loopState()
+  }
 
-    this.getServerTime()
+  createWmsQueries = () => {
+    this.getTimeAndLayers()
       .then(() => {
         const serverTimeUtc = moment(layerObj.serverTimeUtc)
         const remainder = 5 - (serverTimeUtc.minute() % 5);
@@ -61,17 +65,16 @@ export default class MapsScreen extends Component {
 
         this.getWmsImages(wmsQueries).then(img => {
           this.setState({ ...this.state, loading: false })
-          this.loopState()
+
         })
 
       })
       .catch((err) => {
         console.error(err.message); // TODO: Error handling
       });
-
   }
 
-  getServerTime = async () => {
+  getTimeAndLayers = async () => {
 
     const getCapabilitiesUrl = `${Config.API_URL}/wms?service=WMS&version=1.3.0&request=GetCapabilities`;
     const response = await fetch(getCapabilitiesUrl).catch((err) => {
@@ -95,20 +98,29 @@ export default class MapsScreen extends Component {
   }
 
   loopState = async () => {
+    console.log('loopState')
+    let layerIndex = this.state.layerIndex
     for (let i = 0; true; i++) {
-      await this.setLoopInterval()
+      console.log('loopState FOR')
+      await this.wait(200)
+      if (layerIndex !== this.state.layerIndex) {
+        i = 0;
+        layerIndex = this.state.layerIndex;
+      }
       this.setState({ ...this.state, wmsIndex: i % wmsQueries.length });
     }
   }
 
-  setLoopInterval = async () => {
+  wait = async (ms) => {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(), 200)
+      setTimeout(() => resolve(), ms)
     })
   }
 
   onChangeLayer(layer) {
-    this.setState({ ...this.state, layerIndex: layerObj.layers.indexOf(layer) })
+    this.setState({ ...this.state, loading: true, wmsIndex: 0, layerIndex: layerObj.layers.indexOf(layer) })
+    wmsQueries = []
+    this.createWmsQueries()
   }
 
   render() {
