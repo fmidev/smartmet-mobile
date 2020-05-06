@@ -9,6 +9,7 @@ import moment from 'moment-with-locales-es6';
 import { LoadingView } from '../components';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+const parseString = require('react-native-xml2js').parseString;
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE = 41.662971
@@ -48,10 +49,13 @@ export default class MapsScreen extends Component {
   componentDidMount() {
 
     this.getServerTime()
-      .then((serverTimeUtc) => {
-        const foobar = moment(serverTimeUtc)
-        const remainder = 5 - (foobar.minute() % 5);
-        const nextFiveFromServerTime = moment(foobar).add(remainder, 'minutes');
+      .then((layerObj) => {
+
+        console.log('layerObj', layerObj)
+
+        const serverTimeUtc = moment(layerObj.serverTimeUtc)
+        const remainder = 5 - (serverTimeUtc.minute() % 5);
+        const nextFiveFromServerTime = moment(serverTimeUtc).add(remainder, 'minutes');
 
         for (let i = 0; i < Config.WMS_TIMESTEPS; i++) {
           wmsQueries.push(wmsBaseUrl + '&time=' + nextFiveFromServerTime.add(10, 'minutes').utc().format('YYYYMMDDTHHmm'))
@@ -69,16 +73,25 @@ export default class MapsScreen extends Component {
 
   }
 
-  getServerTime = () => {
-    const clusterInfoUrl = `${Config.API_URL}/admin?what=clusterinfo`;
-    return fetch(clusterInfoUrl)
-      .then((response) => {
-        const serverTimeUtc = response.headers.get('Date');
-        return serverTimeUtc;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  getServerTime = async () => {
+    const layerObj = {}
+    const getCapabilitiesUrl = `${Config.API_URL}/wms?service=WMS&version=1.3.0&request=GetCapabilities`;
+    const response = await fetch(getCapabilitiesUrl).catch((err) => {
+      console.log('Error fetching the feed: ', err)
+    });
+    const responseText = await response.text();
+    const serverTimeUtc = response.headers.get('Date');
+
+    parseString(responseText, function (err, result) {
+      const layerArr = result['WMS_Capabilities']['Capability'][0]['Layer'][0]['Layer']
+        .filter(element => element.Name[0].includes('mobile'))
+        .map(element => element.Name[0])
+      layerObj.serverTimeUtc = serverTimeUtc
+      layerObj.layers = layerArr
+    });
+
+    return layerObj
+
   }
 
   getWmsImages = (wmsQueries) => {
