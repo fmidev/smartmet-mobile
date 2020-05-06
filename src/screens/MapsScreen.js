@@ -102,7 +102,7 @@ export default class MapsScreen extends Component {
     let layerIndex = this.state.layerIndex
     for (let i = 0; true; i++) {
       console.log('loopState FOR')
-      await this.wait(200)
+      await this.wait(400)
       if (layerIndex !== this.state.layerIndex) {
         i = 0;
         layerIndex = this.state.layerIndex;
