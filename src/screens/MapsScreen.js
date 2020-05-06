@@ -2,7 +2,9 @@ import Config from 'react-native-config';
 import React, { Component } from 'react';
 import { MapStyle } from "../MapStyle";
 import { StyleSheet, View, Text, Dimensions, Image, TouchableOpacity } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import MapView from 'react-native-maps';
+import RBSheet from "react-native-raw-bottom-sheet";
 import moment from 'moment-with-locales-es6';
 import { LoadingView } from '../components';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,6 +19,7 @@ const OVERLAY_TOP_LEFT_COORDINATE = [LATITUDE + (LATITUDE_DELTA / 2), LONGITUDE 
 const OVERLAY_BOTTOM_RIGHT_COORDINATE = [LATITUDE - (LATITUDE_DELTA / 0.5), LONGITUDE + (LONGITUDE_DELTA / 0.5)];
 const wmsBaseUrl = `${Config.API_URL}/wms?bbox=8766409.902202941%2C5009377.08697311%2C1.001875417394622E7%2C6261721.358716387&CRS=EPSG%3A3067&format=image%2Fpng&height=1024&layers=mobile%3Agfs%3Aprecipitation&request=getmap&service=wms&styles=&transparent=true&version=1.3.0&width=1024`
 const wmsQueries = []
+const layers = ['Temperature', 'Precipitation', 'Wind', 'Radar']
 
 export default class MapsScreen extends Component {
   static propTypes = {
@@ -123,7 +126,28 @@ export default class MapsScreen extends Component {
           </View>
         </View>
         <View style={styles.layerButtonContainer} >
-          <TouchableOpacity style={styles.layerButton} >
+          <TouchableOpacity style={styles.layerButton} onPress={() => this[RBSheet].open()}>
+            <View >
+              <RBSheet
+                ref={ref => {
+                  this[RBSheet] = ref;
+                }}
+                height={300}
+              >
+                <View>
+                  {
+                    layers.map((currentLayer) => (
+                      <ListItem
+                        key={currentLayer}
+                        title={currentLayer}
+                        bottomDivider
+                        onPress={() => { this[RBSheet].close(); }}
+                      />
+                    ))
+                  }
+                </View>
+              </RBSheet>
+            </View>
             <Ionicons name="logo-buffer" size={40} style={{ color: 'black', paddingTop: 2, paddingBottom: 2, paddingLeft: 6, paddingRight: 6 }} />
           </TouchableOpacity>
         </View>
