@@ -202,15 +202,15 @@ const styles = StyleSheet.create({
   header: {
     fontWeight: 'bold',
     paddingBottom: 5,
-    fontSize: 12,
+    fontSize: 16,
   },
   date: {
-    fontSize: 10,
+    fontSize: 14,
     textAlign: 'center',
   },
   time: {
     textAlign: 'center',
-    fontSize: 10,
+    fontSize: 14,
     alignItems: 'center',
     justifyContent: 'center',
   },
