@@ -18,9 +18,9 @@ const LATITUDE_DELTA = 13.5000;;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const OVERLAY_TOP_LEFT_COORDINATE = [LATITUDE + (LATITUDE_DELTA / 2), LONGITUDE - (LATITUDE_DELTA / 2)];
 const OVERLAY_BOTTOM_RIGHT_COORDINATE = [LATITUDE - (LATITUDE_DELTA / 0.5), LONGITUDE + (LONGITUDE_DELTA / 0.5)];
-const wmsBaseUrl = `${Config.API_URL}/wms?bbox=8766409.902202941%2C5009377.08697311%2C1.001875417394622E7%2C6261721.358716387&CRS=EPSG%3A3067&format=image%2Fpng&height=1024&layers=mobile%3Agfs%3Aprecipitation&request=getmap&service=wms&styles=&transparent=true&version=1.3.0&width=1024`
-const wmsQueries = []
-const layers = ['Temperature', 'Precipitation', 'Wind', 'Radar']
+const wmsBaseUrl = `${Config.API_URL}/wms?bbox=8766409.902202941%2C5009377.08697311%2C1.001875417394622E7%2C6261721.358716387&CRS=EPSG%3A3067&format=image%2Fpng&height=1024&request=getmap&service=wms&styles=&transparent=true&version=1.3.0&width=1024`
+let wmsQueries = []
+const layerObj = {}
 
 export default class MapsScreen extends Component {
   static propTypes = {
@@ -33,6 +33,7 @@ export default class MapsScreen extends Component {
     this.state = {
       loading: true,
       wmsIndex: 0,
+      layerIndex: 0,
       region: {
         latitude: LATITUDE,
         longitude: LONGITUDE,
@@ -49,16 +50,13 @@ export default class MapsScreen extends Component {
   componentDidMount() {
 
     this.getServerTime()
-      .then((layerObj) => {
-
-        console.log('layerObj', layerObj)
-
+      .then(() => {
         const serverTimeUtc = moment(layerObj.serverTimeUtc)
         const remainder = 5 - (serverTimeUtc.minute() % 5);
         const nextFiveFromServerTime = moment(serverTimeUtc).add(remainder, 'minutes');
 
         for (let i = 0; i < Config.WMS_TIMESTEPS; i++) {
-          wmsQueries.push(wmsBaseUrl + '&time=' + nextFiveFromServerTime.add(10, 'minutes').utc().format('YYYYMMDDTHHmm'))
+          wmsQueries.push(wmsBaseUrl + '&layers=' + layerObj.layers[this.state.layerIndex] + '&time=' + nextFiveFromServerTime.add(10, 'minutes').utc().format('YYYYMMDDTHHmm'))
         }
 
         this.getWmsImages(wmsQueries).then(img => {
@@ -74,7 +72,7 @@ export default class MapsScreen extends Component {
   }
 
   getServerTime = async () => {
-    const layerObj = {}
+
     const getCapabilitiesUrl = `${Config.API_URL}/wms?service=WMS&version=1.3.0&request=GetCapabilities`;
     const response = await fetch(getCapabilitiesUrl).catch((err) => {
       console.log('Error fetching the feed: ', err)
@@ -89,8 +87,6 @@ export default class MapsScreen extends Component {
       layerObj.serverTimeUtc = serverTimeUtc
       layerObj.layers = layerArr
     });
-
-    return layerObj
 
   }
 
@@ -109,6 +105,10 @@ export default class MapsScreen extends Component {
     return new Promise((resolve) => {
       setTimeout(() => resolve(), 200)
     })
+  }
+
+  onChangeLayer(layer) {
+    this.setState({ ...this.state, layerIndex: layerObj.layers.indexOf(layer) })
   }
 
   render() {
@@ -133,7 +133,7 @@ export default class MapsScreen extends Component {
         </MapView>
         <View style={styles.buttonContainer}>
           <View style={styles.bubble}>
-            <Text style={styles.header}>Temperature</Text>
+            <Text style={styles.header}>{layerObj.layers[this.state.layerIndex]}</Text>
             <Text style={styles.date}>{moment(wmsQueries[this.state.wmsIndex].substr(wmsQueries[this.state.wmsIndex].length - 13)).format('L')}</Text>
             <Text style={styles.time}>{moment(wmsQueries[this.state.wmsIndex].substr(wmsQueries[this.state.wmsIndex].length - 13)).format('HH:mm:ss')}</Text>
           </View>
@@ -145,16 +145,16 @@ export default class MapsScreen extends Component {
                 ref={ref => {
                   this[RBSheet] = ref;
                 }}
-                height={300}
+                height={350}
               >
                 <View>
                   {
-                    layers.map((currentLayer) => (
+                    layerObj.layers.map((currentLayer) => (
                       <ListItem
                         key={currentLayer}
                         title={currentLayer}
                         bottomDivider
-                        onPress={() => { this[RBSheet].close(); }}
+                        onPress={() => { this[RBSheet].close(); this.onChangeLayer(currentLayer); }}
                       />
                     ))
                   }
