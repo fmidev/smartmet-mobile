@@ -102,7 +102,7 @@ export default class MapsScreen extends Component {
     let layerIndex = this.state.layerIndex
     for (let i = 0; true; i++) {
       console.log('loopState FOR')
-      await this.wait(400)
+      await this.wait(600)
       if (layerIndex !== this.state.layerIndex) {
         i = 0;
         layerIndex = this.state.layerIndex;
@@ -145,7 +145,7 @@ export default class MapsScreen extends Component {
         </MapView>
         <View style={styles.buttonContainer}>
           <View style={styles.bubble}>
-            <Text style={styles.header}>{layerObj.layers[this.state.layerIndex]}</Text>
+            <Text style={styles.header}>{layerObj.layers[this.state.layerIndex].substr(layerObj.layers[this.state.layerIndex].indexOf(':') + 1)}</Text>
             <Text style={styles.date}>{moment(wmsQueries[this.state.wmsIndex].substr(wmsQueries[this.state.wmsIndex].length - 13)).format('L')}</Text>
             <Text style={styles.time}>{moment(wmsQueries[this.state.wmsIndex].substr(wmsQueries[this.state.wmsIndex].length - 13)).format('HH:mm:ss')}</Text>
           </View>
@@ -165,7 +165,7 @@ export default class MapsScreen extends Component {
                       <ListItem
                         key={currentLayer}
                         containerStyle={styles.layersList}
-                        title={<Text style={styles.layerTitle} >{currentLayer}</Text>
+                        title={<Text style={styles.layerTitle} >{currentLayer.substr(currentLayer.indexOf(':') + 1)}</Text>
                         }
                         bottomDivider
                         onPress={() => { this[RBSheet].close(); this.onChangeLayer(currentLayer); }}
@@ -205,6 +205,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingBottom: 5,
     fontSize: 16,
+    textTransform: 'capitalize',
   },
   date: {
     fontSize: 14,
@@ -240,5 +241,6 @@ const styles = StyleSheet.create({
   },
   layerTitle: {
     fontSize: 18,
+    textTransform: 'capitalize',
   }
 });
