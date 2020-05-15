@@ -93,7 +93,63 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   warningContainer: {
+    flexDirection: 'row',
     backgroundColor: 'rgb(29,36,89)',
+    height: 75,
+  },
+  warningBarColorContainer: {
+    flexDirection: 'row',
+    marginTop: 5,
+  },
+  warningHeaderContainer: {
+    flex: 1,
+    top: 5, left: 0, right: 0, bottom: 0,
+    position: 'absolute',
+    alignItems: 'center',
+    color: 'white',
+  },
+  weekdayBarContainer: {
+    flexDirection: 'row',
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 35,
+    marginBottom: 7,
+  },
+  warningBar: {
+    flexDirection: 'row',
+    flex: 1,
+    borderRadius: 0,
+    top: 45,
+    marginRight: 15,
+  },
+  warningBarContainer: {
+    flex: 1,
+    paddingHorizontal: 10,
+    textAlign: 'center',
+    paddingTop: 5,
+  },
+  warningDayText: {
+    flexDirection: 'row',
+    fontSize: 12,
+    color: 'white',
+
+    textAlign: 'center',
+  },
+  warningGreen: {
+    width: '33%',
+    height: 6,
+    backgroundColor: 'green',
+  },
+  warningYellow: {
+    width: '13%',
+    height: 6,
+    backgroundColor: 'yellow',
+  },
+  warningRed: {
+    width: '53%',
+    height: 6,
+    backgroundColor: 'red',
   },
   listHeader: {
     backgroundColor: 'lightgray',
@@ -214,12 +270,72 @@ export class HomeScreen extends React.Component {
 
         <TouchableHighlight onPress={() => { this.props.navigation.navigate('Warnings'); }}>
           <View style={styles.warningContainer}>
-            <Text style={{
-              fontSize: 16, textAlign: 'center', color: 'white', paddingTop: 26, paddingBottom: 32,
-            }}
-            >
-              {`${t('common:warnings')}`}
-            </Text>
+            <View style={styles.warningHeaderContainer}>
+              <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>
+                {`${t('common:warnings')}`}
+              </Text>
+            </View>
+
+            <View style={styles.weekdayBarContainer}>
+
+              <View style={styles.warningBarContainer}>
+
+                <Text style={styles.warningDayText}>Mon</Text>
+
+                <View style={styles.warningBarColorContainer}>
+                  <View style={styles.warningGreen}></View>
+                  <View style={styles.warningYellow}></View>
+                  <View style={styles.warningRed}></View>
+                </View>
+
+
+              </View>
+
+              <View style={styles.warningBarContainer}>
+
+                <Text style={styles.warningDayText}>Tue</Text>
+
+                <View style={styles.warningBarColorContainer}>
+                  <View style={styles.warningGreen}></View>
+                  <View style={styles.warningYellow}></View>
+                  <View style={styles.warningRed}></View>
+                </View>
+              </View>
+
+              <View style={styles.warningBarContainer}>
+
+                <Text style={styles.warningDayText}>Wed</Text>
+
+                <View style={styles.warningBarColorContainer}>
+                  <View style={styles.warningGreen}></View>
+                  <View style={styles.warningYellow}></View>
+                  <View style={styles.warningRed}></View>
+                </View>
+              </View>
+
+              <View style={styles.warningBarContainer}>
+
+                <Text style={styles.warningDayText}>Thu</Text>
+
+                <View style={styles.warningBarColorContainer}>
+                  <View style={styles.warningGreen}></View>
+                  <View style={styles.warningYellow}></View>
+                  <View style={styles.warningRed}></View>
+                </View>
+              </View>
+
+              <View style={styles.warningBarContainer}>
+
+                <Text style={styles.warningDayText}>Fri</Text>
+
+                <View style={styles.warningBarColorContainer}>
+                  <View style={styles.warningGreen}></View>
+                  <View style={styles.warningYellow}></View>
+                  <View style={styles.warningRed}></View>
+                </View>
+              </View>
+            </View>
+
           </View>
         </TouchableHighlight>
 
