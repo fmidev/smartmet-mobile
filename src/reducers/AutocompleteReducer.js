@@ -1,9 +1,10 @@
-import { AUTOCOMPLETE_INIT, AUTOCOMPLETE_FETCH, AUTOCOMPLETE_FETCH_SUCCESS } from '../actions/types';
+import { AUTOCOMPLETE_INIT, AUTOCOMPLETE_FETCH, AUTOCOMPLETE_FETCH_SUCCESS, AUTOCOMPLETE_FETCH_FAIL } from '../actions/types';
 
 const INITIAL_STATE = {
   loading: false,
   pattern: [],
   acDataObj: [],
+  error: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -13,6 +14,7 @@ export default (state = INITIAL_STATE, action) => {
         loading: false,
         pattern: [],
         acDataObj: [],
+        error: false,
       }
     case AUTOCOMPLETE_FETCH:
       if (action.payload === 'Backspace') {
@@ -33,7 +35,16 @@ export default (state = INITIAL_STATE, action) => {
       return {
         loading: false,
         acDataObj: action.payload.acDataObj,
-        pattern: [...state.pattern]
+        pattern: [...state.pattern],
+        error: false,
+      };
+
+    case AUTOCOMPLETE_FETCH_FAIL:
+      return {
+        loading: false,
+        pattern: [],
+        acDataObj: [],
+        error: true,
       };
 
     default:

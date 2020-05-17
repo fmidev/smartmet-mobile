@@ -5,6 +5,7 @@ import {
 import i18n from 'i18next';
 import { connect } from 'react-redux';
 import { HeaderBackButton } from 'react-navigation-stack';
+import { ErrorView } from '../components';
 import { autocompleteInit, autocompleteFetch } from '../actions/AutocompleteActions';
 import { tsFetchUpdate } from '../actions/TimeSeriesActions';
 import { setPlace } from '../actions/QueryParamActions';
@@ -58,6 +59,12 @@ export class SearchScreen extends React.Component {
     });
   }
 
+  renderError() {
+    return (
+      <ErrorView />
+    );
+  }
+
   _callAutocomplete(pressedKey) {
     this.props.autocompleteFetch(pressedKey, i18n.language);
   }
@@ -81,6 +88,11 @@ export class SearchScreen extends React.Component {
   }
 
   render() {
+
+    if (this.props.error) {
+      return this.renderError();
+    }
+
     return (
       <View style={styles.autocompleteContainer}>
 
@@ -104,8 +116,8 @@ export class SearchScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   //console.log('STATE', state)
-  const { loading, pattern, acDataObj } = state.acDataObj;
-  return { loading, pattern, acDataObj };
+  const { loading, error, pattern, acDataObj } = state.acDataObj;
+  return { loading, error, pattern, acDataObj };
 };
 
 export default connect(mapStateToProps, { autocompleteInit, autocompleteFetch, tsFetchUpdate, setPlace })(SearchScreen);

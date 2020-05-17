@@ -35,9 +35,6 @@ export function getAutocomplete(pattern, lang) {
     .then((response) => response.json().then((responseJson) => {
       return responseJson;
     }))
-    .catch((error) => {
-      console.error(error);
-    });
 }
 
 function roundUp(momentObj, roundBy) {

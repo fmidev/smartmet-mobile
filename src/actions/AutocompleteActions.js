@@ -1,4 +1,4 @@
-import { AUTOCOMPLETE_INIT, AUTOCOMPLETE_FETCH, AUTOCOMPLETE_FETCH_SUCCESS } from './types';
+import { AUTOCOMPLETE_INIT, AUTOCOMPLETE_FETCH, AUTOCOMPLETE_FETCH_SUCCESS, AUTOCOMPLETE_FETCH_FAIL } from './types';
 import { getAutocomplete } from '../network/Api';
 
 export const autocompleteFetch = (pressedKey, lang) => (dispatch, getState) => {
@@ -25,7 +25,10 @@ export const autocompleteFetch = (pressedKey, lang) => (dispatch, getState) => {
       });
     })
     .catch((err) => {
-      console.error(err.message); // TODO: Error handling
+      console.log('autocompleteFetch -> getAutocomplete error:', err);
+      dispatch({
+        type: AUTOCOMPLETE_FETCH_FAIL,
+      });
     });
 };
 
