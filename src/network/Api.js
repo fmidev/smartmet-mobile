@@ -25,9 +25,6 @@ export function getTimeSeries(coords, lang) {
       tsDataObj.data = responseJson;
       return tsDataObj;
     }))
-    .catch((error) => {
-      console.error(error);
-    });
 }
 
 export function getAutocomplete(pattern, lang) {

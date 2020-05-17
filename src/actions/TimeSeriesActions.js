@@ -1,4 +1,4 @@
-import { TS_FETCH, TS_FETCH_SUCCESS, PLACE_SET } from './types';
+import { TS_FETCH, TS_FETCH_SUCCESS, TS_FETCH_FAIL, PLACE_SET } from './types';
 import Geolocation from "@react-native-community/geolocation";
 import { getTimeSeries } from '../network/Api';
 
@@ -22,18 +22,30 @@ export const tsFetch = () => (dispatch, getState) => {
 
       getTimeSeries(coords, getState().lang.lang)
         .then((responseJson) => {
-          const tsDataObj = responseJson;
-          dispatch({
-            type: TS_FETCH_SUCCESS,
-            payload: { tsDataObj },
-          });
+          if (responseJson.data.length < 1) {
+            dispatch({
+              type: TS_FETCH_FAIL,
+            });
+          } else {
+            const tsDataObj = responseJson;
+            dispatch({
+              type: TS_FETCH_SUCCESS,
+              payload: { tsDataObj },
+            });
+          }
         })
         .catch((err) => {
-          console.error(err.message); // TODO: Error handling
+          console.log('tsFetch -> getTimeSeries error:', err);
+          dispatch({
+            type: TS_FETCH_FAIL,
+          });
         });
     })
     .catch((err) => {
-      console.error(err.message); // TODO: Error handling
+      console.log('tsFetch -> getPosition error: ', err);
+      dispatch({
+        type: TS_FETCH_FAIL,
+      });
     });
 };
 
@@ -48,6 +60,9 @@ export const tsFetchUpdate = () => (dispatch, getState) => {
       });
     })
     .catch((err) => {
-      console.error(err.message); // TODO: Error handling
+      console.log('tsFetchUpdate -> getTimeSeries error:', err);
+      dispatch({
+        type: TS_FETCH_FAIL,
+      });
     });
 }

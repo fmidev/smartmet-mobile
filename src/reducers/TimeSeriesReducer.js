@@ -1,8 +1,9 @@
-import { TS_FETCH, TS_FETCH_SUCCESS } from '../actions/types';
+import { TS_FETCH, TS_FETCH_SUCCESS, TS_FETCH_FAIL } from '../actions/types';
 
 const INITIAL_STATE = {
   loading: true,
   tsDataObj: [],
+  error: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -14,6 +15,13 @@ export default (state = INITIAL_STATE, action) => {
       return {
         loading: false,
         tsDataObj: action.payload.tsDataObj,
+      };
+
+    case TS_FETCH_FAIL:
+      return {
+        loading: false,
+        error: true,
+        tsDataObj: [],
       };
 
     default:

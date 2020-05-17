@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { LoadingView } from '../components';
+import { ErrorView } from '../components';
 import { tsFetch } from '../actions/TimeSeriesActions';
 import { settingsInit } from '../actions/SettingsActions';
 import { setLang } from '../actions/QueryParamActions';
@@ -178,6 +179,12 @@ export class HomeScreen extends React.Component {
   renderLoading() {
     return (
       <LoadingView />
+    );
+  }
+
+  renderError() {
+    return (
+      <ErrorView />
     );
   }
 
@@ -406,9 +413,8 @@ export class HomeScreen extends React.Component {
     if (this.props.loading) {
       return this.renderLoading();
     }
-
-    if (this.props.tsDataObj.data.length === 0) {
-      // TODO: return this.renderNoContent();
+    if (this.props.error) {
+      return this.renderError();
     }
     return this.renderFlatList();
   }
@@ -416,11 +422,11 @@ export class HomeScreen extends React.Component {
 
 
 const mapStateToProps = (state) => {
-  const { loading, tsDataObj } = state.tsDataObj;
+  const { loading, error, tsDataObj } = state.tsDataObj;
   const { parameterUnitMap } = state.parameterUnitMap
   const { parameterUnitAbbMap } = state.parameterUnitAbbMap
   const { parameterUnitPrecisionMap } = state.parameterUnitPrecisionMap
-  return { loading, tsDataObj, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
+  return { loading, error, tsDataObj, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
 export default withNavigation(connect(mapStateToProps, { tsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));
