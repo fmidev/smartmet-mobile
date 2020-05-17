@@ -85,7 +85,7 @@ export default class MapsScreen extends Component {
 
     parseString(responseText, function (err, result) {
       const layerArr = result['WMS_Capabilities']['Capability'][0]['Layer'][0]['Layer']
-        .filter(element => element.Name[0].includes('mobile'))
+        .filter(element => element.Name[0].includes(Config.WMS_CUSTOMER))
         .map(element => element.Name[0])
       layerObj.serverTimeUtc = serverTimeUtc
       layerObj.layers = layerArr
