@@ -14,7 +14,7 @@ const languageDetector = {
   detect: async (callback) => {
     const savedDataJSON = await AsyncStorage.getItem(STORAGE_KEY);
     const lng = (savedDataJSON) || null;
-    const selectLanguage = lng || locale;
+    const selectLanguage = lng || locale.substr(0, locale.indexOf('-'));
     callback(selectLanguage);
   },
   cacheUserLanguage: () => { },
