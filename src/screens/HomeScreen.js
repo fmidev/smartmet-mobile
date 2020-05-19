@@ -23,63 +23,74 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F7F7F7',
   },
-  weatherInfoContainer: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-    marginLeft: -40,
-    marginTop: 20,
-  },
   dateTextContainer: {
     marginTop: 15,
-    marginBottom: 15,
+    marginBottom: 10,
     alignSelf: 'center',
   },
-  dateText: {
-    color: 'black',
+  middleContainer: {
+    flex: 1,
+    flexDirection: 'row',
   },
-  weatherInfo: {
+  temperatureFeelsLikeContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  },
+  temperature: {
     fontSize: 50,
     color: 'black',
   },
   feelsLike: {
     fontSize: 12,
     color: 'black',
-    marginLeft: 65,
+    position: 'absolute',
+    bottom: 0,
+  },
+  symbolWeatherdescriptionContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   symbolDescription: {
     fontSize: 12,
     color: 'black',
-    marginRight: 85,
+    bottom: 0,
   },
-  symbol: {
-    left: 50,
-    marginTop: -28,
-  },
-  weatherTextContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  dateText: {
+    color: 'black',
   },
   weatherDetailsContainer: {
     marginTop: 35,
     marginBottom: 10,
+    paddingHorizontal: 22,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  precipitation: {
-    marginLeft: 20,
+  precipitationContainer: {
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    marginRight: 5,
+  },
+  celestialContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   celestialSymbol: {
-    marginLeft: 58,
+    paddingRight: 7,
   },
-  celestialTextContainer: {
-    marginTop: 10,
-    marginRight: 48,
+  windspeedContainer: {
+    justifyContent: 'center',
   },
-  windspeed: {
-    marginRight: 20,
-    marginTop: -20,
+  windarrowImgContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 14,
   },
   celestialText: {
     color: 'black',
@@ -117,13 +128,6 @@ const styles = StyleSheet.create({
     marginTop: 35,
     marginBottom: 7,
   },
-  warningBar: {
-    flexDirection: 'row',
-    flex: 1,
-    borderRadius: 0,
-    top: 45,
-    marginRight: 15,
-  },
   warningBarContainer: {
     flex: 1,
     paddingHorizontal: 10,
@@ -134,7 +138,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     fontSize: 12,
     color: 'white',
-
     textAlign: 'center',
   },
   warningGreen: {
@@ -206,30 +209,33 @@ export class HomeScreen extends React.Component {
           <Text style={styles.dateText}>{moment(this.props.tsDataObj.localAnalysisTime).format('LLLL')}</Text>
         </View>
 
-        <View style={styles.weatherInfoContainer}>
-          <View>
-            <Text style={styles.weatherInfo}>
+        <View style={styles.middleContainer}>
+
+          <View style={styles.temperatureFeelsLikeContainer}>
+            <Text style={styles.temperature}>
               {converter(this.props.parameterUnitMap['temperature'], mainInfoData.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
               {' '}
-              °{this.props.parameterUnitAbbMap['temperature']}
+                °{this.props.parameterUnitAbbMap['temperature']}
+            </Text>
+            <Text style={styles.feelsLike}>
+              {`${t('common:feels like')} °`}
+              {' '}
+              {converter(this.props.parameterUnitMap['temperature'], mainInfoData.feelslike).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
             </Text>
           </View>
-          <View style={styles.symbol}>
-            <Image style={{ width: 120, height: 120 }} source={Images.symbols[mainInfoData.smartsymbol]} />
-          </View>
-        </View>
 
-        <View style={styles.weatherTextContainer}>
-          <Text style={styles.feelsLike}>
-            {`${t('common:feels like')} °`}
-            {' '}
-            {converter(this.props.parameterUnitMap['temperature'], mainInfoData.feelslike).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
-          </Text>
-          <Text style={styles.symbolDescription}>{`${t('weather:' + mainInfoData.weather)} `} </Text>
+          <View style={styles.symbolWeatherdescriptionContainer}>
+            <View>
+              <Image style={{ width: 120, height: 120 }} source={Images.symbols[mainInfoData.smartsymbol]} />
+            </View>
+            <Text style={styles.symbolDescription}>{`${t('weather:' + mainInfoData.weather)} `} </Text>
+          </View>
+
         </View>
 
         <View style={styles.weatherDetailsContainer}>
-          <View style={styles.precipitation}>
+
+          <View style={styles.precipitationContainer}>
             <Text>
               <Image style={{ width: 18, height: 18 }} source={require('../assets/images/precipitation-icon.png')} />
               <Text style={styles.precipitationText}>
@@ -243,22 +249,24 @@ export class HomeScreen extends React.Component {
               </Text>
             </Text>
           </View>
-          <View style={styles.celestialSymbol}>
-            <Image style={{ width: 30, height: 30 }} source={require('../assets/images/celestial-status-icon.png')} />
+
+          <View style={styles.celestialContainer}>
+            <View style={styles.celestialSymbol}>
+              <Image style={{ width: 25, height: 25 }} source={require('../assets/images/celestial-status-icon.png')} />
+            </View>
+            <View>
+              <Text style={styles.celestialText}>
+                {moment(mainInfoData.sunrise).format('LT')}
+                {' '}
+  -
+                {' '}
+                {moment(mainInfoData.sunset).format('LT')}
+              </Text>
+            </View>
           </View>
-          <View style={styles.celestialTextContainer}>
-            <Text style={styles.celestialText}>
-              {moment(mainInfoData.sunrise).format('LT')}
-              {' '}
--
-              {' '}
-              {moment(mainInfoData.sunset).format('LT')}
-            </Text>
-          </View>
-          <View style={styles.windspeed}>
-            <View style={{
-              flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20,
-            }}
+
+          <View style={styles.windspeedContainer}>
+            <View style={styles.windarrowImgContainer}
             >
               <Image
                 style={{
@@ -272,8 +280,8 @@ export class HomeScreen extends React.Component {
               <Text style={{ position: 'absolute', fontSize: 12, color: 'black' }}>{converter(this.props.parameterUnitMap['wind'], mainInfoData.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}</Text>
             </View>
           </View>
-        </View>
 
+        </View>
 
         <TouchableHighlight onPress={() => { this.props.navigation.navigate('Warnings'); }}>
           <View style={styles.warningContainer}>
@@ -355,7 +363,7 @@ export class HomeScreen extends React.Component {
           </Text>
         </View>
 
-      </View>
+      </View >
     );
   }
 
