@@ -239,9 +239,10 @@ const styles = StyleSheet.create({
   },
   warningDayText: {
     flexDirection: 'row',
-    fontSize: 9,
+    fontSize: 10,
     color: 'white',
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   warningGreen: {
     width: '33%',
@@ -400,15 +401,15 @@ export class HomeScreen extends React.Component {
 
                 <View style={styles.weekdayBarContainer}>
                   {
-                    warningsMock.map((element) => {
+                    warningsMock.map((element, i) => {
                       return (
-                        <View style={styles.warningBarContainer}>
+                        <View key={i} style={styles.warningBarContainer}>
                           <Text style={styles.warningDayText}>{moment(element.time).format('ddd').toUpperCase()}</Text>
                           <View style={styles.warningBarColorContainer}>
                             {
-                              element.bars.map((barElement) => {
+                              element.bars.map((barElement, k) => {
                                 return (
-                                  <View style={{ width: barElement.width, height: 6, backgroundColor: barElement.color, }} />
+                                  <View key={k} style={{ width: barElement.width, height: 6, backgroundColor: barElement.color, }} />
                                 );
 
                               })
