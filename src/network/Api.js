@@ -5,6 +5,8 @@ const timeseriesUrl = `${Config.API_URL}/timeseries?format=json&precision=full&p
 
 const autocompleteUrl = `${Config.API_URL}/autocomplete?keyword=${Config.AUTOCOMPLETE_KEYWORD}`;
 
+const capFeedUrl = Config.CAP_FEED_URL
+
 export function getTimeSeries(coords, lang) {
   let apiUrl = timeseriesUrl + '&latlon=' + coords.lat + ',' + coords.lon + '&lang=' + lang
   console.log('apiUrl', apiUrl)
@@ -35,6 +37,13 @@ export function getAutocomplete(pattern, lang) {
     .then((response) => response.json().then((responseJson) => {
       return responseJson;
     }))
+}
+
+export function getCapFeed() {
+  return fetch(capFeedUrl)
+    .then((response) => {
+      return response.text()
+    })
 }
 
 function roundUp(momentObj, roundBy) {

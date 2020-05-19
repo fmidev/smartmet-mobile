@@ -11,6 +11,7 @@ import { withNavigation } from 'react-navigation';
 import { LoadingView } from '../components';
 import { ErrorView } from '../components';
 import { tsFetch } from '../actions/TimeSeriesActions';
+import { warningsFetch } from '../actions/WarningsActions';
 import { settingsInit } from '../actions/SettingsActions';
 import { setLang } from '../actions/QueryParamActions';
 import Images from '../assets/images';
@@ -109,6 +110,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(29,36,89)',
     height: 75,
   },
+  warningLoadingContainer: {
+    flexDirection: 'row',
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   warningBarColorContainer: {
     flexDirection: 'row',
     marginTop: 5,
@@ -177,6 +184,7 @@ export class HomeScreen extends React.Component {
     this.props.setLang(i18n.language);
     this.props.settingsInit();
     this.props.tsFetch();
+    this.props.warningsFetch();
   }
 
   renderLoading() {
@@ -285,71 +293,66 @@ export class HomeScreen extends React.Component {
 
         <TouchableHighlight onPress={() => { this.props.navigation.navigate('Warnings'); }}>
           <View style={styles.warningContainer}>
-            <View style={styles.warningHeaderContainer}>
-              <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>
-                {`${t('common:warnings')}`}
-              </Text>
-            </View>
+            {!this.props.warningsLoading ? (
+              <View style={styles.warningLoadingContainer}>
 
-            <View style={styles.weekdayBarContainer}>
-
-              <View style={styles.warningBarContainer}>
-
-                <Text style={styles.warningDayText}>Mon</Text>
-
-                <View style={styles.warningBarColorContainer}>
-                  <View style={styles.warningGreen}></View>
-                  <View style={styles.warningYellow}></View>
-                  <View style={styles.warningRed}></View>
+                <View style={styles.warningHeaderContainer}>
+                  <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>
+                    {`${t('common:warnings')}`}
+                  </Text>
                 </View>
 
+                <View style={styles.weekdayBarContainer}>
 
-              </View>
+                  <View style={styles.warningBarContainer}>
+                    <Text style={styles.warningDayText}>Mon</Text>
+                    <View style={styles.warningBarColorContainer}>
+                      <View style={styles.warningGreen}></View>
+                      <View style={styles.warningYellow}></View>
+                      <View style={styles.warningRed}></View>
+                    </View>
+                  </View>
 
-              <View style={styles.warningBarContainer}>
+                  <View style={styles.warningBarContainer}>
+                    <Text style={styles.warningDayText}>Tue</Text>
+                    <View style={styles.warningBarColorContainer}>
+                      <View style={styles.warningGreen}></View>
+                      <View style={styles.warningYellow}></View>
+                      <View style={styles.warningRed}></View>
+                    </View>
+                  </View>
 
-                <Text style={styles.warningDayText}>Tue</Text>
+                  <View style={styles.warningBarContainer}>
+                    <Text style={styles.warningDayText}>Wed</Text>
+                    <View style={styles.warningBarColorContainer}>
+                      <View style={styles.warningGreen}></View>
+                      <View style={styles.warningYellow}></View>
+                      <View style={styles.warningRed}></View>
+                    </View>
+                  </View>
 
-                <View style={styles.warningBarColorContainer}>
-                  <View style={styles.warningGreen}></View>
-                  <View style={styles.warningYellow}></View>
-                  <View style={styles.warningRed}></View>
+                  <View style={styles.warningBarContainer}>
+                    <Text style={styles.warningDayText}>Thu</Text>
+                    <View style={styles.warningBarColorContainer}>
+                      <View style={styles.warningGreen}></View>
+                      <View style={styles.warningYellow}></View>
+                      <View style={styles.warningRed}></View>
+                    </View>
+                  </View>
+
+                  <View style={styles.warningBarContainer}>
+                    <Text style={styles.warningDayText}>Fri</Text>
+                    <View style={styles.warningBarColorContainer}>
+                      <View style={styles.warningGreen}></View>
+                      <View style={styles.warningYellow}></View>
+                      <View style={styles.warningRed}></View>
+                    </View>
+                  </View>
                 </View>
               </View>
-
-              <View style={styles.warningBarContainer}>
-
-                <Text style={styles.warningDayText}>Wed</Text>
-
-                <View style={styles.warningBarColorContainer}>
-                  <View style={styles.warningGreen}></View>
-                  <View style={styles.warningYellow}></View>
-                  <View style={styles.warningRed}></View>
-                </View>
-              </View>
-
-              <View style={styles.warningBarContainer}>
-
-                <Text style={styles.warningDayText}>Thu</Text>
-
-                <View style={styles.warningBarColorContainer}>
-                  <View style={styles.warningGreen}></View>
-                  <View style={styles.warningYellow}></View>
-                  <View style={styles.warningRed}></View>
-                </View>
-              </View>
-
-              <View style={styles.warningBarContainer}>
-
-                <Text style={styles.warningDayText}>Fri</Text>
-
-                <View style={styles.warningBarColorContainer}>
-                  <View style={styles.warningGreen}></View>
-                  <View style={styles.warningYellow}></View>
-                  <View style={styles.warningRed}></View>
-                </View>
-              </View>
-            </View>
+            ) : (
+                this.renderLoading()
+              )}
 
           </View>
         </TouchableHighlight>
@@ -431,10 +434,11 @@ export class HomeScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   const { loading, error, tsDataObj } = state.tsDataObj;
+  const { warningsLoading } = state.warningsObjArr;
   const { parameterUnitMap } = state.parameterUnitMap
   const { parameterUnitAbbMap } = state.parameterUnitAbbMap
   const { parameterUnitPrecisionMap } = state.parameterUnitPrecisionMap
-  return { loading, error, tsDataObj, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
+  return { loading, error, tsDataObj, warningsLoading, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
-export default withNavigation(connect(mapStateToProps, { tsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));
+export default withNavigation(connect(mapStateToProps, { tsFetch, warningsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));
