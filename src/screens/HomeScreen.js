@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   warningContainer: {
     flexDirection: 'row',
     backgroundColor: 'rgb(29,36,89)',
-    height: 75,
+    height: 70,
   },
   warningLoadingContainer: {
     flexDirection: 'row',
@@ -232,13 +232,14 @@ const styles = StyleSheet.create({
   },
   warningBarContainer: {
     flex: 1,
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
     textAlign: 'center',
     paddingTop: 5,
+    paddingBottom: 10,
   },
   warningDayText: {
     flexDirection: 'row',
-    fontSize: 12,
+    fontSize: 9,
     color: 'white',
     textAlign: 'center',
   },
