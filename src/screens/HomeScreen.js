@@ -18,6 +18,101 @@ import Images from '../assets/images';
 import ListItem from '../components/ListItem';
 import { converter } from '../components/Helper'
 
+const warningsMock = [
+  {
+    time: '20200520',
+    bars: [
+      {
+        color: 'gray',
+        width: '20%'
+      },
+      {
+        color: 'yellow',
+        width: '20%'
+      },
+      {
+        color: 'red',
+        width: '10%'
+      },
+      {
+        color: 'green',
+        width: '50%'
+      },
+    ],
+  },
+  {
+    time: '20200521',
+    bars: [
+      {
+        color: 'yellow',
+        width: '20%'
+      },
+      {
+        color: 'red',
+        width: '10%'
+      },
+      {
+        color: 'green',
+        width: '50%'
+      },
+      {
+        color: 'gray',
+        width: '20%'
+      },
+    ],
+  },
+  {
+    time: '20200522',
+    bars: [
+      {
+        color: 'yellow',
+        width: '20%'
+      },
+      {
+        color: 'red',
+        width: '20%'
+      },
+      {
+        color: 'green',
+        width: '60%'
+      },
+    ],
+  },
+  {
+    time: '20200523',
+    bars: [
+      {
+        color: 'green',
+        width: '40%'
+      },
+      {
+        color: 'red',
+        width: '10%'
+      },
+      {
+        color: 'yellow',
+        width: '50%'
+      },
+    ],
+  },
+  {
+    time: '20200524',
+    bars: [
+      {
+        color: 'red',
+        width: '90%'
+      },
+      {
+        color: 'yellow',
+        width: '5%'
+      },
+      {
+        color: 'green',
+        width: '5%'
+      },
+    ],
+  },
+]
 
 const styles = StyleSheet.create({
   container: {
@@ -303,51 +398,25 @@ export class HomeScreen extends React.Component {
                 </View>
 
                 <View style={styles.weekdayBarContainer}>
+                  {
+                    warningsMock.map((element) => {
+                      return (
+                        <View style={styles.warningBarContainer}>
+                          <Text style={styles.warningDayText}>{moment(element.time).format('ddd').toUpperCase()}</Text>
+                          <View style={styles.warningBarColorContainer}>
+                            {
+                              element.bars.map((barElement) => {
+                                return (
+                                  <View style={{ width: barElement.width, height: 6, backgroundColor: barElement.color, }} />
+                                );
 
-                  <View style={styles.warningBarContainer}>
-                    <Text style={styles.warningDayText}>Mon</Text>
-                    <View style={styles.warningBarColorContainer}>
-                      <View style={styles.warningGreen}></View>
-                      <View style={styles.warningYellow}></View>
-                      <View style={styles.warningRed}></View>
-                    </View>
-                  </View>
-
-                  <View style={styles.warningBarContainer}>
-                    <Text style={styles.warningDayText}>Tue</Text>
-                    <View style={styles.warningBarColorContainer}>
-                      <View style={styles.warningGreen}></View>
-                      <View style={styles.warningYellow}></View>
-                      <View style={styles.warningRed}></View>
-                    </View>
-                  </View>
-
-                  <View style={styles.warningBarContainer}>
-                    <Text style={styles.warningDayText}>Wed</Text>
-                    <View style={styles.warningBarColorContainer}>
-                      <View style={styles.warningGreen}></View>
-                      <View style={styles.warningYellow}></View>
-                      <View style={styles.warningRed}></View>
-                    </View>
-                  </View>
-
-                  <View style={styles.warningBarContainer}>
-                    <Text style={styles.warningDayText}>Thu</Text>
-                    <View style={styles.warningBarColorContainer}>
-                      <View style={styles.warningGreen}></View>
-                      <View style={styles.warningYellow}></View>
-                      <View style={styles.warningRed}></View>
-                    </View>
-                  </View>
-
-                  <View style={styles.warningBarContainer}>
-                    <Text style={styles.warningDayText}>Fri</Text>
-                    <View style={styles.warningBarColorContainer}>
-                      <View style={styles.warningGreen}></View>
-                      <View style={styles.warningYellow}></View>
-                      <View style={styles.warningRed}></View>
-                    </View>
-                  </View>
+                              })
+                            }
+                          </View>
+                        </View>
+                      );
+                    })
+                  }
                 </View>
               </View>
             ) : (
