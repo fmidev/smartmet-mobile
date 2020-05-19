@@ -59,7 +59,7 @@ const BottomTabNavigator = createBottomTabNavigator(
       tabBarIcon: ({ focused, tintColor }) => getTabBarIcon(navigation, focused, tintColor),
       tabBarOptions: {
         activeTintColor: 'red',
-        inactiveTintColor: 'gray',
+        inactiveTintColor: 'black',
       },
     }),
   },

@@ -148,8 +148,8 @@ export class ListItem extends React.Component {
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-              {this.state.isHidden && <IconComponent name="ios-arrow-dropdown-circle" size={25} />}
-              {!this.state.isHidden && <IconComponent name="ios-arrow-dropup-circle" size={25} />}
+              {this.state.isHidden && <IconComponent name="ios-arrow-dropdown-circle" size={25} color={'black'} />}
+              {!this.state.isHidden && <IconComponent name="ios-arrow-dropup-circle" size={25} color={'black'} />}
             </View>
 
           </View>
