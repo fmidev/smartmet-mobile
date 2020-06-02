@@ -1,7 +1,7 @@
 import { WARNINGS_FETCH, WARNINGS_FETCH_SUCCESS, WARNINGS_FETCH_FAIL } from '../actions/types';
 
 const INITIAL_STATE = {
-  warningsLoading: true,
+  warningsLoading: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
