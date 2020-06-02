@@ -8,12 +8,19 @@ import React from 'react';
 const warningsData = [
   {
     warningType: "Wind",
+    icon: "ios-move"
   },
   {
     warningType: "Flood",
+    icon: "ios-water",
   },
   {
     warningType: "Thunderstorm",
+    icon: "ios-thunderstorm",
+  },
+  {
+    warningType: "Forest fire",
+    icon: "md-bonfire",
   },
 ]
 
@@ -149,7 +156,7 @@ export default class WarningsScreen extends React.Component {
 
 
                   <View style={styles.symbolContainer}>
-                    <IconComponent name="ios-thunderstorm" size={35} color={'black'} />
+                    <IconComponent name={item.icon} size={35} color={'black'} />
                   </View>
 
                   <View style={styles.warningLoadingContainer}>
