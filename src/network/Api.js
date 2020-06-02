@@ -23,6 +23,10 @@ export function getTimeSeries(coords, lang) {
         tsDataObj.nextHourDivisibleByThreeFromServerTime.add(1, 'hour')
       }
       // console.log('Api.js: tsDataObj.nextHourDivisibleByThreeFromServerTime', tsDataObj.nextHourDivisibleByThreeFromServerTime.utc().format('YYYYMMDDTHHmm')) // DEBUG
+      tsDataObj.coords = {
+        lat: coords.lat,
+        lon: coords.lon
+      }
       tsDataObj.placeName = responseJson[0].name;
       tsDataObj.data = responseJson;
       return tsDataObj;
