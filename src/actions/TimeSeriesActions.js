@@ -10,7 +10,8 @@ const getPosition = function (options) {
 
 export const tsFetch = () => (dispatch, getState) => {
   dispatch({ type: TS_FETCH });
-  getPosition()
+
+  return getPosition()
     .then((position) => {
       const coords = {}
       coords.lat = position.coords.latitude

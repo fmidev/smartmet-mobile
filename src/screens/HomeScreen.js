@@ -280,8 +280,7 @@ export class HomeScreen extends React.Component {
   componentDidMount() {
     this.props.setLang(i18n.language);
     this.props.settingsInit();
-    this.props.tsFetch();
-    this.props.warningsFetch();
+    this.props.tsFetch().then(() => this.props.warningsFetch());
   }
 
   renderLoading() {
@@ -313,6 +312,8 @@ export class HomeScreen extends React.Component {
         <View style={styles.dateTextContainer}>
           <Text style={styles.dateText}>{moment(this.props.tsDataObj.localAnalysisTime).format('LLLL')}</Text>
         </View>
+
+        <Text style={{ textAlign: 'center', color: 'red' }}>{this.props.tsDataObj.coords.lat + ', ' + this.props.tsDataObj.coords.lon}</Text>
 
         <View style={styles.middleContainer}>
 
@@ -460,7 +461,9 @@ export class HomeScreen extends React.Component {
   }
 
   onRefresh() {
+    console.log('refreshed')
     this.props.tsFetch();
+    this.props.warningsFetch();
   }
 
   renderFlatList() {

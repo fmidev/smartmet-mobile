@@ -7,8 +7,8 @@ import {
 import { withNavigation } from 'react-navigation';
 import { LoadingView } from '../components';
 import { ErrorView } from '../components';
-import { warningsFetch } from '../actions/WarningsActions';
 import WarningsListItem from '../components/WarningsListItem';
+import { warningsFetch } from '../actions/WarningsActions';
 
 const warningsData = [
   {
@@ -85,7 +85,7 @@ export class WarningsScreen extends React.Component {
         <View style={styles.flatListContainer}>
           <FlatList
             style={{ flex: 1 }}
-            data={warningsData}
+            data={this.props.warningsObjArr}
             renderItem={(item) => <WarningsListItem item={item} />}
             keyExtractor={(item) => item.warningType}
             scrollEnabled
@@ -98,6 +98,7 @@ export class WarningsScreen extends React.Component {
   }
 
   render() {
+    console.log('PROPS', this.props)
     if (this.props.loading) {
       return this.renderLoading();
     }
@@ -108,4 +109,10 @@ export class WarningsScreen extends React.Component {
   }
 }
 
-export default WarningsScreen;
+
+const mapStateToProps = (state) => ({
+  warningsLoading: state.warningsObjArr.warningsLoading,
+  warningsObjArr: state.warningsObjArr.warningsObjArr
+});
+
+export default connect(mapStateToProps, { warningsFetch })(WarningsScreen);

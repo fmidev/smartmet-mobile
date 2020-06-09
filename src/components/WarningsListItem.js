@@ -122,7 +122,7 @@ export default class WarningsListItem extends React.Component {
           <TouchableWithoutFeedback onPress={this.toggleListItem}>
             <View style={styles.listItemContainer} >
               <View style={styles.titleContainer}>
-                <Text style={styles.title}>{this.props.item.item.warningType}</Text>
+                <Text style={styles.title}>{this.props.item.item.event}</Text>
               </View>
 
               <View style={styles.dropButtonContainer}>

@@ -1,7 +1,8 @@
 import { WARNINGS_FETCH, WARNINGS_FETCH_SUCCESS, WARNINGS_FETCH_FAIL } from '../actions/types';
 
 const INITIAL_STATE = {
-  warningsLoading: false,
+  warningsLoading: true,
+  warningsObjArr: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -10,6 +11,7 @@ export default (state = INITIAL_STATE, action) => {
     case WARNINGS_FETCH_SUCCESS:
       return {
         warningsLoading: false,
+        warningsObjArr: action.payload.response,
       };
 
     default:
