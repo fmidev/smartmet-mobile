@@ -35,6 +35,12 @@
 
 3. ```yarn android```
 
+#### Run in development environment (iOS)
+
+1. cd ios  && pod install && cd ..
+
+2. ```yarn ios```
+
 #### Debugging
 
 1. Open http://localhost:8081/debugger-ui/ in Chrome
