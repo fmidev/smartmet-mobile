@@ -1,9 +1,10 @@
 import {
-  View, Text, StyleSheet, TouchableWithoutFeedback,
+  View, Text, StyleSheet, TouchableWithoutFeedback, Image,
 } from 'react-native';
 import moment from 'moment-with-locales-es6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
+import Images from '../assets/images';
 
 const warningsMock = [
   {
@@ -134,7 +135,9 @@ export default class WarningsListItem extends React.Component {
 
 
               <View style={styles.symbolContainer}>
-                <IconComponent name={this.props.item.item.icon} size={35} color={'black'} />
+                {this.props.item.item.warningName === 'unidentified' ?
+                  <IconComponent name='md-close' color='red' size={35} />
+                  : <Image style={{ width: 30, height: 30 }} source={Images.warnings[this.props.item.item.warningName]} />}
               </View>
 
               <View style={styles.warningLoadingContainer}>
