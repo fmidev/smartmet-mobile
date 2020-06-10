@@ -167,6 +167,9 @@ export default class WarningsListItem extends React.Component {
             </View>
           </TouchableWithoutFeedback>
           {!this.state.isHidden && <View style={styles.collapsableContentContainer}>
+            <Text style={styles.collapsableContentArea}>{this.props.item.item.area}</Text>
+            <Text style={styles.collapsableContentTime}>From: {moment(this.props.item.item.effective).format('LLLL')}</Text>
+            <Text style={styles.collapsableContentTime}>To: {moment(this.props.item.item.expires).format('LLLL')}</Text>
             <Text style={styles.collapsableContentText}>{this.props.item.item.description}</Text>
           </View>}
         </View>
@@ -248,6 +251,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(222,236,246)',
   },
   collapsableContentText: {
+    paddingVertical: 5,
+    paddingHorizontal: 7,
+    color: 'black',
+    fontSize: 14,
+  },
+  collapsableContentArea: {
+    fontWeight: 'bold',
+    paddingVertical: 5,
+    paddingHorizontal: 7,
+    color: 'black',
+    fontSize: 14,
+  },
+  collapsableContentTime: {
+    paddingVertical: 5,
+    paddingHorizontal: 7,
     color: 'black',
     fontSize: 14,
   }
