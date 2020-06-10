@@ -167,10 +167,13 @@ export default class WarningsListItem extends React.Component {
             </View>
           </TouchableWithoutFeedback>
           {!this.state.isHidden && <View style={styles.collapsableContentContainer}>
-            <Text style={styles.collapsableContentArea}>{this.props.item.item.area}</Text>
-            <Text style={styles.collapsableContentTime}>From: {moment(this.props.item.item.effective).format('LLLL')}</Text>
-            <Text style={styles.collapsableContentTime}>To: {moment(this.props.item.item.expires).format('LLLL')}</Text>
+            <Text style={styles.collapsableContentArea}>{this.props.item.item.event} for {this.props.item.item.area}</Text>
+            <Text style={styles.collapsableContentTime}>Valid from {moment(this.props.item.item.effective).format('LLLL')}</Text>
+            <Text style={styles.collapsableContentTime}>to {moment(this.props.item.item.expires).format('LLLL')}</Text>
             <Text style={styles.collapsableContentText}>{this.props.item.item.description}</Text>
+
+            <Text style={styles.collapsableContentSender}>Issued by {this.props.item.item.senderName} at {moment(this.props.item.item.onset).format('LLLL')}</Text>
+
           </View>}
         </View>
       </View>
@@ -251,10 +254,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(222,236,246)',
   },
   collapsableContentText: {
-    paddingVertical: 5,
+    paddingVertical: 18,
     paddingHorizontal: 7,
     color: 'black',
-    fontSize: 14,
+    fontSize: 16,
   },
   collapsableContentArea: {
     fontWeight: 'bold',
@@ -264,9 +267,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   collapsableContentTime: {
-    paddingVertical: 5,
+    fontStyle: 'italic',
     paddingHorizontal: 7,
     color: 'black',
     fontSize: 14,
+  },
+  collapsableContentSender: {
+    fontStyle: 'italic',
+    paddingHorizontal: 7,
+    color: 'black',
+    fontSize: 14,
+    paddingBottom: 7,
   }
 });
