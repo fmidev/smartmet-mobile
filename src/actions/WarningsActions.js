@@ -59,7 +59,13 @@ function checkCap(point) {
                               resolve(warningObjectArray)
                             }
                           })
-                          .catch(() => console.log('point is NOT within polygon'))
+                          .catch(() => {
+                            console.log('point is NOT within polygon')
+                            counter = counter + 1
+                            if (counter === result.feed.entry.length) {
+                              resolve(warningObjectArray)
+                            }
+                          })
                       }
 
                     }

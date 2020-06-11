@@ -32,7 +32,7 @@ const Navigator = createStackNavigator(
               onPress={() => navigation.navigate('Search')}
             />
             <LocationButton
-              onPress={() => navigation.navigate('Home', { 'refreshLocation': true })}
+              onPress={() => { navigation.state.routes[navigation.state.index].params = { refreshLocation: true }; navigation.navigate(navigation.state.routes[navigation.state.index]) }}
             />
           </View>
         ),

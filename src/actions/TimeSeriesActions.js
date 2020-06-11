@@ -52,7 +52,8 @@ export const tsFetch = () => (dispatch, getState) => {
 
 export const tsFetchUpdate = () => (dispatch, getState) => {
   dispatch({ type: TS_FETCH });
-  getTimeSeries(getState().coords.coords, getState().lang.lang)
+
+  return getTimeSeries(getState().coords.coords, getState().lang.lang)
     .then((responseJson) => {
       const tsDataObj = responseJson;
       dispatch({

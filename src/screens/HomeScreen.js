@@ -389,7 +389,7 @@ export class HomeScreen extends React.Component {
 
         </View>
 
-        <TouchableHighlight onPress={() => { this.props.navigation.navigate('Warnings'); }}>
+        <TouchableHighlight onPress={() => { this.props.navigation.navigate({ routeName: 'Warnings', }); }}>
           <View style={styles.warningContainer}>
             {!this.props.warningsLoading ? (
               <View style={styles.warningLoadingContainer}>
@@ -462,8 +462,7 @@ export class HomeScreen extends React.Component {
 
   onRefresh() {
     console.log('refreshed')
-    this.props.tsFetch();
-    this.props.warningsFetch();
+    this.props.tsFetch().then(() => this.props.warningsFetch());
   }
 
   renderFlatList() {

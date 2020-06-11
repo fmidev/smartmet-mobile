@@ -8,6 +8,7 @@ import { HeaderBackButton } from 'react-navigation-stack';
 import { ErrorView } from '../components';
 import { autocompleteInit, autocompleteFetch } from '../actions/AutocompleteActions';
 import { tsFetchUpdate } from '../actions/TimeSeriesActions';
+import { warningsFetch } from '../actions/WarningsActions';
 import { setPlace } from '../actions/QueryParamActions';
 console.log('Platform.OS', Platform.OS)
 const styles = StyleSheet.create({
@@ -81,10 +82,10 @@ export class SearchScreen extends React.Component {
     }
   };
 
-  navigateHomeWithCoords = (coords) => {
+  navigatePreviousScreen = (coords) => {
     this.props.setPlace(coords)
-    this.props.navigation.navigate('Home');
-    this.props.tsFetchUpdate();
+    this.props.tsFetchUpdate().then(() => this.props.warningsFetch());
+    this.props.navigation.goBack();
   }
 
   render() {
@@ -100,7 +101,7 @@ export class SearchScreen extends React.Component {
           keyboardShouldPersistTaps={'handled'}
           data={this.props.acDataObj}
           renderItem={({ item }) =>
-            <TouchableWithoutFeedback onPress={() => { this.navigateHomeWithCoords({ lat: item.lat, lon: item.lon }) }}>
+            <TouchableWithoutFeedback onPress={() => { this.navigatePreviousScreen({ lat: item.lat, lon: item.lon }) }}>
               <View style={styles.resultItem} >
                 <Text style={styles.resultItemText} >{item.name}</Text>
               </View>
@@ -120,4 +121,4 @@ const mapStateToProps = (state) => {
   return { loading, error, pattern, acDataObj };
 };
 
-export default connect(mapStateToProps, { autocompleteInit, autocompleteFetch, tsFetchUpdate, setPlace })(SearchScreen);
+export default connect(mapStateToProps, { autocompleteInit, autocompleteFetch, tsFetchUpdate, warningsFetch, setPlace })(SearchScreen);

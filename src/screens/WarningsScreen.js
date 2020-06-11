@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment-with-locales-es6';
 import {
   View, StyleSheet, FlatList,
 } from 'react-native';
@@ -9,6 +8,7 @@ import { LoadingView } from '../components';
 import { ErrorView } from '../components';
 import WarningsListItem from '../components/WarningsListItem';
 import { warningsFetch } from '../actions/WarningsActions';
+import { tsFetch } from '../actions/TimeSeriesActions';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,9 +41,7 @@ export class WarningsScreen extends React.Component {
   }
 
   onRefresh() {
-    console.log('refreshed')
-    this.props.tsFetch();
-    this.props.warningsFetch();
+    this.props.tsFetch().then(() => this.props.warningsFetch());
   }
 
   renderFlatList() {
@@ -64,8 +62,8 @@ export class WarningsScreen extends React.Component {
             renderItem={(item) => <WarningsListItem item={item} />}
             keyExtractor={(item) => item.onset}
             scrollEnabled
-            //onRefresh={() => this.onRefresh()}
-            refreshing={this.props.loading}
+            onRefresh={() => this.onRefresh()}
+            refreshing={this.props.warningsLoading}
           />
         </View>
       </View>
@@ -73,8 +71,7 @@ export class WarningsScreen extends React.Component {
   }
 
   render() {
-    console.log('PROPS', this.props)
-    if (this.props.loading) {
+    if (this.props.warningsLoading) {
       return this.renderLoading();
     }
     if (this.props.error) {
@@ -90,4 +87,4 @@ const mapStateToProps = (state) => ({
   warningsObjArr: state.warningsObjArr.warningsObjArr
 });
 
-export default connect(mapStateToProps, { warningsFetch })(WarningsScreen);
+export default withNavigation(connect(mapStateToProps, { tsFetch, warningsFetch })(WarningsScreen));

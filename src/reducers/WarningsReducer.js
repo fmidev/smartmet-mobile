@@ -8,6 +8,12 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
 
+    case WARNINGS_FETCH:
+      return {
+        warningsLoading: true,
+        warningsObjArr: []
+      };
+
     case WARNINGS_FETCH_SUCCESS:
       return {
         warningsLoading: false,
