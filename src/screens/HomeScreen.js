@@ -10,7 +10,7 @@ import {
 import { withNavigation } from 'react-navigation';
 import { LoadingView } from '../components';
 import { ErrorView } from '../components';
-import { tsFetch } from '../actions/TimeSeriesActions';
+import { tsFetch, tsFetchUpdate } from '../actions/TimeSeriesActions';
 import { warningsFetch } from '../actions/WarningsActions';
 import { settingsInit } from '../actions/SettingsActions';
 import { setLang } from '../actions/QueryParamActions';
@@ -461,7 +461,10 @@ export class HomeScreen extends React.Component {
   }
 
   onRefresh() {
-    console.log('refreshed')
+    this.props.tsFetchUpdate().then(() => this.props.warningsFetch());
+  }
+
+  refreshLocation() {
     this.props.tsFetch().then(() => this.props.warningsFetch());
   }
 
@@ -469,7 +472,7 @@ export class HomeScreen extends React.Component {
 
     if (this.props.navigation.state.params) {
       if (this.props.navigation.state.params.refreshLocation) {
-        this.onRefresh()
+        this.refreshLocation()
         this.props.navigation.state.params.refreshLocation = false
       }
     }
@@ -514,4 +517,4 @@ const mapStateToProps = (state) => {
   return { loading, error, tsDataObj, warningsLoading, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
-export default withNavigation(connect(mapStateToProps, { tsFetch, warningsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));
+export default withNavigation(connect(mapStateToProps, { tsFetch, tsFetchUpdate, warningsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));
