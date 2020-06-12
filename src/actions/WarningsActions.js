@@ -2,6 +2,7 @@ import { WARNINGS_FETCH, WARNINGS_FETCH_SUCCESS, WARNINGS_FETCH_FAIL } from './t
 import { getCapFeed } from '../network/Api';
 import GeoFencing from 'react-native-geo-fencing';
 import { WARNING_KEYWORD_MAPPER } from '../Constants';
+import moment from 'moment-with-locales-es6';
 
 const parseString = require('react-native-xml2js').parseString;
 
@@ -12,10 +13,53 @@ export const warningsFetch = () => (dispatch, getState) => {
     lng: getState().coords.coords.lon
   }
   checkCap(point).then((response) => {
-    console.log('RESPONSE', response)
+
+    let warningsMock = []
+
+    for (let i = 0; i < 5; i++) {
+      let warningDay = {}
+
+      if (response.length < 1) {
+        warningDay.bars = [
+          {
+            color: 'gray',
+            width: '100%'
+          }
+        ]
+      } else {
+        response.forEach(element => {
+
+          warningDay.bars = [
+            {
+              color: 'gray',
+              width: '20%'
+            },
+            {
+              color: 'yellow',
+              width: '20%'
+            },
+            {
+              color: 'red',
+              width: '10%'
+            },
+            {
+              color: 'hotpink',
+              width: '50%'
+            },
+          ]
+
+        });
+      }
+
+      warningDay.time = moment(getState().tsDataObj.tsDataObj.serverTime).add(i, 'days');
+      warningsMock.push(warningDay)
+    }
+
+    const payload = [warningsMock, response]
+
     dispatch({
       type: WARNINGS_FETCH_SUCCESS,
-      payload: { response },
+      payload: payload,
     });
   })
 }

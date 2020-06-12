@@ -18,102 +18,6 @@ import Images from '../assets/images';
 import ListItem from '../components/ListItem';
 import { converter } from '../components/Helper'
 
-const warningsMock = [
-  {
-    time: '20200520',
-    bars: [
-      {
-        color: 'gray',
-        width: '20%'
-      },
-      {
-        color: 'yellow',
-        width: '20%'
-      },
-      {
-        color: 'red',
-        width: '10%'
-      },
-      {
-        color: 'green',
-        width: '50%'
-      },
-    ],
-  },
-  {
-    time: '20200521',
-    bars: [
-      {
-        color: 'yellow',
-        width: '20%'
-      },
-      {
-        color: 'red',
-        width: '10%'
-      },
-      {
-        color: 'green',
-        width: '50%'
-      },
-      {
-        color: 'gray',
-        width: '20%'
-      },
-    ],
-  },
-  {
-    time: '20200522',
-    bars: [
-      {
-        color: 'yellow',
-        width: '20%'
-      },
-      {
-        color: 'red',
-        width: '20%'
-      },
-      {
-        color: 'green',
-        width: '60%'
-      },
-    ],
-  },
-  {
-    time: '20200523',
-    bars: [
-      {
-        color: 'green',
-        width: '40%'
-      },
-      {
-        color: 'red',
-        width: '10%'
-      },
-      {
-        color: 'yellow',
-        width: '50%'
-      },
-    ],
-  },
-  {
-    time: '20200524',
-    bars: [
-      {
-        color: 'red',
-        width: '90%'
-      },
-      {
-        color: 'yellow',
-        width: '5%'
-      },
-      {
-        color: 'green',
-        width: '5%'
-      },
-    ],
-  },
-]
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -402,7 +306,7 @@ export class HomeScreen extends React.Component {
 
                 <View style={styles.weekdayBarContainer}>
                   {
-                    warningsMock.map((element, i) => {
+                    this.props.warningsBarData.map((element, i) => {
                       return (
                         <View key={i} style={styles.warningBarContainer}>
                           <Text style={styles.warningDayText}>{moment(element.time).format('ddd').toUpperCase()}</Text>
@@ -510,11 +414,11 @@ export class HomeScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   const { loading, error, tsDataObj } = state.tsDataObj;
-  const { warningsLoading } = state.warningsObjArr;
+  const { warningsLoading, warningsBarData } = state.warningsObjArr;
   const { parameterUnitMap } = state.parameterUnitMap
   const { parameterUnitAbbMap } = state.parameterUnitAbbMap
   const { parameterUnitPrecisionMap } = state.parameterUnitPrecisionMap
-  return { loading, error, tsDataObj, warningsLoading, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
+  return { loading, error, tsDataObj, warningsLoading, warningsBarData, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
 export default withNavigation(connect(mapStateToProps, { tsFetch, tsFetchUpdate, warningsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));
