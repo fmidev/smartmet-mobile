@@ -246,3 +246,13 @@ export const WARNING_KEYWORD_MAPPER = [
     warningName: 'tropical'
   }
 ]
+
+export const WARNING_SEVERITY_MAPPER =
+{
+  0: 'green',
+  1: 'gray',
+  2: 'yellow',
+  3: 'orange',
+  4: 'red',
+  5: 'pink'
+}
