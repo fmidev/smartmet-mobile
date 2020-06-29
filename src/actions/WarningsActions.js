@@ -94,8 +94,7 @@ function checkCap(point) {
                     // TODO: Error handling
                   } else {
                     const alertData = xmlRes.alert;
-
-                    if (alertData.info && Array.isArray(alertData.info)) {
+                    if (alertData && Array.isArray(alertData.info)) {
                       const polygon = alertData.info[0].area[0].polygon[0];
                       const polygonArr = polygon.split(' ').map((item) => {
                         let [lat, lng] = item.split(',');
@@ -120,6 +119,8 @@ function checkCap(point) {
                             resolve(warningObjectArray);
                           }
                         });
+                    } else {
+                      resolve([])
                     }
                   }
                 });
