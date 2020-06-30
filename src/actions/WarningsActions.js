@@ -14,8 +14,6 @@ export const warningsFetch = () => (dispatch, getState) => {
     lng: getState().coords.coords.lon,
   };
   checkCap(point).then((response) => {
-    const warningsDayArr = [];
-    const warningSyles = [];
     const currentTime = moment(getState().tsDataObj.tsDataObj.serverTime);
     const warningsHolder = [];
 
@@ -86,7 +84,7 @@ function checkCap(point) {
           } else {
             let counter = 0;
             const warningObjectArray = [];
-            result.feed.entry.forEach((element, index) => fetch(element.id[0])
+            result.feed.entry.forEach((element) => fetch(element.id[0])
               .then((response) => response.text())
               .then((response) => {
                 parseString(response, (err, xmlRes) => {
@@ -120,7 +118,7 @@ function checkCap(point) {
                           }
                         });
                     } else {
-                      resolve([])
+                      resolve([]);
                     }
                   }
                 });
