@@ -63,10 +63,12 @@ export const warningsFetch = () => (dispatch, getState) => {
           element.startTime = moment(element.effective).format('HH')
         }
 
-        if (moment(element.expires).format('DD') > moment(element.effective).format('DD')) {
+        if (moment(element.expires).format('YYYYMMDD') !== moment(whElement.time).format('YYYYMMDD')) {
           element.endTime = 23;
         } else {
           element.endTime = moment(element.expires).format('HH');
+          console.log('element.endTime', element.endTime)
+          console.log('element.severity', element.severity)
         }
 
         if (moment(whElement.time).isBetween(moment(element.effective), moment(element.expires)) || moment(whElement.time).format('DD') === moment(element.effective).format('DD') || moment(whElement.time).format('DD') === moment(element.expires).format('DD')) {
