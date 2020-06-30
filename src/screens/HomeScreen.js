@@ -148,21 +148,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  warningGreen: {
-    width: '33%',
-    height: 6,
-    backgroundColor: 'green',
-  },
-  warningYellow: {
-    width: '13%',
-    height: 6,
-    backgroundColor: 'yellow',
-  },
-  warningRed: {
-    width: '53%',
-    height: 6,
-    backgroundColor: 'red',
-  },
   listHeader: {
     backgroundColor: 'lightgray',
     paddingTop: 10,
@@ -314,7 +299,7 @@ export class HomeScreen extends React.Component {
                             {
                               element.bars.map((barElement, k) => {
                                 return (
-                                  <View key={k} style={{ width: barElement.width, height: 6, backgroundColor: barElement.color, }} />
+                                  <View key={k} style={{ width: barElement.width, height: 4, backgroundColor: barElement.color, }} />
                                 );
 
                               })

@@ -21,10 +21,11 @@ export const warningsFetch = () => (dispatch, getState) => {
       const warning = {};
       warning.details = [];
       if (i > 0) {
-        warning.time = currentTime.utc().add(1, 'days').format('YYYYMMDDTHHmm');
+        warning.time = currentTime.utc().add(1, 'days').format('YYYYMMDD');
       } else {
-        warning.time = currentTime.utc().format('YYYYMMDDTHHmm');
+        warning.time = currentTime.utc().format('YYYYMMDD');
       }
+      console.log('warning.time', moment(warning.time).format('YYYYMMDDTHHmm'))
       warningsHolder.push(warning);
     }
 
@@ -50,20 +51,71 @@ export const warningsFetch = () => (dispatch, getState) => {
             element.severityLevel = 1;
         }
 
-        element.startTime = parseInt(moment(element.effective).format('HH'));
+        console.log('element.effective', element.effective)
+        console.log('element.expires', element.expires)
 
+
+
+
+        if (moment(element.effective).format('DD') !== moment(whElement.time).format('DD')) {
+          element.startTime = 0
+        } else {
+          element.startTime = moment(element.effective).format('HH')
+        }
+
+        if (moment(element.expires).format('DD') > moment(element.effective).format('DD')) {
+          element.endTime = 23;
+        } else {
+          element.endTime = moment(element.expires).format('HH');
+        }
+
+        if (moment(whElement.time).isBetween(moment(element.effective), moment(element.expires)) || moment(whElement.time).format('DD') === moment(element.effective).format('DD') || moment(whElement.time).format('DD') === moment(element.expires).format('DD')) {
+          whElement.details.push(element);
+        }
+
+
+        /*
+        if (moment(whElement.time).isAfter(moment(element.effective)) && moment(element.expires).isAfter(moment(whElement.time)) || moment(whElement.time) === (moment(element.effective))) {
+          whElement.details.push(element);
+        }
+        */
+
+
+
+
+        /*
+                var startDate = new Date(2013, 1, 12)
+          , endDate   = new Date(2013, 1, 15)
+          , date  = new Date(2013, 2, 15)
+          , range = moment().range(startDate, endDate);
+        
+          range.contains(date); // false
+        */
+
+
+
+
+        /*
+        element.startTime = parseInt(moment(element.effective).format('HH'));
+  
         if (moment(element.expires).format('DD') !== moment(element.effective).format('DD')) {
           element.endTime = 23;
         } else {
           element.endTime = parseInt(moment(element.expires).format('HH'));
         }
-
+  
         if (moment(element.effective).format('YYYYMMDD') === moment(whElement.time).format('YYYYMMDD') || moment(element.expires).format('YYYYMMDD') === moment(whElement.time).format('YYYYMMDD')) {
           whElement.details.push(element);
         }
+        */
+
+
+
+
+
       });
     });
-
+    console.log('warningsHolder', warningsHolder)
     const payload = [getStyling(warningsHolder, currentTime), response];
 
     dispatch({
