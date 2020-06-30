@@ -60,7 +60,7 @@ export class WarningsScreen extends React.Component {
             style={{ flex: 1 }}
             data={this.props.warningsObjArr}
             renderItem={(item) => <WarningsListItem item={item} />}
-            keyExtractor={(item) => item.onset}
+            keyExtractor={(item) => item.id}
             scrollEnabled
             onRefresh={() => this.onRefresh()}
             refreshing={this.props.warningsLoading}

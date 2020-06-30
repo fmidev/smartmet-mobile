@@ -191,6 +191,7 @@ function checkCap(point) {
 
 function getWarningObjectArray(alertData) {
   const warningObj = {};
+  warningObj.id = Math.random().toString(16).slice(2);
   warningObj.area = alertData.area[0].areaDesc[0];
   warningObj.certainty = alertData.certainty[0];
   warningObj.description = alertData.description[0];
