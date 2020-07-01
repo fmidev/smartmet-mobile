@@ -228,21 +228,16 @@ function getStylingList(response, warningTimes) {
 
       if (moment(warningTimesElement).isSame(moment(element.expires), 'day') && !moment(warningTimesElement).isSame(moment(element.effective), 'day')) {
         grayPercentsOne = 0;
-        colorPercents = (24 - parseInt(moment(element.expires).format('HH'))) / 24 * 100;
-        grayPercentsTwo = 100 - colorPercents;
+        grayPercentsTwo = (24 - parseInt(moment(element.expires).format('HH'))) / 24 * 100;
+        colorPercents = 100 - grayPercentsTwo
       }
 
 
-      if (moment(warningTimesElement).isBetween(moment(element.effective), moment(element.expires))) {
+      if (moment(warningTimesElement).isBetween(moment(element.effective), moment(element.expires), 'days')) {
         grayPercentsOne = 0;
         grayPercentsTwo = 0;
         colorPercents = 100;
       }
-
-      console.log('grayPercentsOne', grayPercentsOne);
-      console.log('colorPercents', colorPercents);
-      console.log('grayPercentsTwo', grayPercentsTwo);
-      console.log('--------------------------------');
 
 
       element.styling.push({
