@@ -3,107 +3,10 @@ import {
 } from 'react-native';
 import moment from 'moment-with-locales-es6';
 import { connect } from 'react-redux';
-import { warningsFetch } from '../actions/WarningsActions';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import React from 'react';
+import { warningsFetch } from '../actions/WarningsActions';
 import Images from '../assets/images';
-
-const warningsMock = [
-  {
-    time: '20200520',
-    bars: [
-      {
-        color: 'gray',
-        width: '20%'
-      },
-      {
-        color: 'yellow',
-        width: '20%'
-      },
-      {
-        color: 'red',
-        width: '10%'
-      },
-      {
-        color: 'green',
-        width: '50%'
-      },
-    ],
-  },
-  {
-    time: '20200521',
-    bars: [
-      {
-        color: 'yellow',
-        width: '20%'
-      },
-      {
-        color: 'red',
-        width: '10%'
-      },
-      {
-        color: 'green',
-        width: '50%'
-      },
-      {
-        color: 'gray',
-        width: '20%'
-      },
-    ],
-  },
-  {
-    time: '20200522',
-    bars: [
-      {
-        color: 'yellow',
-        width: '20%'
-      },
-      {
-        color: 'red',
-        width: '20%'
-      },
-      {
-        color: 'green',
-        width: '60%'
-      },
-    ],
-  },
-  {
-    time: '20200523',
-    bars: [
-      {
-        color: 'green',
-        width: '40%'
-      },
-      {
-        color: 'red',
-        width: '10%'
-      },
-      {
-        color: 'yellow',
-        width: '50%'
-      },
-    ],
-  },
-  {
-    time: '20200524',
-    bars: [
-      {
-        color: 'red',
-        width: '90%'
-      },
-      {
-        color: 'yellow',
-        width: '5%'
-      },
-      {
-        color: 'green',
-        width: '5%'
-      },
-    ],
-  },
-]
-
 
 
 const styles = StyleSheet.create({
@@ -117,7 +20,10 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    top: 5, left: 0, right: 0, bottom: 0,
+    top: 5,
+    left: 0,
+    right: 0,
+    bottom: 0,
     position: 'absolute',
     alignItems: 'center',
   },
@@ -126,14 +32,20 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   dropButtonContainer: {
-    top: 0, left: 0, right: 8, bottom: 0,
+    top: 0,
+    left: 0,
+    right: 8,
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     alignItems: 'flex-end',
   },
   symbolContainer: {
-    top: 0, left: 8, right: 0, bottom: 0,
+    top: 0,
+    left: 8,
+    right: 0,
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
@@ -202,45 +114,44 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 14,
     paddingBottom: 7,
-  }
+  },
 });
 
 
 export class WarningsListItem extends React.Component {
-
   constructor(props) {
-    super(props)
-    this.state = { isHidden: true }
+    super(props);
+    this.state = { isHidden: true };
   }
 
   toggleListItem = () => {
-    console.log('toggleListItem')
-    this.setState({ isHidden: !this.state.isHidden })
+    console.log('toggleListItem');
+    this.setState({ isHidden: !this.state.isHidden });
   }
 
   render() {
-    console.log('warningsBarData', this.props.warningsBarData)
+    console.log('ITEM', this.props.item.item);
     const IconComponent = Ionicons;
     return (
       <View style={styles.container}>
         <View style={styles.flatListContainer}>
           <TouchableWithoutFeedback onPress={this.toggleListItem}>
-            <View style={styles.listItemContainer} >
+            <View style={styles.listItemContainer}>
               <View style={styles.titleContainer}>
                 <Text style={styles.title}>{this.props.item.item.event}</Text>
               </View>
 
               <View style={styles.dropButtonContainer}>
                 <View style={styles.dropButton}>
-                  {this.state.isHidden && <IconComponent name='ios-arrow-dropdown-circle' size={25} color={'black'} />}
-                  {!this.state.isHidden && <IconComponent name='ios-arrow-dropup-circle' size={25} color={'black'} />}
+                  {this.state.isHidden && <IconComponent name="ios-arrow-dropdown-circle" size={25} color="black" />}
+                  {!this.state.isHidden && <IconComponent name="ios-arrow-dropup-circle" size={25} color="black" />}
                 </View>
               </View>
 
 
               <View style={styles.symbolContainer}>
-                {this.props.item.item.warningName === 'unidentified' ?
-                  <IconComponent name='md-close' color='red' size={35} />
+                {this.props.item.item.warningName === 'unidentified'
+                  ? <IconComponent name="md-close" color="red" size={35} />
                   : <Image style={{ width: 30, height: 30 }} source={Images.warnings[this.props.item.item.warningName]} />}
               </View>
 
@@ -248,37 +159,52 @@ export class WarningsListItem extends React.Component {
                 <View style={styles.weekdayBarContainer}>
 
                   {
-                    warningsMock.map((element, i) => {
-                      return (
-                        <View key={i} style={styles.warningBarContainer}>
-                          <Text style={styles.warningDayText}>{moment(element.time).format('ddd').toUpperCase()}</Text>
-                          <View style={styles.warningBarColorContainer}>
-                            {
-                              element.bars.map((barElement, k) => {
-                                return (
-                                  <View key={k} style={{ width: barElement.width, height: 6, backgroundColor: barElement.color, }} />
-                                );
-
-                              })
+                    this.props.item.item.styling.map((element, i) => (
+                      <View key={i} style={styles.warningBarContainer}>
+                        <Text style={styles.warningDayText}>{moment(element.time).format('ddd').toUpperCase()}</Text>
+                        <View style={styles.warningBarColorContainer}>
+                          {
+                              element.bars.map((barElement, k) => (
+                                <View key={k} style={{ width: barElement.width, height: 4, backgroundColor: barElement.color }} />
+                              ))
                             }
-                          </View>
                         </View>
-                      );
-                    })
+                      </View>
+                    ))
                   }
                 </View>
               </View>
             </View>
           </TouchableWithoutFeedback>
-          {!this.state.isHidden && <View style={styles.collapsableContentContainer}>
-            <Text style={styles.collapsableContentArea}>{this.props.item.item.event} for {this.props.item.item.area}</Text>
-            <Text style={styles.collapsableContentTime}>Valid from {moment(this.props.item.item.effective).format('LLLL')}</Text>
-            <Text style={styles.collapsableContentTime}>to {moment(this.props.item.item.expires).format('LLLL')}</Text>
+          {!this.state.isHidden && (
+          <View style={styles.collapsableContentContainer}>
+            <Text style={styles.collapsableContentArea}>
+              {this.props.item.item.event}
+              {' '}
+for
+              {' '}
+              {this.props.item.item.area}
+            </Text>
+            <Text style={styles.collapsableContentTime}>
+Valid from
+              {moment(this.props.item.item.effective).format('LLLL')}
+            </Text>
+            <Text style={styles.collapsableContentTime}>
+to
+              {moment(this.props.item.item.expires).format('LLLL')}
+            </Text>
             <Text style={styles.collapsableContentText}>{this.props.item.item.description}</Text>
 
-            <Text style={styles.collapsableContentSender}>Issued by {this.props.item.item.senderName} at {moment(this.props.item.item.onset).format('LLLL')}</Text>
+            <Text style={styles.collapsableContentSender}>
+Issued by
+              {this.props.item.item.senderName}
+              {' '}
+at
+              {moment(this.props.item.item.onset).format('LLLL')}
+            </Text>
 
-          </View>}
+          </View>
+          )}
         </View>
       </View>
     );
@@ -286,10 +212,9 @@ export class WarningsListItem extends React.Component {
 }
 
 
-
 const mapStateToProps = (state) => {
-  const { warningsLoading, warningsBarData } = state.warningsObjArr;
-  return { warningsLoading, warningsBarData };
+  const { warningsLoading, warningsObjArr } = state.warningsObjArr;
+  return { warningsLoading, warningsObjArr };
 };
 
 export default connect(mapStateToProps, { warningsFetch })(WarningsListItem);

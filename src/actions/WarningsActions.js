@@ -16,6 +16,7 @@ export const warningsFetch = () => (dispatch, getState) => {
   checkCap(point).then((response) => {
     const currentTime = moment(getState().tsDataObj.tsDataObj.serverTime);
     const warningsHolder = [];
+    const warningTimes = [];
 
     for (let i = 0; i < 5; i++) {
       const warning = {};
@@ -25,7 +26,8 @@ export const warningsFetch = () => (dispatch, getState) => {
       } else {
         warning.time = currentTime.utc().format('YYYYMMDD');
       }
-      console.log('warning.time', moment(warning.time).format('YYYYMMDDTHHmm'))
+
+      warningTimes.push(warning.time);
       warningsHolder.push(warning);
     }
 
@@ -51,74 +53,27 @@ export const warningsFetch = () => (dispatch, getState) => {
             element.severityLevel = 1;
         }
 
-        console.log('element.effective', element.effective)
-        console.log('element.expires', element.expires)
-
-
-
 
         if (moment(element.effective).format('DD') !== moment(whElement.time).format('DD')) {
-          element.startTime = 0
+          element.startTime = 0;
         } else {
-          element.startTime = moment(element.effective).format('HH')
+          element.startTime = moment(element.effective).format('HH');
         }
 
         if (moment(element.expires).format('YYYYMMDD') !== moment(whElement.time).format('YYYYMMDD')) {
           element.endTime = 23;
         } else {
           element.endTime = moment(element.expires).format('HH');
-          console.log('element.endTime', element.endTime)
-          console.log('element.severity', element.severity)
         }
 
         if (moment(whElement.time).isBetween(moment(element.effective), moment(element.expires)) || moment(whElement.time).format('DD') === moment(element.effective).format('DD') || moment(whElement.time).format('DD') === moment(element.expires).format('DD')) {
           whElement.details.push(element);
         }
-
-
-        /*
-        if (moment(whElement.time).isAfter(moment(element.effective)) && moment(element.expires).isAfter(moment(whElement.time)) || moment(whElement.time) === (moment(element.effective))) {
-          whElement.details.push(element);
-        }
-        */
-
-
-
-
-        /*
-                var startDate = new Date(2013, 1, 12)
-          , endDate   = new Date(2013, 1, 15)
-          , date  = new Date(2013, 2, 15)
-          , range = moment().range(startDate, endDate);
-        
-          range.contains(date); // false
-        */
-
-
-
-
-        /*
-        element.startTime = parseInt(moment(element.effective).format('HH'));
-  
-        if (moment(element.expires).format('DD') !== moment(element.effective).format('DD')) {
-          element.endTime = 23;
-        } else {
-          element.endTime = parseInt(moment(element.expires).format('HH'));
-        }
-  
-        if (moment(element.effective).format('YYYYMMDD') === moment(whElement.time).format('YYYYMMDD') || moment(element.expires).format('YYYYMMDD') === moment(whElement.time).format('YYYYMMDD')) {
-          whElement.details.push(element);
-        }
-        */
-
-
-
-
-
       });
     });
-    console.log('warningsHolder', warningsHolder)
-    const payload = [getStyling(warningsHolder, currentTime), response];
+
+
+    const payload = [getStyling(warningsHolder), getStylingList(response, warningTimes)];
 
     dispatch({
       type: WARNINGS_FETCH_SUCCESS,
@@ -248,4 +203,31 @@ function getStyling(warningsHolder) {
   });
 
   return finalStyles;
+}
+
+function getStylingList(response, warningTimes) {
+  response.forEach((element) => {
+    element.styling = [];
+    warningTimes.forEach((warningTimesElement) => {
+      if (moment(warningTimesElement).isBetween(moment(element.effective), moment(element.expires)) || moment(warningTimesElement).format('DD') === moment(element.effective).format('DD') || moment(warningTimesElement).format('DD') === moment(element.expires).format('DD')) {
+        element.styling.push({
+          time: warningTimesElement,
+          bars: [{
+            color: WARNING_SEVERITY_MAPPER[element.severityLevel],
+            width: '100%',
+          }],
+        });
+      } else {
+        element.styling.push({
+          time: warningTimesElement,
+          bars: [{
+            color: WARNING_SEVERITY_MAPPER[0],
+            width: '100%',
+          }],
+        });
+      }
+    });
+  });
+
+  return response;
 }
