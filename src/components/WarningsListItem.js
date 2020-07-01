@@ -164,10 +164,10 @@ export class WarningsListItem extends React.Component {
                         <Text style={styles.warningDayText}>{moment(element.time).format('ddd').toUpperCase()}</Text>
                         <View style={styles.warningBarColorContainer}>
                           {
-                              element.bars.map((barElement, k) => (
-                                <View key={k} style={{ width: barElement.width, height: 4, backgroundColor: barElement.color }} />
-                              ))
-                            }
+                            element.bars.map((barElement, k) => (
+                              <View key={k} style={{ width: barElement.width, height: 4, backgroundColor: barElement.color }} />
+                            ))
+                          }
                         </View>
                       </View>
                     ))
@@ -177,33 +177,33 @@ export class WarningsListItem extends React.Component {
             </View>
           </TouchableWithoutFeedback>
           {!this.state.isHidden && (
-          <View style={styles.collapsableContentContainer}>
-            <Text style={styles.collapsableContentArea}>
-              {this.props.item.item.event}
-              {' '}
-for
-              {' '}
-              {this.props.item.item.area}
-            </Text>
-            <Text style={styles.collapsableContentTime}>
-Valid from
-              {moment(this.props.item.item.effective).format('LLLL')}
-            </Text>
-            <Text style={styles.collapsableContentTime}>
-to
-              {moment(this.props.item.item.expires).format('LLLL')}
-            </Text>
-            <Text style={styles.collapsableContentText}>{this.props.item.item.description}</Text>
+            <View style={styles.collapsableContentContainer}>
+              <Text style={styles.collapsableContentArea}>
+                {this.props.item.item.event}
+                {' '}
+                <Text>for </Text>
+                {' '}
+                {this.props.item.item.area}
+              </Text>
+              <Text style={styles.collapsableContentTime}>
+                <Text>Valid from </Text>
+                {moment(this.props.item.item.effective).format('LLLL')}
+              </Text>
+              <Text style={styles.collapsableContentTime}>
+                <Text>to </Text>
+                {moment(this.props.item.item.expires).format('LLLL')}
+              </Text>
+              <Text style={styles.collapsableContentText}>{this.props.item.item.description}</Text>
 
-            <Text style={styles.collapsableContentSender}>
-Issued by
+              <Text style={styles.collapsableContentSender}>
+                Issued by
               {this.props.item.item.senderName}
-              {' '}
-at
-              {moment(this.props.item.item.onset).format('LLLL')}
-            </Text>
+                {' '}
+                <Text>at </Text>
+                {moment(this.props.item.item.onset).format('LLLL')}
+              </Text>
 
-          </View>
+            </View>
           )}
         </View>
       </View>
