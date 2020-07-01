@@ -209,23 +209,59 @@ function getStylingList(response, warningTimes) {
   response.forEach((element) => {
     element.styling = [];
     warningTimes.forEach((warningTimesElement) => {
-      if (moment(warningTimesElement).isBetween(moment(element.effective), moment(element.expires)) || moment(warningTimesElement).format('DD') === moment(element.effective).format('DD') || moment(warningTimesElement).format('DD') === moment(element.expires).format('DD')) {
-        element.styling.push({
-          time: warningTimesElement,
-          bars: [{
-            color: WARNING_SEVERITY_MAPPER[element.severityLevel],
-            width: '100%',
-          }],
-        });
-      } else {
-        element.styling.push({
-          time: warningTimesElement,
-          bars: [{
-            color: WARNING_SEVERITY_MAPPER[0],
-            width: '100%',
-          }],
-        });
+      let grayPercentsOne = 100;
+      let colorPercents = 0;
+      let grayPercentsTwo = 0;
+
+      if (moment(warningTimesElement).isSame(moment(element.effective), 'day') && !moment(warningTimesElement).isSame(moment(element.expires), 'day')) {
+        grayPercentsOne = parseInt(moment(element.effective).format('HH')) / 24 * 100;
+        colorPercents = 100 - grayPercentsOne;
+        grayPercentsTwo = 0;
       }
+
+      if (moment(warningTimesElement).isSame(moment(element.effective), 'day') && moment(warningTimesElement).isSame(moment(element.expires), 'day')) {
+        grayPercentsOne = parseInt(moment(element.effective).format('HH')) / 24 * 100;
+        grayPercentsTwo = (24 - parseInt(moment(element.expires).format('HH'))) / 24 * 100;
+        colorPercents = 100 - (grayPercentsOne + grayPercentsTwo);
+      }
+
+
+      if (moment(warningTimesElement).isSame(moment(element.expires), 'day') && !moment(warningTimesElement).isSame(moment(element.effective), 'day')) {
+        grayPercentsOne = 0;
+        colorPercents = (24 - parseInt(moment(element.expires).format('HH'))) / 24 * 100;
+        grayPercentsTwo = 100 - colorPercents;
+      }
+
+
+      if (moment(warningTimesElement).isBetween(moment(element.effective), moment(element.expires))) {
+        grayPercentsOne = 0;
+        grayPercentsTwo = 0;
+        colorPercents = 100;
+      }
+
+      console.log('grayPercentsOne', grayPercentsOne);
+      console.log('colorPercents', colorPercents);
+      console.log('grayPercentsTwo', grayPercentsTwo);
+      console.log('--------------------------------');
+
+
+      element.styling.push({
+        time: warningTimesElement,
+        bars: [
+          {
+            color: WARNING_SEVERITY_MAPPER[0],
+            width: `${grayPercentsOne}%`,
+          },
+          {
+            color: WARNING_SEVERITY_MAPPER[element.severityLevel],
+            width: `${colorPercents}%`,
+          },
+          {
+            color: WARNING_SEVERITY_MAPPER[0],
+            width: `${grayPercentsTwo}%`,
+          },
+        ],
+      });
     });
   });
 
