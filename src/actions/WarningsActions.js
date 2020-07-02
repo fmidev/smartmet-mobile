@@ -53,7 +53,51 @@ export const warningsFetch = () => (dispatch, getState) => {
             element.severityLevel = 1;
         }
 
+        if (moment(whElement.time).isSame(moment(element.effective), 'day') && !moment(whElement.time).isSame(moment(element.expires), 'day')) {
 
+          element.startTime = moment(element.effective).format('HH');
+          element.endTime = 23
+          whElement.details.push(element);
+
+        }
+
+
+        if (moment(whElement.time).isSame(moment(element.effective), 'day') && moment(whElement.time).isSame(moment(element.expires), 'day')) {
+
+          element.startTime = moment(element.effective).format('HH');
+          element.endTime = moment(element.expires).format('HH');
+          whElement.details.push(element);
+
+        }
+
+
+
+        if (moment(whElement.time).isSame(moment(element.expires), 'day') && !moment(whElement.time).isSame(moment(element.effective), 'day')) {
+          console.log('whElement.time', whElement.time)
+          console.log('element.expires', element.expires)
+          element.startTime = 0
+          element.endTime = moment(element.expires).format('HH');
+          whElement.details.push(element);
+        }
+
+
+
+        if (moment(whElement.time).isBetween(moment(element.effective), moment(element.expires), 'days')) {
+
+          console.log('BETWEEN.time', whElement.time)
+          console.log('BETWEEN.effective', element.effective)
+          console.log('BETWEEN.expires', element.expires)
+
+          element.startTime = 0
+          element.endTime = 23
+          whElement.details.push(element);
+
+        }
+
+
+
+
+        /*
         if (moment(element.effective).format('DD') !== moment(whElement.time).format('DD')) {
           element.startTime = 0;
         } else {
@@ -69,6 +113,9 @@ export const warningsFetch = () => (dispatch, getState) => {
         if (moment(whElement.time).isBetween(moment(element.effective), moment(element.expires)) || moment(whElement.time).format('DD') === moment(element.effective).format('DD') || moment(whElement.time).format('DD') === moment(element.expires).format('DD')) {
           whElement.details.push(element);
         }
+        */
+
+
       });
     });
 
@@ -171,6 +218,7 @@ function getWarningObjectArray(alertData) {
 
 
 function getStyling(warningsHolder) {
+  console.log('warningsHolder', warningsHolder)
   warningsHolder.forEach((element) => {
     element.styling = {};
 
@@ -180,6 +228,10 @@ function getStyling(warningsHolder) {
       element.details.forEach((elementDetails) => {
         if ((_.invert(WARNING_SEVERITY_MAPPER))[element.styling[i]] < elementDetails.severityLevel && elementDetails.startTime <= i && elementDetails.endTime >= i) {
           element.styling[i] = WARNING_SEVERITY_MAPPER[elementDetails.severityLevel];
+          if (elementDetails.severityLevel === 5) {
+            console.log(' endtime', elementDetails.endTime)
+            console.log(' starttime', elementDetails.startTime)
+          }
         }
       });
     }
@@ -201,6 +253,8 @@ function getStyling(warningsHolder) {
     warningDay.time = element.time;
     finalStyles.push(warningDay);
   });
+
+  console.log('finalStyles', finalStyles)
 
   return finalStyles;
 }
