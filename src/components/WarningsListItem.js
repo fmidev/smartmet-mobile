@@ -130,7 +130,7 @@ export class WarningsListItem extends React.Component {
   }
 
   render() {
-    console.log('ITEM', this.props.item.item);
+    // console.log('ITEM', this.props.item.item);
     const IconComponent = Ionicons;
     return (
       <View style={styles.container}>

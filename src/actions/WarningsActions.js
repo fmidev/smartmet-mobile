@@ -1,6 +1,7 @@
 import GeoFencing from 'react-native-geo-fencing';
 import moment from 'moment-with-locales-es6';
-import _ from 'underscore';
+import underscore from 'underscore';
+import _ from 'lodash';
 import { WARNINGS_FETCH, WARNINGS_FETCH_SUCCESS, WARNINGS_FETCH_FAIL } from './types';
 import { getCapFeed } from '../network/Api';
 import { WARNING_KEYWORD_MAPPER, WARNING_SEVERITY_MAPPER } from '../Constants';
@@ -53,73 +54,39 @@ export const warningsFetch = () => (dispatch, getState) => {
             element.severityLevel = 1;
         }
 
+
         if (moment(whElement.time).isSame(moment(element.effective), 'day') && !moment(whElement.time).isSame(moment(element.expires), 'day')) {
-
-          element.startTime = moment(element.effective).format('HH');
-          element.endTime = 23
-          whElement.details.push(element);
-
+          const newElement = _.clone(element);
+          newElement.startTime = parseInt(moment(newElement.effective).format('HH'));
+          newElement.endTime = 23;
+          whElement.details.push(newElement);
         }
 
 
         if (moment(whElement.time).isSame(moment(element.effective), 'day') && moment(whElement.time).isSame(moment(element.expires), 'day')) {
-
-          element.startTime = moment(element.effective).format('HH');
-          element.endTime = moment(element.expires).format('HH');
-          whElement.details.push(element);
-
+          const newElement = _.clone(element);
+          newElement.startTime = parseInt(moment(newElement.effective).format('HH'));
+          newElement.endTime = parseInt(moment(newElement.expires).format('HH'));
+          whElement.details.push(newElement);
         }
-
 
 
         if (moment(whElement.time).isSame(moment(element.expires), 'day') && !moment(whElement.time).isSame(moment(element.effective), 'day')) {
-          console.log('whElement.time', whElement.time)
-          console.log('element.expires', element.expires)
-          element.startTime = 0
-          element.endTime = moment(element.expires).format('HH');
-          whElement.details.push(element);
+          const newElement = _.clone(element);
+          newElement.startTime = 0;
+          newElement.endTime = parseInt(moment(newElement.expires).format('HH'));
+          whElement.details.push(newElement);
         }
-
 
 
         if (moment(whElement.time).isBetween(moment(element.effective), moment(element.expires), 'days')) {
-
-          console.log('BETWEEN.time', whElement.time)
-          console.log('BETWEEN.effective', element.effective)
-          console.log('BETWEEN.expires', element.expires)
-
-          element.startTime = 0
-          element.endTime = 23
-          whElement.details.push(element);
-
+          const newElement = _.clone(element);
+          newElement.startTime = 0;
+          newElement.endTime = 23;
+          whElement.details.push(newElement);
         }
-
-
-
-
-        /*
-        if (moment(element.effective).format('DD') !== moment(whElement.time).format('DD')) {
-          element.startTime = 0;
-        } else {
-          element.startTime = moment(element.effective).format('HH');
-        }
-
-        if (moment(element.expires).format('YYYYMMDD') !== moment(whElement.time).format('YYYYMMDD')) {
-          element.endTime = 23;
-        } else {
-          element.endTime = moment(element.expires).format('HH');
-        }
-
-        if (moment(whElement.time).isBetween(moment(element.effective), moment(element.expires)) || moment(whElement.time).format('DD') === moment(element.effective).format('DD') || moment(whElement.time).format('DD') === moment(element.expires).format('DD')) {
-          whElement.details.push(element);
-        }
-        */
-
-
       });
     });
-
-
     const payload = [getStyling(warningsHolder), getStylingList(response, warningTimes)];
 
     dispatch({
@@ -218,7 +185,6 @@ function getWarningObjectArray(alertData) {
 
 
 function getStyling(warningsHolder) {
-  console.log('warningsHolder', warningsHolder)
   warningsHolder.forEach((element) => {
     element.styling = {};
 
@@ -226,12 +192,8 @@ function getStyling(warningsHolder) {
       element.styling[i] = WARNING_SEVERITY_MAPPER[0];
 
       element.details.forEach((elementDetails) => {
-        if ((_.invert(WARNING_SEVERITY_MAPPER))[element.styling[i]] < elementDetails.severityLevel && elementDetails.startTime <= i && elementDetails.endTime >= i) {
+        if ((underscore.invert(WARNING_SEVERITY_MAPPER))[element.styling[i]] < elementDetails.severityLevel && elementDetails.startTime <= i && elementDetails.endTime >= i) {
           element.styling[i] = WARNING_SEVERITY_MAPPER[elementDetails.severityLevel];
-          if (elementDetails.severityLevel === 5) {
-            console.log(' endtime', elementDetails.endTime)
-            console.log(' starttime', elementDetails.startTime)
-          }
         }
       });
     }
@@ -253,8 +215,6 @@ function getStyling(warningsHolder) {
     warningDay.time = element.time;
     finalStyles.push(warningDay);
   });
-
-  console.log('finalStyles', finalStyles)
 
   return finalStyles;
 }
@@ -283,7 +243,7 @@ function getStylingList(response, warningTimes) {
       if (moment(warningTimesElement).isSame(moment(element.expires), 'day') && !moment(warningTimesElement).isSame(moment(element.effective), 'day')) {
         grayPercentsOne = 0;
         grayPercentsTwo = (24 - parseInt(moment(element.expires).format('HH'))) / 24 * 100;
-        colorPercents = 100 - grayPercentsTwo
+        colorPercents = 100 - grayPercentsTwo;
       }
 
 
