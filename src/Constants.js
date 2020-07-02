@@ -250,9 +250,9 @@ export const WARNING_KEYWORD_MAPPER = [
 export const WARNING_SEVERITY_MAPPER =
 {
   0: 'green',
-  1: 'aqua',
-  2: 'yellow',
-  3: 'orange',
-  4: 'pink',
+  1: 'green',
+  2: 'green',
+  3: 'yellow',
+  4: 'orange',
   5: 'red'
 }
