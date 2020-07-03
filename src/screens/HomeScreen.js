@@ -148,11 +148,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  listHeader: {
+  listHeaderContainer: {
+    flex: 1,
+    flexDirection: 'row',
     backgroundColor: 'lightgray',
-    paddingTop: 10,
-    paddingBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 18,
   },
+  listHeaderText: {
+    textTransform: 'uppercase',
+    fontSize: 10,
+    color: 'black',
+    paddingHorizontal: 10,
+  }
 });
 
 
@@ -318,13 +328,12 @@ export class HomeScreen extends React.Component {
           </View>
         </TouchableHighlight>
 
-        <View style={styles.listHeader}>
-          <Text style={{
-            fontSize: 12, color: 'black', marginLeft: 5, fontWeight: 'bold',
-          }}
-          >
-            {`${t('common:forecast')}`}
-          </Text>
+        <View style={styles.listHeaderContainer}>
+          <Text style={styles.listHeaderText}>Condition</Text>
+          <Text style={styles.listHeaderText}>Temp</Text>
+          <Text style={styles.listHeaderText}>Wdir</Text>
+          <Text style={styles.listHeaderText}>Wspeed</Text>
+          <Text style={styles.listHeaderText}>Humidity</Text>
         </View>
 
       </View >

@@ -127,7 +127,7 @@ export class ListItem extends React.Component {
               <Text style={{ fontWeight: 'bold' }}>{moment(this.props.item.item.time).format('DD')}</Text>
             </View>
 
-            <View style={{ alignItems: 'center', flex: 1, paddingBottom: 10, paddingLeft: 10, paddingRight: 6 }}>
+            <View style={{ alignItems: 'center', flex: 1, paddingBottom: 10, paddingLeft: 6, paddingRight: 2 }}>
               <Image style={{ alignItems: 'center', flex: 1 }}
                 source={Images.symbols[this.props.item.item.smartsymbol]}
                 style={{ height: 50, width: 50, marginTop: 10 }}
@@ -150,7 +150,7 @@ export class ListItem extends React.Component {
               </Text>
             </View>
 
-            <View style={{ alignItems: 'center', flex: 1, paddingHorizontal: 10 }}>
+            <View style={{ alignItems: 'center', flex: 1, paddingLeft: 8 }}>
               <Text style={{ color: 'darkslategrey' }}>{this.props.item.item.humidity.toFixed(0)}  %</Text>
             </View>
 
