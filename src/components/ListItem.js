@@ -122,24 +122,27 @@ export class ListItem extends React.Component {
       <View style={styles.listItemContainer} >
         <TouchableWithoutFeedback onPress={this.toggleListItem}>
           <View style={styles.listItem} >
-            <View style={{ alignItems: 'center', flex: 1 }}>
+            <View style={{ alignItems: 'center', flex: 1, paddingRight: 10 }}>
               <Text style={{ fontWeight: 'bold', color: 'black' }}>{moment(this.props.item.item.time).format('ddd').toUpperCase()}</Text>
               <Text style={{ fontWeight: 'bold' }}>{moment(this.props.item.item.time).format('DD')}</Text>
             </View>
 
-            <View style={{ alignItems: 'center', flex: 1, paddingBottom: 10, paddingLeft: 10 }}>
-              <Image
+            <View style={{ alignItems: 'center', flex: 1, paddingBottom: 10, paddingLeft: 10, paddingRight: 6 }}>
+              <Image style={{ alignItems: 'center', flex: 1 }}
                 source={Images.symbols[this.props.item.item.smartsymbol]}
-                style={{ height: 50, width: 50, marginTop: 6 }}
+                style={{ height: 50, width: 50, marginTop: 10 }}
               />
             </View>
 
-            <View style={{ alignItems: 'center', flex: 1 }}>
+            <View style={{ alignItems: 'center', flex: 1, paddingHorizontal: 10 }}>
               <Text style={{ color: 'black', fontWeight: 'bold' }}>{converter(this.props.parameterUnitMap['temperature'], this.props.item.item.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}°</Text>
             </View>
 
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginLeft: 14, marginRight: 18, }}>
-              <Text style={{ color: 'green', fontSize: 30, textAlign: 'right', marginRight: 8, marginBottom: 6 }}>{getWindDirectionArrow(this.props.item.item.winddirection)}</Text>
+            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+              <Text style={{ color: 'green', fontSize: 30, marginBottom: 6, paddingLeft: 5 }}>{getWindDirectionArrow(this.props.item.item.winddirection)}</Text>
+            </View>
+
+            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
               <Text style={{ color: 'green' }}>
                 {converter(this.props.parameterUnitMap['wind'], this.props.item.item.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}
                 {' '}
@@ -147,7 +150,7 @@ export class ListItem extends React.Component {
               </Text>
             </View>
 
-            <View style={{ alignItems: 'center', flex: 1 }}>
+            <View style={{ alignItems: 'center', flex: 1, paddingHorizontal: 10 }}>
               <Text style={{ color: 'darkslategrey' }}>{this.props.item.item.humidity.toFixed(0)}  %</Text>
             </View>
 
