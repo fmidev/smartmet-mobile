@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 0,
+    paddingHorizontal: 6,
     margin: 0.5,
     backgroundColor: '#FFF',
     width: '100%',
@@ -122,7 +122,7 @@ export class ListItem extends React.Component {
       <View style={styles.listItemContainer} >
         <TouchableWithoutFeedback onPress={this.toggleListItem}>
           <View style={styles.listItem} >
-            <View style={{ alignItems: 'center', flex: 1, paddingRight: 10 }}>
+            <View style={{ alignItems: 'center', flex: 1 }}>
               <Text style={{ fontWeight: 'bold', color: 'black' }}>{moment(this.props.item.item.time).format('ddd').toUpperCase()}</Text>
               <Text style={{ fontWeight: 'bold' }}>{moment(this.props.item.item.time).format('DD')}</Text>
             </View>
@@ -134,7 +134,7 @@ export class ListItem extends React.Component {
               />
             </View>
 
-            <View style={{ alignItems: 'center', flex: 1, paddingHorizontal: 10 }}>
+            <View style={{ alignItems: 'center', flex: 1, paddingHorizontal: 8 }}>
               <Text style={{ color: 'black', fontWeight: 'bold' }}>{converter(this.props.parameterUnitMap['temperature'], this.props.item.item.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}°</Text>
             </View>
 
