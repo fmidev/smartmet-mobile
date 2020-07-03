@@ -37,3 +37,8 @@ export const asyncStorageSetItem = async (key, value) => {
     // TODO: Error handling
   }
 }
+
+export function getWindDirectionArrow(windDirection) {
+  const directions = ['↓', '↙', '←', '↖', '↑', '↗', '→', '↘'];
+  return directions[Math.round(windDirection / 45) % 8];
+}

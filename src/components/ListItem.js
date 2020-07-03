@@ -7,21 +7,21 @@ import {
 import moment from 'moment-with-locales-es6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Images from '../assets/images';
-import { converter } from '../components/Helper'
+import { converter, getWindDirectionArrow } from '../components/Helper'
 
 const styles = StyleSheet.create({
   listItemContainer: {
     backgroundColor: 'lightgray',
   },
   listItem: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 0,
     margin: 0.5,
-    paddingBottom: 7,
     backgroundColor: '#FFF',
     width: '100%',
-    flex: 1,
-    alignSelf: 'center',
     flexDirection: 'row',
-    borderRadius: 0,
   },
   collapsableContent: {
     backgroundColor: 'rgb(222,236,246)',
@@ -93,6 +93,7 @@ export class ListItem extends React.Component {
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+          <Text style={{ color: 'green', fontSize: 30, textAlign: 'right', marginBottom: 6 }}>{getWindDirectionArrow(item.winddirection)}</Text>
           <Text style={{ color: 'green' }}>
             {item.windspeedms}
             {' '}
@@ -121,21 +122,24 @@ export class ListItem extends React.Component {
       <View style={styles.listItemContainer} >
         <TouchableWithoutFeedback onPress={this.toggleListItem}>
           <View style={styles.listItem} >
-            <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+            <View style={{ alignItems: 'center', flex: 1 }}>
               <Text style={{ fontWeight: 'bold', color: 'black' }}>{moment(this.props.item.item.time).format('ddd').toUpperCase()}</Text>
               <Text style={{ fontWeight: 'bold' }}>{moment(this.props.item.item.time).format('DD')}</Text>
             </View>
 
-            <Image
-              source={Images.symbols[this.props.item.item.smartsymbol]}
-              style={{ height: 50, width: 50, marginTop: 6 }}
-            />
+            <View style={{ alignItems: 'center', flex: 1, paddingBottom: 10, paddingLeft: 10 }}>
+              <Image
+                source={Images.symbols[this.props.item.item.smartsymbol]}
+                style={{ height: 50, width: 50, marginTop: 6 }}
+              />
+            </View>
 
-            <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+            <View style={{ alignItems: 'center', flex: 1 }}>
               <Text style={{ color: 'black', fontWeight: 'bold' }}>{converter(this.props.parameterUnitMap['temperature'], this.props.item.item.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}°</Text>
             </View>
 
-            <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginLeft: 14, marginRight: 18, }}>
+              <Text style={{ color: 'green', fontSize: 30, textAlign: 'right', marginRight: 8, marginBottom: 6 }}>{getWindDirectionArrow(this.props.item.item.winddirection)}</Text>
               <Text style={{ color: 'green' }}>
                 {converter(this.props.parameterUnitMap['wind'], this.props.item.item.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}
                 {' '}
@@ -143,11 +147,11 @@ export class ListItem extends React.Component {
               </Text>
             </View>
 
-            <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+            <View style={{ alignItems: 'center', flex: 1 }}>
               <Text style={{ color: 'darkslategrey' }}>{this.props.item.item.humidity.toFixed(0)}  %</Text>
             </View>
 
-            <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+            <View style={{ alignItems: 'center', flex: 1 }}>
               {this.state.isHidden && <IconComponent name="ios-arrow-dropdown-circle" size={25} color={'black'} />}
               {!this.state.isHidden && <IconComponent name="ios-arrow-dropup-circle" size={25} color={'black'} />}
             </View>
