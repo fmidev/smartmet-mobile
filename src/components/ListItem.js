@@ -93,8 +93,8 @@ export class ListItem extends React.Component {
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={{ color: 'green', fontSize: 30, textAlign: 'right', marginBottom: 6 }}>{getWindDirectionArrow(item.winddirection)}</Text>
-          <Text style={{ color: 'green' }}>
+          <Text style={{ color: 'black', fontSize: 30, textAlign: 'right', marginBottom: 6 }}>{getWindDirectionArrow(item.winddirection)}</Text>
+          <Text style={{ color: 'black' }}>
             {item.windspeedms}
             {' '}
             {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}
@@ -102,11 +102,11 @@ export class ListItem extends React.Component {
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={{ color: 'darkslategrey' }}>{item.humidity} %</Text>
+          <Text style={{ color: 'black' }}>{item.humidity} %</Text>
         </View>
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={{ color: 'darkslategrey' }}>{item.precipitation1h} {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['precipitation'])}`} </Text>
+          <Text style={{ color: 'black' }}>{item.precipitation1h} {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['precipitation'])}`} </Text>
         </View>
 
       </View>
@@ -139,11 +139,11 @@ export class ListItem extends React.Component {
             </View>
 
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ color: 'green', fontSize: 30, marginBottom: 6, paddingLeft: 5 }}>{getWindDirectionArrow(this.props.item.item.winddirection)}</Text>
+              <Text style={{ color: 'black', fontSize: 30, marginBottom: 6, paddingLeft: 5 }}>{getWindDirectionArrow(this.props.item.item.winddirection)}</Text>
             </View>
 
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ color: 'green' }}>
+              <Text style={{ color: 'black' }}>
                 {converter(this.props.parameterUnitMap['wind'], this.props.item.item.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}
                 {' '}
                 {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}
@@ -151,7 +151,7 @@ export class ListItem extends React.Component {
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingLeft: 8 }}>
-              <Text style={{ color: 'darkslategrey' }}>{this.props.item.item.humidity.toFixed(0)}  %</Text>
+              <Text style={{ color: 'black' }}>{this.props.item.item.humidity.toFixed(0)}  %</Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1 }}>
