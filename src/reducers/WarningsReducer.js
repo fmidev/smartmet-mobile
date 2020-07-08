@@ -3,7 +3,8 @@ import { WARNINGS_FETCH, WARNINGS_FETCH_SUCCESS, WARNINGS_FETCH_FAIL } from '../
 const INITIAL_STATE = {
   warningsLoading: true,
   warningsBarData: [],
-  warningsObjArr: []
+  warningsObjArr: [],
+  warningsError: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -20,6 +21,14 @@ export default (state = INITIAL_STATE, action) => {
         warningsLoading: false,
         warningsBarData: action.payload[0],
         warningsObjArr: action.payload[1],
+      };
+
+    case WARNINGS_FETCH_FAIL:
+      return {
+        warningsLoading: false,
+        warningsBarData: action.payload[0],
+        warningsObjArr: [],
+        warningsError: true
       };
 
     default:

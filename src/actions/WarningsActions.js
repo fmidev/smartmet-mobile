@@ -10,6 +10,7 @@ const { parseString } = require('react-native-xml2js');
 
 export const warningsFetch = () => (dispatch, getState) => {
   dispatch({ type: WARNINGS_FETCH });
+  let warningFetchError = false;
   const point = {
     lat: getState().coords.coords.lat,
     lng: getState().coords.coords.lon,
@@ -32,67 +33,82 @@ export const warningsFetch = () => (dispatch, getState) => {
       warningsHolder.push(warning);
     }
 
-    response.forEach((element) => {
-      warningsHolder.forEach((whElement) => {
-        switch (element.severity) {
-          case 'Unknown':
-            element.severityLevel = 1;
-            break;
-          case 'Minor':
-            element.severityLevel = 2;
-            break;
-          case 'Moderate':
-            element.severityLevel = 3;
-            break;
-          case 'Severe':
-            element.severityLevel = 4;
-            break;
-          case 'Extreme':
-            element.severityLevel = 5;
-            break;
-          default:
-            element.severityLevel = 1;
-        }
+    if (Array.isArray(response)) {
+
+      response.forEach((element) => {
+        warningsHolder.forEach((whElement) => {
+          switch (element.severity) {
+            case 'Unknown':
+              element.severityLevel = 1;
+              break;
+            case 'Minor':
+              element.severityLevel = 2;
+              break;
+            case 'Moderate':
+              element.severityLevel = 3;
+              break;
+            case 'Severe':
+              element.severityLevel = 4;
+              break;
+            case 'Extreme':
+              element.severityLevel = 5;
+              break;
+            default:
+              element.severityLevel = 1;
+          }
 
 
-        if (moment(whElement.time).isSame(moment(element.effective), 'day') && !moment(whElement.time).isSame(moment(element.expires), 'day')) {
-          const newElement = _.clone(element);
-          newElement.startTime = parseInt(moment(newElement.effective).format('HH'));
-          newElement.endTime = 23;
-          whElement.details.push(newElement);
-        }
+          if (moment(whElement.time).isSame(moment(element.effective), 'day') && !moment(whElement.time).isSame(moment(element.expires), 'day')) {
+            const newElement = _.clone(element);
+            newElement.startTime = parseInt(moment(newElement.effective).format('HH'));
+            newElement.endTime = 23;
+            whElement.details.push(newElement);
+          }
 
 
-        if (moment(whElement.time).isSame(moment(element.effective), 'day') && moment(whElement.time).isSame(moment(element.expires), 'day')) {
-          const newElement = _.clone(element);
-          newElement.startTime = parseInt(moment(newElement.effective).format('HH'));
-          newElement.endTime = parseInt(moment(newElement.expires).format('HH'));
-          whElement.details.push(newElement);
-        }
+          if (moment(whElement.time).isSame(moment(element.effective), 'day') && moment(whElement.time).isSame(moment(element.expires), 'day')) {
+            const newElement = _.clone(element);
+            newElement.startTime = parseInt(moment(newElement.effective).format('HH'));
+            newElement.endTime = parseInt(moment(newElement.expires).format('HH'));
+            whElement.details.push(newElement);
+          }
 
 
-        if (moment(whElement.time).isSame(moment(element.expires), 'day') && !moment(whElement.time).isSame(moment(element.effective), 'day')) {
-          const newElement = _.clone(element);
-          newElement.startTime = 0;
-          newElement.endTime = parseInt(moment(newElement.expires).format('HH'));
-          whElement.details.push(newElement);
-        }
+          if (moment(whElement.time).isSame(moment(element.expires), 'day') && !moment(whElement.time).isSame(moment(element.effective), 'day')) {
+            const newElement = _.clone(element);
+            newElement.startTime = 0;
+            newElement.endTime = parseInt(moment(newElement.expires).format('HH'));
+            whElement.details.push(newElement);
+          }
 
 
-        if (moment(whElement.time).isBetween(moment(element.effective), moment(element.expires), 'days')) {
-          const newElement = _.clone(element);
-          newElement.startTime = 0;
-          newElement.endTime = 23;
-          whElement.details.push(newElement);
-        }
+          if (moment(whElement.time).isBetween(moment(element.effective), moment(element.expires), 'days')) {
+            const newElement = _.clone(element);
+            newElement.startTime = 0;
+            newElement.endTime = 23;
+            whElement.details.push(newElement);
+          }
+        });
       });
-    });
-    const payload = [getStyling(warningsHolder), getStylingList(response, warningTimes)];
 
-    dispatch({
-      type: WARNINGS_FETCH_SUCCESS,
-      payload,
-    });
+    } else {
+      warningFetchError = true
+    }
+
+    const payload = [getStyling(warningsHolder, warningFetchError), getStylingList(response, warningTimes, warningFetchError)];
+
+    if (warningFetchError) {
+      dispatch({
+        type: WARNINGS_FETCH_FAIL,
+        payload,
+      });
+    } else {
+      dispatch({
+        type: WARNINGS_FETCH_SUCCESS,
+        payload,
+      });
+    }
+
   });
 };
 
@@ -103,7 +119,7 @@ function checkCap(point) {
       .then((responseText) => {
         parseString(responseText, (err, result) => {
           if (err) {
-            // TODO: Error handling
+            resolve(err);
           } else {
             let counter = 0;
             const warningObjectArray = [];
@@ -184,12 +200,16 @@ function getWarningObjectArray(alertData) {
 }
 
 
-function getStyling(warningsHolder) {
+function getStyling(warningsHolder, error) {
   warningsHolder.forEach((element) => {
     element.styling = {};
 
     for (let i = 0; i < 24; i++) {
-      element.styling[i] = WARNING_SEVERITY_MAPPER[0];
+      if (error) {
+        element.styling[i] = 'gray';
+      } else {
+        element.styling[i] = WARNING_SEVERITY_MAPPER[0];
+      }
 
       element.details.forEach((elementDetails) => {
         if ((underscore.invert(WARNING_SEVERITY_MAPPER))[element.styling[i]] < elementDetails.severityLevel && elementDetails.startTime <= i && elementDetails.endTime >= i) {
@@ -219,60 +239,66 @@ function getStyling(warningsHolder) {
   return finalStyles;
 }
 
-function getStylingList(response, warningTimes) {
-  response.forEach((element) => {
-    element.styling = [];
-    warningTimes.forEach((warningTimesElement) => {
-      let grayPercentsOne = 100;
-      let colorPercents = 0;
-      let grayPercentsTwo = 0;
+function getStylingList(response, warningTimes, error) {
 
-      if (moment(warningTimesElement).isSame(moment(element.effective), 'day') && !moment(warningTimesElement).isSame(moment(element.expires), 'day')) {
-        grayPercentsOne = parseInt(moment(element.effective).format('HH')) / 24 * 100;
-        colorPercents = 100 - grayPercentsOne;
-        grayPercentsTwo = 0;
-      }
+  if (error) {
+    return []
+  } else {
+    response.forEach((element) => {
+      element.styling = [];
+      warningTimes.forEach((warningTimesElement) => {
+        let grayPercentsOne = 100;
+        let colorPercents = 0;
+        let grayPercentsTwo = 0;
 
-      if (moment(warningTimesElement).isSame(moment(element.effective), 'day') && moment(warningTimesElement).isSame(moment(element.expires), 'day')) {
-        grayPercentsOne = parseInt(moment(element.effective).format('HH')) / 24 * 100;
-        grayPercentsTwo = (24 - parseInt(moment(element.expires).format('HH'))) / 24 * 100;
-        colorPercents = 100 - (grayPercentsOne + grayPercentsTwo);
-      }
+        if (moment(warningTimesElement).isSame(moment(element.effective), 'day') && !moment(warningTimesElement).isSame(moment(element.expires), 'day')) {
+          grayPercentsOne = parseInt(moment(element.effective).format('HH')) / 24 * 100;
+          colorPercents = 100 - grayPercentsOne;
+          grayPercentsTwo = 0;
+        }
 
-
-      if (moment(warningTimesElement).isSame(moment(element.expires), 'day') && !moment(warningTimesElement).isSame(moment(element.effective), 'day')) {
-        grayPercentsOne = 0;
-        grayPercentsTwo = (24 - parseInt(moment(element.expires).format('HH'))) / 24 * 100;
-        colorPercents = 100 - grayPercentsTwo;
-      }
+        if (moment(warningTimesElement).isSame(moment(element.effective), 'day') && moment(warningTimesElement).isSame(moment(element.expires), 'day')) {
+          grayPercentsOne = parseInt(moment(element.effective).format('HH')) / 24 * 100;
+          grayPercentsTwo = (24 - parseInt(moment(element.expires).format('HH'))) / 24 * 100;
+          colorPercents = 100 - (grayPercentsOne + grayPercentsTwo);
+        }
 
 
-      if (moment(warningTimesElement).isBetween(moment(element.effective), moment(element.expires), 'days')) {
-        grayPercentsOne = 0;
-        grayPercentsTwo = 0;
-        colorPercents = 100;
-      }
+        if (moment(warningTimesElement).isSame(moment(element.expires), 'day') && !moment(warningTimesElement).isSame(moment(element.effective), 'day')) {
+          grayPercentsOne = 0;
+          grayPercentsTwo = (24 - parseInt(moment(element.expires).format('HH'))) / 24 * 100;
+          colorPercents = 100 - grayPercentsTwo;
+        }
 
 
-      element.styling.push({
-        time: warningTimesElement,
-        bars: [
-          {
-            color: WARNING_SEVERITY_MAPPER[0],
-            width: `${grayPercentsOne}%`,
-          },
-          {
-            color: WARNING_SEVERITY_MAPPER[element.severityLevel],
-            width: `${colorPercents}%`,
-          },
-          {
-            color: WARNING_SEVERITY_MAPPER[0],
-            width: `${grayPercentsTwo}%`,
-          },
-        ],
+        if (moment(warningTimesElement).isBetween(moment(element.effective), moment(element.expires), 'days')) {
+          grayPercentsOne = 0;
+          grayPercentsTwo = 0;
+          colorPercents = 100;
+        }
+
+
+        element.styling.push({
+          time: warningTimesElement,
+          bars: [
+            {
+              color: WARNING_SEVERITY_MAPPER[0],
+              width: `${grayPercentsOne}%`,
+            },
+            {
+              color: WARNING_SEVERITY_MAPPER[element.severityLevel],
+              width: `${colorPercents}%`,
+            },
+            {
+              color: WARNING_SEVERITY_MAPPER[0],
+              width: `${grayPercentsTwo}%`,
+            },
+          ],
+        });
       });
     });
-  });
 
-  return response;
+    return response;
+  }
+
 }

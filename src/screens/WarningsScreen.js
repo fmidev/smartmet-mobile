@@ -4,8 +4,7 @@ import {
   View, StyleSheet, FlatList,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { LoadingView } from '../components';
-import { ErrorView } from '../components';
+import { LoadingView, WarningsErrorView, WarningsNotSetView } from '../components';
 import WarningsListItem from '../components/WarningsListItem';
 import { warningsFetch } from '../actions/WarningsActions';
 import { tsFetch } from '../actions/TimeSeriesActions';
@@ -30,7 +29,13 @@ export class WarningsScreen extends React.Component {
 
   renderError() {
     return (
-      <ErrorView />
+      <WarningsErrorView />
+    );
+  }
+
+  renderWarningsNotSet() {
+    return (
+      <WarningsNotSetView />
     );
   }
 
@@ -74,8 +79,11 @@ export class WarningsScreen extends React.Component {
     if (this.props.warningsLoading) {
       return this.renderLoading();
     }
-    if (this.props.error) {
+    if (this.props.warningsError) {
       return this.renderError();
+    }
+    if (this.props.warningsObjArr.length < 1 && !this.props.warningsError) {
+      return this.renderWarningsNotSet();
     }
     return this.renderFlatList();
   }
@@ -84,6 +92,7 @@ export class WarningsScreen extends React.Component {
 
 const mapStateToProps = (state) => ({
   warningsLoading: state.warningsObjArr.warningsLoading,
+  warningsError: state.warningsObjArr.warningsError,
   warningsObjArr: state.warningsObjArr.warningsObjArr
 });
 
