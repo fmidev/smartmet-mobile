@@ -80,11 +80,11 @@ export class ListItem extends React.Component {
           style={{ height: 50, width: 50, marginTop: 6 }}
         />
 
-        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+        <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
           <Text style={{ color: 'black' }}>{item.temperature}°</Text>
         </View>
 
-        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+        <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
           <Image
             source={require('../assets/images/feels-the-same.png')}
             style={{ height: 50, width: 50, marginTop: 6 }}
@@ -92,7 +92,7 @@ export class ListItem extends React.Component {
           <Text style={{ color: 'black' }}>{item.feelslike}°</Text>
         </View>
 
-        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+        <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
           <Text style={{ color: 'black', fontSize: 30, textAlign: 'right', marginBottom: 6 }}>{getWindDirectionArrow(item.winddirection)}</Text>
           <Text style={{ color: 'black' }}>
             {item.windspeedms}
