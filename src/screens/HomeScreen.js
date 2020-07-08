@@ -212,7 +212,7 @@ export class HomeScreen extends React.Component {
           <Text style={styles.dateText}>{moment(this.props.tsDataObj.localAnalysisTime).format('LLLL')}</Text>
         </View>
 
-        <Text style={{ textAlign: 'center', color: 'red' }}>{this.props.tsDataObj.coords.lat + ', ' + this.props.tsDataObj.coords.lon}</Text>
+        {/* <Text style={{ textAlign: 'center', color: 'red' }}>{this.props.tsDataObj.coords.lat + ', ' + this.props.tsDataObj.coords.lon}</Text> */}
 
         <View style={styles.middleContainer}>
 
