@@ -151,8 +151,8 @@ export class WarningsListItem extends React.Component {
 
               <View style={styles.symbolContainer}>
                 {this.props.item.item.warningName === 'unidentified'
-                  ? <IconComponent name="md-close" color="red" size={35} />
-                  : <Image style={{ width: 30, height: 30 }} source={Images.warnings[this.props.item.item.warningName]} />}
+                  ? <Image style={{ width: 40, height: 40 }} source={Images.warnings['na']} />
+                  : <Image style={{ width: 40, height: 40 }} source={Images.warnings[this.props.item.item.warningName]} />}
               </View>
 
               <View style={styles.warningLoadingContainer}>
