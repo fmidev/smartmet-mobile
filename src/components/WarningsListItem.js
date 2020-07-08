@@ -1,6 +1,7 @@
 import {
   View, Text, StyleSheet, TouchableWithoutFeedback, Image,
 } from 'react-native';
+import { translate } from 'react-i18next';
 import moment from 'moment-with-locales-es6';
 import { connect } from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -130,6 +131,7 @@ export class WarningsListItem extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
     // console.log('ITEM', this.props.item.item);
     const IconComponent = Ionicons;
     return (
@@ -186,20 +188,20 @@ export class WarningsListItem extends React.Component {
                 {this.props.item.item.area}
               </Text>
               <Text style={styles.collapsableContentTime}>
-                <Text>Valid from </Text>
+                <Text>{`${t('warnings:valid from')}`} </Text>
                 {moment(this.props.item.item.effective).format('LLLL')}
               </Text>
               <Text style={styles.collapsableContentTime}>
-                <Text>to </Text>
+                <Text>{`${t('warnings:to')}`} </Text>
                 {moment(this.props.item.item.expires).format('LLLL')}
               </Text>
               <Text style={styles.collapsableContentText}>{this.props.item.item.description}</Text>
 
               <Text style={styles.collapsableContentSender}>
-                Issued by
-              {this.props.item.item.senderName}
+                <Text>{`${t('warnings:issued by')}`} </Text>
+                {this.props.item.item.senderName}
                 {' '}
-                <Text>at </Text>
+                <Text>{`${t('warnings:at')}`} </Text>
                 {moment(this.props.item.item.onset).format('LLLL')}
               </Text>
 
@@ -217,4 +219,5 @@ const mapStateToProps = (state) => {
   return { warningsLoading, warningsObjArr };
 };
 
-export default connect(mapStateToProps, { warningsFetch })(WarningsListItem);
+
+export default connect(mapStateToProps, { warningsFetch })(translate(['warnings'], { wait: true })(WarningsListItem));

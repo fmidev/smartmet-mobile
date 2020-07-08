@@ -70,5 +70,11 @@
     "wind direction": "wdir",
     "wind speed": "wspeed",
     "humidity": "humidity"
+  },
+  "warnings": {
+    "valid from": "Valid from",
+    "to": "to",
+    "issued by": "Issued by",
+    "at": "at"
   }
 }

@@ -70,5 +70,11 @@
     "wind direction": "шдиир",
     "wind speed": "шылда",
     "humidity": "ным"
+  },
+  "warnings": {
+    "valid from": "Баштап жарактуу",
+    "to": "үчүн",
+    "issued by": "Тарабынан берилген",
+    "at": "боюнча"
   }
 }
