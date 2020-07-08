@@ -47,12 +47,14 @@ const BottomTabNavigator = createBottomTabNavigator(
         tabBarLabel: <Text style={styles.navText}> {screenProps.t('navigation:warnings')}</Text>
       })
     },
+    /*
     Maps: {
       screen: MapsNavigator,
       navigationOptions: ({ screenProps }) => ({
         tabBarLabel: <Text style={styles.navText}> {screenProps.t('navigation:maps')}</Text>
       })
     }
+    */
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
