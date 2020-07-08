@@ -329,11 +329,11 @@ export class HomeScreen extends React.Component {
         </TouchableHighlight>
 
         <View style={styles.listHeaderContainer}>
-          <Text style={styles.listHeaderText}>Condition</Text>
-          <Text style={styles.listHeaderText}>Temp</Text>
-          <Text style={styles.listHeaderText}>Wdir</Text>
-          <Text style={styles.listHeaderText}>Wspeed</Text>
-          <Text style={styles.listHeaderText}>Humidity</Text>
+          <Text style={styles.listHeaderText}>{`${t('parameter abbreviations:weather symbol')}`}</Text>
+          <Text style={styles.listHeaderText}>{`${t('parameter abbreviations:temperature')}`}</Text>
+          <Text style={styles.listHeaderText}>{`${t('parameter abbreviations:wind direction')}`}</Text>
+          <Text style={styles.listHeaderText}>{`${t('parameter abbreviations:wind speed')}`}</Text>
+          <Text style={styles.listHeaderText}>{`${t('parameter abbreviations:humidity')}`}</Text>
         </View>
 
       </View >

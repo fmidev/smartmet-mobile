@@ -63,5 +63,12 @@
     "inHg": "час",
     "mmHg": "ммHg",
     "mbar": "мбар"
+  },
+  "parameter abbreviations": {
+    "weather symbol": "абал",
+    "temperature": "темп",
+    "wind direction": "шдиир",
+    "wind speed": "шылда",
+    "humidity": "ным"
   }
 }

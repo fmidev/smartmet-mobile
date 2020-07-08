@@ -63,5 +63,12 @@
     "inHg": "inHg",
     "mmHg": "mmHg",
     "mbar": "mbar"
+  },
+  "parameter abbreviations": {
+    "weather symbol": "condition",
+    "temperature": "temp",
+    "wind direction": "wdir",
+    "wind speed": "wspeed",
+    "humidity": "humidity"
   }
 }
