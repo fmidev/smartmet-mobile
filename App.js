@@ -1,3 +1,7 @@
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['Remote debugger']);
+YellowBox.ignoreWarnings(['ReactNativeFiberHostComponent']);
+console.disableYellowBox = true;
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
