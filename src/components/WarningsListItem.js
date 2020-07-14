@@ -215,8 +215,8 @@ export class WarningsListItem extends React.Component {
 
 
 const mapStateToProps = (state) => {
-  const { warningsLoading, warningsObjArr } = state.warningsObjArr;
-  return { warningsLoading, warningsObjArr };
+  const { warningsLoading, warningsObj } = state.warningsObj;
+  return { warningsLoading, warningsObj };
 };
 
 

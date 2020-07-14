@@ -408,7 +408,7 @@ export class HomeScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   const { loading, error, tsDataObj } = state.tsDataObj;
-  const { warningsLoading, warningsBarData } = state.warningsObjArr;
+  const { warningsLoading, warningsBarData } = state.warningsObj;
   const { parameterUnitMap } = state.parameterUnitMap
   const { parameterUnitAbbMap } = state.parameterUnitAbbMap
   const { parameterUnitPrecisionMap } = state.parameterUnitPrecisionMap

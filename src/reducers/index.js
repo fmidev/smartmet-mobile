@@ -7,7 +7,7 @@ import WarningsReducer from './WarningsReducer';
 
 export default combineReducers({
   tsDataObj: TimeSeriesReducer,
-  warningsObjArr: WarningsReducer,
+  warningsObj: WarningsReducer,
   acDataObj: AutocompleteReducer,
   parameterUnitMap: SettingsReducer,
   parameterUnitAbbMap: SettingsReducer,

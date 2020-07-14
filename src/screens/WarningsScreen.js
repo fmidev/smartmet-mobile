@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import i18n from 'i18next';
+import _ from 'lodash';
 import {
   View, StyleSheet, FlatList,
 } from 'react-native';
@@ -20,7 +22,6 @@ const styles = StyleSheet.create({
 });
 
 export class WarningsScreen extends React.Component {
-
   renderLoading() {
     return (
       <LoadingView />
@@ -50,11 +51,10 @@ export class WarningsScreen extends React.Component {
   }
 
   renderFlatList() {
-
     if (this.props.navigation.state.params) {
       if (this.props.navigation.state.params.refreshLocation) {
-        this.onRefresh()
-        this.props.navigation.state.params.refreshLocation = false
+        this.onRefresh();
+        this.props.navigation.state.params.refreshLocation = false;
       }
     }
 
@@ -63,7 +63,7 @@ export class WarningsScreen extends React.Component {
         <View style={styles.flatListContainer}>
           <FlatList
             style={{ flex: 1 }}
-            data={this.props.warningsObjArr}
+            data={this.props.warningsObj[i18n.language] || this.props.warningsObj.en || this.props.warningsObj[Object.keys(this.props.warningsOb)[0]]}
             renderItem={(item) => <WarningsListItem item={item} />}
             keyExtractor={(item) => item.id}
             scrollEnabled
@@ -82,7 +82,7 @@ export class WarningsScreen extends React.Component {
     if (this.props.warningsError) {
       return this.renderError();
     }
-    if (this.props.warningsObjArr.length < 1 && !this.props.warningsError) {
+    if (_.isPlainObject(this.props.warningsObj) && _.isEmpty(this.props.warningsObj) && !this.props.warningsError) {
       return this.renderWarningsNotSet();
     }
     return this.renderFlatList();
@@ -91,9 +91,9 @@ export class WarningsScreen extends React.Component {
 
 
 const mapStateToProps = (state) => ({
-  warningsLoading: state.warningsObjArr.warningsLoading,
-  warningsError: state.warningsObjArr.warningsError,
-  warningsObjArr: state.warningsObjArr.warningsObjArr
+  warningsLoading: state.warningsObj.warningsLoading,
+  warningsError: state.warningsObj.warningsError,
+  warningsObj: state.warningsObj.warningsObj,
 });
 
 export default withNavigation(connect(mapStateToProps, { tsFetch, warningsFetch })(WarningsScreen));
