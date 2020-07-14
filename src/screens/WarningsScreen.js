@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
 import i18n from 'i18next';
 import _ from 'lodash';
 import {
@@ -29,14 +30,16 @@ export class WarningsScreen extends React.Component {
   }
 
   renderError() {
+    const { t } = this.props;
     return (
-      <WarningsErrorView />
+      <WarningsErrorView t={t} />
     );
   }
 
   renderWarningsNotSet() {
+    const { t } = this.props;
     return (
-      <WarningsNotSetView />
+      <WarningsNotSetView t={t} />
     );
   }
 
@@ -96,4 +99,4 @@ const mapStateToProps = (state) => ({
   warningsObj: state.warningsObj.warningsObj,
 });
 
-export default withNavigation(connect(mapStateToProps, { tsFetch, warningsFetch })(WarningsScreen));
+export default withNavigation(connect(mapStateToProps, { tsFetch, warningsFetch })(translate(['warnings'], { wait: true })(WarningsScreen)));

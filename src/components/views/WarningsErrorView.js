@@ -13,10 +13,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const WarningsErrorView = () => {
+const WarningsErrorView = ({ t }) => {
   return (
     <View style={styles.errorContainer}>
-      <Text style={styles.errorText}>WARNING FEED ERROR</Text>
+      <Text style={styles.errorText}>{`${t('warnings:warning feed error')}`} </Text>
     </View>
   );
 };

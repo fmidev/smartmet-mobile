@@ -72,9 +72,12 @@
     "humidity": "humidity"
   },
   "warnings": {
+    "for": "for",
     "valid from": "Valid from",
     "to": "to",
     "issued by": "Issued by",
-    "at": "at"
+    "at": "at",
+    "no warnings set": "NO WARNINGS SET",
+    "warning feed error": "WARNING FEED ERROR"
   }
 }

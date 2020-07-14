@@ -13,10 +13,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const WarningsNotSetView = () => {
+const WarningsNotSetView = ({ t }) => {
   return (
     <View style={styles.errorContainer}>
-      <Text style={styles.errorText}>NO WARNINGS SET</Text>
+      <Text style={styles.errorText}>{`${t('warnings:no warnings set')}`} </Text>
     </View>
   );
 };

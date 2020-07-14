@@ -182,7 +182,7 @@ export class WarningsListItem extends React.Component {
               <Text style={styles.collapsableContentArea}>
                 {this.props.item.item.event}
                 {' '}
-                <Text>for </Text>
+                <Text>{`${t('warnings:for')}`}</Text>
                 {' '}
                 {this.props.item.item.area}
               </Text>
