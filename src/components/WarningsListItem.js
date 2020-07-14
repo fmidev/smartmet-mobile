@@ -126,7 +126,6 @@ export class WarningsListItem extends React.Component {
   }
 
   toggleListItem = () => {
-    console.log('toggleListItem');
     this.setState({ isHidden: !this.state.isHidden });
   }
 

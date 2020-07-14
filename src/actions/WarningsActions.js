@@ -83,7 +83,7 @@ function checkCap(point) {
 
                       GeoFencing.containsLocation(point, polygonArr)
                         .then(() => {
-                          console.log('point is within polygon');
+                          // console.log('point is within polygon');
                           counter += 1;
                           let eventEnglish;
 
@@ -105,7 +105,7 @@ function checkCap(point) {
                           }
                         })
                         .catch(() => {
-                          console.log('point is NOT within polygon');
+                          // console.log('point is NOT within polygon');
                           counter += 1;
                           if (counter === result.feed.entry.length) {
                             resolve(warningObject);
