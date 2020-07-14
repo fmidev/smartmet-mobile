@@ -9,7 +9,7 @@ const capFeedUrl = Config.CAP_FEED_URL
 
 export function getTimeSeries(coords, lang) {
   let apiUrl = timeseriesUrl + '&latlon=' + coords.lat + ',' + coords.lon + '&lang=' + lang
-  console.log('apiUrl', apiUrl)
+  // console.log('apiUrl', apiUrl)
 
   return fetch(apiUrl)
     .then((response) => response.json().then((responseJson) => {
@@ -36,7 +36,7 @@ export function getTimeSeries(coords, lang) {
 export function getAutocomplete(pattern, lang) {
   pattern = pattern.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
   const acUrlPattern = autocompleteUrl + '&pattern=' + pattern + '&lang=' + lang;
-  console.log('acUrl', acUrlPattern)
+  // console.log('acUrl', acUrlPattern)
   return fetch(acUrlPattern)
     .then((response) => response.json().then((responseJson) => {
       return responseJson;
