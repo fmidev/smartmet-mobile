@@ -195,7 +195,7 @@ function getWarningObj(alertData, eventEnglish) {
   warningObj.certainty = alertData.certainty[0];
   warningObj.description = alertData.description[0];
   warningObj.effective = moment(alertData.effective[0]).utc().format('YYYYMMDDTHHmm');
-  warningObj.event = eventEnglish;
+  warningObj.event = alertData.event[0];
   warningObj.expires = moment(alertData.expires[0]).utc().format('YYYYMMDDTHHmm');
   warningObj.language = alertData.language[0];
   warningObj.onset = moment(alertData.onset[0]).utc().format('YYYYMMDDTHHmm');
@@ -205,7 +205,7 @@ function getWarningObj(alertData, eventEnglish) {
 
   WARNING_KEYWORD_MAPPER.forEach((element) => {
     element.keywords.forEach((keywordElement) => {
-      if (warningObj.event.toLowerCase().includes(keywordElement)) {
+      if (eventEnglish.toLowerCase().includes(keywordElement)) {
         warningObj.warningName = keywordElement;
       }
     });
