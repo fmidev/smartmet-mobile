@@ -2,7 +2,8 @@
   "common": {
     "feels like": "Сыяктуу сезилет",
     "forecast": "Болжол",
-    "warnings": "Эскертүүлөр"
+    "warnings": "Эскертүүлөр",
+    "server error": "СЕРВЕР КАТАСЫ"
   },
   "navigation": {
     "home": "үй экраны",

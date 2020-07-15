@@ -13,10 +13,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const ErrorView = () => {
+const ErrorView = ({ t }) => {
   return (
     <View style={styles.errorContainer}>
-      <Text style={styles.errorText}>SERVER ERROR</Text>
+      <Text style={styles.errorText}>{`${t('common:server error')}`} </Text>
     </View>
   );
 };

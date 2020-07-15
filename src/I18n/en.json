@@ -2,7 +2,8 @@
   "common": {
     "feels like": "Feels like",
     "forecast": "Forecast",
-    "warnings": "Warnings"
+    "warnings": "Warnings",
+    "server error": "SERVER ERROR"
   },
   "navigation": {
     "home": "Home",
