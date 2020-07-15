@@ -189,8 +189,9 @@ export class HomeScreen extends React.Component {
   }
 
   renderError() {
+    const { t } = this.props;
     return (
-      <ErrorView />
+      <ErrorView t={t} />
     );
   }
 
