@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from 'react-native';
 const styles = StyleSheet.create({
   errorContainer: {
     flex: 1,
-    marginTop: '70%',
+    marginTop: '50%',
     justifyContent: 'center',
     alignItems: 'center',
   },
