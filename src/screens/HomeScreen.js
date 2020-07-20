@@ -191,7 +191,16 @@ export class HomeScreen extends React.Component {
   renderError() {
     const { t } = this.props;
     return (
-      <ErrorView t={t} />
+      <View style={styles.container}>
+        <View style={styles.flatListContainer}>
+          <FlatList
+            style={{ flex: 1 }}
+            ListEmptyComponent={<ErrorView t={t} />}
+            onRefresh={() => this.onRefresh()}
+            refreshing={this.props.warningsLoading}
+          />
+        </View>
+      </View>
     );
   }
 
