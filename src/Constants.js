@@ -157,7 +157,7 @@ export const WARNING_KEYWORD_MAPPER = [
   },
   {
     id: 12,
-    keywords: ['rain'],
+    keywords: ['rain', 'rainfall'],
     warningName: 'rain'
   },
   {

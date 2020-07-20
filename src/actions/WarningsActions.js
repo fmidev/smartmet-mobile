@@ -206,7 +206,7 @@ function getWarningObj(alertData, eventEnglish) {
   WARNING_KEYWORD_MAPPER.forEach((element) => {
     element.keywords.forEach((keywordElement) => {
       if (eventEnglish.toLowerCase().includes(keywordElement)) {
-        warningObj.warningName = keywordElement;
+        warningObj.warningName = element.warningName;
       }
     });
   });
