@@ -89,29 +89,27 @@ const styles = StyleSheet.create({
   },
   collapsableContentContainer: {
     backgroundColor: 'rgb(222,236,246)',
+    paddingHorizontal: 18,
+    paddingVertical: 10,
   },
   collapsableContentText: {
-    paddingVertical: 18,
-    paddingHorizontal: 7,
     color: 'black',
     fontSize: 16,
+    paddingVertical: 18,
   },
   collapsableContentArea: {
     fontWeight: 'bold',
     paddingVertical: 5,
-    paddingHorizontal: 7,
     color: 'black',
     fontSize: 14,
   },
   collapsableContentTime: {
     fontStyle: 'italic',
-    paddingHorizontal: 7,
     color: 'black',
     fontSize: 14,
   },
   collapsableContentSender: {
     fontStyle: 'italic',
-    paddingHorizontal: 7,
     color: 'black',
     fontSize: 14,
     paddingBottom: 7,
