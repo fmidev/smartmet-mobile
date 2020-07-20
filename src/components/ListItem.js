@@ -94,6 +94,9 @@ export class ListItem extends React.Component {
 
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
           <Text style={{ color: 'black', fontSize: 30, textAlign: 'right', marginBottom: 6 }}>{getWindDirectionArrow(item.winddirection)}</Text>
+        </View>
+
+        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
           <Text style={{ color: 'black' }}>
             {item.windspeedms}
             {' '}
