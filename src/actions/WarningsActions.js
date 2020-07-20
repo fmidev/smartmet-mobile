@@ -201,7 +201,7 @@ function getWarningObj(alertData, eventEnglish) {
   warningObj.onset = moment(alertData.onset[0]).utc().format('YYYYMMDDTHHmm');
   warningObj.senderName = alertData.senderName[0];
   warningObj.severity = alertData.severity[0];
-  warningObj.warningName = 'unidentified';
+  warningObj.warningName = 'na';
 
   WARNING_KEYWORD_MAPPER.forEach((element) => {
     element.keywords.forEach((keywordElement) => {

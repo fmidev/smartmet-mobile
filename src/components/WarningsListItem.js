@@ -149,11 +149,8 @@ export class WarningsListItem extends React.Component {
                 </View>
               </View>
 
-
               <View style={styles.symbolContainer}>
-                {this.props.item.item.warningName === 'unidentified'
-                  ? <Image style={{ width: 40, height: 40 }} source={Images.warnings['na']} />
-                  : <Image style={{ width: 40, height: 40 }} source={Images.warnings[this.props.item.item.warningName]} />}
+                <Image style={{ width: 40, height: 40 }} source={Images.warnings[this.props.item.item.warningName]} />
               </View>
 
               <View style={styles.warningLoadingContainer}>

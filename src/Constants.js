@@ -101,150 +101,142 @@ export const UNITS = [
 
 export const WARNING_KEYWORD_MAPPER = [
   {
-    id: 1,
-    keywords: ['earthquake'],
-    warningName: 'earthquake'
-  },
-  {
-    id: 2,
-    keywords: ['fire'],
-    warningName: 'fire'
-  },
-  {
-    id: 3,
-    keywords: ['drought'],
-    warningName: 'drought'
-  },
-  {
-    id: 4,
-    keywords: ['craft'],
-    warningName: 'craft'
-  },
-  {
-    id: 5,
-    keywords: ['gale'],
-    warningName: 'gale'
-  },
-  {
-    id: 6,
-    keywords: ['fog'],
-    warningName: 'fog'
-  },
-  {
-    id: 7,
-    keywords: ['flood'],
-    warningName: 'flood'
-  },
-  {
-    id: 8,
-    keywords: ['frost'],
-    warningName: 'frost'
-  },
-  {
-    id: 9,
-    keywords: ['heat'],
-    warningName: 'heat'
-  },
-  {
-    id: 10,
     keywords: ['cold'],
     warningName: 'cold'
   },
   {
-    id: 11,
-    keywords: ['temperature'],
-    warningName: 'temperature'
+    keywords: ['craft'],
+    warningName: 'craft'
   },
   {
-    id: 12,
-    keywords: ['rain', 'rainfall'],
-    warningName: 'rain'
+    keywords: ['cyclone'],
+    warningName: 'cyclone'
   },
   {
-    id: 13,
-    keywords: ['snow'],
-    warningName: 'snow'
-  },
-  {
-    id: 14,
-    keywords: ['icing'],
-    warningName: 'icing'
-  },
-  {
-    id: 15,
-    keywords: ['sleet'],
-    warningName: 'sleet'
-  },
-  {
-    id: 16,
-    keywords: ['wet snow'],
-    warningName: 'wet snow'
-  },
-  {
-    id: 17,
-    keywords: ['wind'],
-    warningName: 'wind'
-  },
-  {
-    id: 18,
-    keywords: ['tsunami'],
-    warningName: 'tsunami'
-  },
-  {
-    id: 19,
-    keywords: ['tornado'],
-    warningName: 'tornado'
-  },
-  {
-    id: 20,
-    keywords: ['waterspout'],
-    warningName: 'waterspout'
-  },
-  {
-    id: 21,
-    keywords: ['volcanic'],
-    warningName: 'volcanic'
-  },
-  {
-    id: 22,
-    keywords: ['thunderstorm'],
-    warningName: 'thunderstorm'
-  },
-  {
-    id: 23,
-    keywords: ['lightning'],
-    warningName: 'lightning'
-  },
-  {
-    id: 24,
-    keywords: ['storm'],
-    warningName: 'storm'
-  },
-  {
-    id: 25,
-    keywords: ['hail'],
-    warningName: 'hail'
-  },
-  {
-    id: 26,
-    keywords: ['hurricane'],
-    warningName: 'hurricane'
-  },
-  {
-    id: 27,
-    keywords: ['tropical storm'],
-    warningName: 'tropical storm'
-  },
-  {
-    id: 28,
     keywords: ['depression'],
     warningName: 'depression'
   },
   {
-    id: 29,
+    keywords: ['drought'],
+    warningName: 'drought'
+  },
+  {
+    keywords: ['dust'],
+    warningName: 'dust'
+  },
+  {
+    keywords: ['earthquake'],
+    warningName: 'earthquake'
+  },
+  {
+    keywords: ['fire'],
+    warningName: 'fire'
+  },
+  {
+    keywords: ['flood'],
+    warningName: 'flood'
+  },
+  {
+    keywords: ['fog'],
+    warningName: 'fog'
+  },
+  {
+    keywords: ['frost'],
+    warningName: 'frost'
+  },
+  {
+    keywords: ['gale'],
+    warningName: 'gale'
+  },
+  {
+    keywords: ['hail'],
+    warningName: 'hail'
+  },
+  {
+    keywords: ['heat'],
+    warningName: 'heat'
+  },
+  {
+    keywords: ['hot'],
+    warningName: 'hot'
+  },
+  {
+    keywords: ['hurricane'],
+    warningName: 'hurricane'
+  },
+  {
+    keywords: ['icing'],
+    warningName: 'icing'
+  },
+  {
+    keywords: ['lightning'],
+    warningName: 'lightning'
+  },
+  {
+    keywords: ['rain', 'rainfall'],
+    warningName: 'rain'
+  },
+  {
+    keywords: ['smallcraft'],
+    warningName: 'smallcraft'
+  },
+  {
+    keywords: ['sleet'],
+    warningName: 'sleet'
+  },
+  {
+    keywords: ['snow'],
+    warningName: 'snow'
+  },
+  {
+    keywords: ['storm'],
+    warningName: 'storm'
+  },
+  {
+    keywords: ['temperature'],
+    warningName: 'temperature'
+  },
+  {
+    keywords: ['thunderstorm'],
+    warningName: 'thunderstorm'
+  },
+  {
+    keywords: ['tornado'],
+    warningName: 'tornado'
+  },
+  {
     keywords: ['tropical'],
     warningName: 'tropical'
-  }
+  },
+  {
+    keywords: ['tropical depression'],
+    warningName: 'tropical depression'
+  },
+
+  {
+    keywords: ['tropical storm'],
+    warningName: 'tropical storm'
+  },
+  {
+    keywords: ['tsunami'],
+    warningName: 'tsunami'
+  },
+  {
+    keywords: ['volcanic'],
+    warningName: 'volcanic'
+  },
+  {
+    keywords: ['waterspout'],
+    warningName: 'waterspout'
+  },
+  {
+    keywords: ['wet snow'],
+    warningName: 'wet snow'
+  },
+  {
+    keywords: ['wind'],
+    warningName: 'wind'
+  },
 ]
 
 export const WARNING_SEVERITY_MAPPER =
