@@ -14,14 +14,14 @@ const styles = StyleSheet.create({
   listItemContainer: {
     flexDirection: 'row',
     flex: 1,
-    height: 60,
+    height: 65,
     marginTop: 1,
     marginBottom: 1,
     backgroundColor: 'white',
   },
   titleContainer: {
     flex: 1,
-    top: 5,
+    top: 3,
     left: 0,
     right: 0,
     bottom: 0,
