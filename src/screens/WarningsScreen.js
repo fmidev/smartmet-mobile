@@ -49,11 +49,15 @@ export class WarningsScreen extends React.Component {
     this.props.warningsFetch();
   }
 
+  refreshLocation() {
+    this.props.tsFetch().then(() => this.props.warningsFetch());
+  }
+
   renderFlatList() {
     const { t } = this.props;
     if (this.props.navigation.state.params) {
       if (this.props.navigation.state.params.refreshLocation) {
-        this.onRefresh();
+        this.refreshLocation();
         this.props.navigation.state.params.refreshLocation = false;
       }
     }
