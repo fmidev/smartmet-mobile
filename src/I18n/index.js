@@ -1,6 +1,7 @@
+import Config from 'react-native-config';
 import i18n from 'i18next';
 import { reactI18nextModule } from 'react-i18next';
-import locale from 'react-native-locale-detector';
+// import locale from 'react-native-locale-detector';
 import AsyncStorage from '@react-native-community/async-storage';
 import en from './en.json';
 import ky from './ky.json';
@@ -14,7 +15,7 @@ const languageDetector = {
   detect: async (callback) => {
     const savedDataJSON = await AsyncStorage.getItem(STORAGE_KEY);
     const lng = (savedDataJSON) || null;
-    const selectLanguage = lng || locale.substr(0, locale.indexOf('-'));
+    const selectLanguage = lng || Config.DEFAULT_LANGUAGE || 'en';
     callback(selectLanguage);
   },
   cacheUserLanguage: () => { },
@@ -24,7 +25,7 @@ i18n
   .use(languageDetector)
   .use(reactI18nextModule)
   .init({
-    fallbackLng: 'english',
+    fallbackLng: 'en',
     resources: { en, ky },
     ns: ['common'],
     defaultNS: 'common',

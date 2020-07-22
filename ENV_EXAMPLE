@@ -1,3 +1,4 @@
+DEFAULT_LANGUAGE="en"
 API_URL="http://10.0.2.2:8090"
 CAP_FEED_URL="http://localhost/capfeed.php"
 DATA_PRODUCER="gfs_surface"
