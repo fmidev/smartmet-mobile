@@ -179,7 +179,11 @@ export class HomeScreen extends React.Component {
   componentDidMount() {
     this.props.setLang(i18n.language);
     this.props.settingsInit();
-    this.props.tsFetch().then(() => this.props.warningsFetch());
+    this.props.tsFetch().then(() => {
+      if (!this.props.error) {
+        this.props.warningsFetch()
+      }
+    });
   }
 
   renderLoading() {
@@ -369,11 +373,19 @@ export class HomeScreen extends React.Component {
   }
 
   onRefresh() {
-    this.props.tsFetchUpdate().then(() => this.props.warningsFetch());
+    this.props.tsFetchUpdate().then(() => {
+      if (!this.props.error) {
+        this.props.warningsFetch()
+      }
+    });
   }
 
   refreshLocation() {
-    this.props.tsFetch().then(() => this.props.warningsFetch());
+    this.props.tsFetch().then(() => {
+      if (!this.props.error) {
+        this.props.warningsFetch()
+      }
+    });
   }
 
   renderFlatList() {

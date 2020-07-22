@@ -9,7 +9,11 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TS_FETCH:
-      return INITIAL_STATE;
+      return {
+        loading: true,
+        tsDataObj: [],
+        error: false
+      };
 
     case TS_FETCH_SUCCESS:
       return {
