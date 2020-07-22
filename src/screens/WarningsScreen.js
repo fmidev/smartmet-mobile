@@ -7,7 +7,7 @@ import {
   View, StyleSheet, FlatList,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { LoadingView, WarningsErrorView, WarningsNotSetView } from '../components';
+import { LoadingView, ErrorView, WarningsErrorView, WarningsNotSetView } from '../components';
 import WarningsListItem from '../components/WarningsListItem';
 import { warningsFetch } from '../actions/WarningsActions';
 import { tsFetch } from '../actions/TimeSeriesActions';
@@ -36,6 +36,22 @@ export class WarningsScreen extends React.Component {
         <View style={styles.flatListContainer}>
           <FlatList
             style={{ flex: 1 }}
+            ListEmptyComponent={<ErrorView t={t} />}
+            onRefresh={() => this.onRefresh()}
+            refreshing={this.props.warningsLoading}
+          />
+        </View>
+      </View>
+    );
+  }
+
+  renderWarningsError() {
+    const { t } = this.props;
+    return (
+      <View style={styles.container}>
+        <View style={styles.flatListContainer}>
+          <FlatList
+            style={{ flex: 1 }}
             ListEmptyComponent={<WarningsErrorView t={t} />}
             onRefresh={() => this.onRefresh()}
             refreshing={this.props.warningsLoading}
@@ -50,7 +66,11 @@ export class WarningsScreen extends React.Component {
   }
 
   refreshLocation() {
-    this.props.tsFetch().then(() => this.props.warningsFetch());
+    this.props.tsFetch().then(() => {
+      if (!this.props.error) {
+        this.props.warningsFetch()
+      }
+    });
   }
 
   renderFlatList() {
@@ -81,11 +101,14 @@ export class WarningsScreen extends React.Component {
   }
 
   render() {
-    if (this.props.warningsLoading) {
+    if (this.props.loading || this.props.warningsLoading) {
       return this.renderLoading();
     }
-    if (this.props.warningsError) {
+    if (this.props.error) {
       return this.renderError();
+    }
+    if (this.props.warningsError) {
+      return this.renderWarningsError();
     }
     return this.renderFlatList();
   }
@@ -93,6 +116,8 @@ export class WarningsScreen extends React.Component {
 
 
 const mapStateToProps = (state) => ({
+  loading: state.tsDataObj.loading,
+  error: state.tsDataObj.error,
   warningsLoading: state.warningsObj.warningsLoading,
   warningsError: state.warningsObj.warningsError,
   warningsObj: state.warningsObj.warningsObj,
