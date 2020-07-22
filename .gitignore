@@ -58,3 +58,4 @@ buck-out/
 ios/Pods/
 .env
 .env.production
+android/app/release/
