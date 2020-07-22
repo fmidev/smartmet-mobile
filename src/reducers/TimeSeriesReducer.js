@@ -14,6 +14,7 @@ export default (state = INITIAL_STATE, action) => {
     case TS_FETCH_SUCCESS:
       return {
         loading: false,
+        error: false,
         tsDataObj: action.payload.tsDataObj,
       };
 
