@@ -67,7 +67,7 @@ export class WarningsScreen extends React.Component {
 
   refreshLocation() {
     this.props.tsFetch().then(() => {
-      if (!this.props.error) {
+      if (!this.props.tsError) {
         this.props.warningsFetch()
       }
     });
@@ -104,7 +104,7 @@ export class WarningsScreen extends React.Component {
     if (this.props.tsLoading || this.props.warningsLoading) {
       return this.renderLoading();
     }
-    if (this.props.error) {
+    if (this.props.tsError) {
       return this.renderError();
     }
     if (this.props.warningsError) {
@@ -117,7 +117,7 @@ export class WarningsScreen extends React.Component {
 
 const mapStateToProps = (state) => ({
   tsLoading: state.tsDataObj.loading,
-  error: state.tsDataObj.error,
+  tsError: state.tsDataObj.tsError,
   warningsLoading: state.warningsObj.warningsLoading,
   warningsError: state.warningsObj.warningsError,
   warningsObj: state.warningsObj.warningsObj,

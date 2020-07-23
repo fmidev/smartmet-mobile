@@ -180,7 +180,7 @@ export class HomeScreen extends React.Component {
     this.props.setLang(i18n.language);
     this.props.settingsInit();
     this.props.tsFetch().then(() => {
-      if (!this.props.error) {
+      if (!this.props.tsError) {
         this.props.warningsFetch()
       }
     });
@@ -374,7 +374,7 @@ export class HomeScreen extends React.Component {
 
   onRefresh() {
     this.props.tsFetchUpdate().then(() => {
-      if (!this.props.error) {
+      if (!this.props.tsError) {
         this.props.warningsFetch()
       }
     });
@@ -382,7 +382,7 @@ export class HomeScreen extends React.Component {
 
   refreshLocation() {
     this.props.tsFetch().then(() => {
-      if (!this.props.error) {
+      if (!this.props.tsError) {
         this.props.warningsFetch()
       }
     });
@@ -420,7 +420,7 @@ export class HomeScreen extends React.Component {
     if (this.props.tsLoading) {
       return this.renderLoading();
     }
-    if (this.props.error) {
+    if (this.props.tsError) {
       return this.renderError();
     }
     return this.renderFlatList();
@@ -429,12 +429,12 @@ export class HomeScreen extends React.Component {
 
 
 const mapStateToProps = (state) => {
-  const { tsLoading, error, tsDataObj } = state.tsDataObj;
+  const { tsLoading, tsError, tsDataObj } = state.tsDataObj;
   const { warningsLoading, warningsBarData } = state.warningsObj;
   const { parameterUnitMap } = state.parameterUnitMap
   const { parameterUnitAbbMap } = state.parameterUnitAbbMap
   const { parameterUnitPrecisionMap } = state.parameterUnitPrecisionMap
-  return { tsLoading, error, tsDataObj, warningsLoading, warningsBarData, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
+  return { tsLoading, tsError, tsDataObj, warningsLoading, warningsBarData, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
 export default withNavigation(connect(mapStateToProps, { tsFetch, tsFetchUpdate, warningsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));

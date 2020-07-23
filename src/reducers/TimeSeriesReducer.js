@@ -3,7 +3,7 @@ import { TS_FETCH, TS_FETCH_SUCCESS, TS_FETCH_FAIL } from '../actions/types';
 const INITIAL_STATE = {
   tsLoading: true,
   tsDataObj: [],
-  error: false
+  tsError: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,20 +12,20 @@ export default (state = INITIAL_STATE, action) => {
       return {
         tsLoading: true,
         tsDataObj: [],
-        error: false
+        tsError: false
       };
 
     case TS_FETCH_SUCCESS:
       return {
         tsLoading: false,
-        error: false,
+        tsError: false,
         tsDataObj: action.payload.tsDataObj,
       };
 
     case TS_FETCH_FAIL:
       return {
         tsLoading: false,
-        error: true,
+        tsError: true,
         tsDataObj: [],
       };
 
