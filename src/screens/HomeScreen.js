@@ -408,7 +408,7 @@ export class HomeScreen extends React.Component {
             scrollEnabled
             ListHeaderComponent={() => this.renderMainInfo()}
             onRefresh={() => this.onRefresh()}
-            refreshing={this.props.loading}
+            refreshing={this.props.tsLoading}
           />
         </View>
       </View>
@@ -417,7 +417,7 @@ export class HomeScreen extends React.Component {
 
   render() {
     moment.locale(i18n.language)
-    if (this.props.loading) {
+    if (this.props.tsLoading) {
       return this.renderLoading();
     }
     if (this.props.error) {
@@ -429,12 +429,12 @@ export class HomeScreen extends React.Component {
 
 
 const mapStateToProps = (state) => {
-  const { loading, error, tsDataObj } = state.tsDataObj;
+  const { tsLoading, error, tsDataObj } = state.tsDataObj;
   const { warningsLoading, warningsBarData } = state.warningsObj;
   const { parameterUnitMap } = state.parameterUnitMap
   const { parameterUnitAbbMap } = state.parameterUnitAbbMap
   const { parameterUnitPrecisionMap } = state.parameterUnitPrecisionMap
-  return { loading, error, tsDataObj, warningsLoading, warningsBarData, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
+  return { tsLoading, error, tsDataObj, warningsLoading, warningsBarData, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
 export default withNavigation(connect(mapStateToProps, { tsFetch, tsFetchUpdate, warningsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));

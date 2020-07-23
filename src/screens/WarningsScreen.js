@@ -101,7 +101,7 @@ export class WarningsScreen extends React.Component {
   }
 
   render() {
-    if (this.props.loading || this.props.warningsLoading) {
+    if (this.props.tsLoading || this.props.warningsLoading) {
       return this.renderLoading();
     }
     if (this.props.error) {
@@ -116,7 +116,7 @@ export class WarningsScreen extends React.Component {
 
 
 const mapStateToProps = (state) => ({
-  loading: state.tsDataObj.loading,
+  tsLoading: state.tsDataObj.loading,
   error: state.tsDataObj.error,
   warningsLoading: state.warningsObj.warningsLoading,
   warningsError: state.warningsObj.warningsError,

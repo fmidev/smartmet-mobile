@@ -17,8 +17,8 @@ export class HeaderTitle extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const { loading, tsDataObj } = state.tsDataObj;
-  return { loading, tsDataObj };
+  const { tsDataObj } = state.tsDataObj;
+  return { tsDataObj };
 };
 
 export default connect(mapStateToProps, {})(HeaderTitle);
