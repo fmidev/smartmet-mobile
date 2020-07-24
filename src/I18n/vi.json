@@ -1,0 +1,85 @@
+{
+  "common": {
+    "feels like": "Cảm thấy như",
+    "forecast": "Dự báo",
+    "warnings": "Cảnh báo",
+    "server error": "LỖI MÁY CHỦ"
+  },
+  "navigation": {
+    "home": "Trang Chủ",
+    "warnings": "Cảnh báo",
+    "maps": "Bản đồ"
+  },
+  "settings": {
+    "en": "English",
+    "ky": "Кыргызча",
+    "vi": "Tiếng Việt",
+    "about": "Trong khoảng",
+    "settings": "Cài đặt",
+    "language": "Ngôn ngữ",
+    "units": "Các đơn vị",
+    "temperature": "Nhiệt độ",
+    "precipitation": "Lượng mưa",
+    "wind": "Gió",
+    "pressure": "Sức ép"
+  },
+  "weather": {
+    "sunny": "Nắng",
+    "partly cloudy": "Một phần mây",
+    "cloudy": "Nhiều mây",
+    "light showers": "Mưa rào nhẹ",
+    "showers": "Vòi hoa sen",
+    "heavy showers": "Mưa rào",
+    "light rain": "Mưa nhỏ",
+    "rain": "Mưa",
+    "heavy rain": "Mưa nặng hạt",
+    "light snow showers": "Mưa tuyết nhẹ",
+    "snow showers": "Mưa tuyết",
+    "heavy snow showers": "Mưa tuyết lớn",
+    "light snowfall": "Tuyết rơi nhẹ",
+    "snowfall": "Tuyết rơi",
+    "heavy snowfall": "Tuyết rơi dày",
+    "thundershowers": "Mưa sấm sét",
+    "heavy thundershowers": "Mưa sấm sét",
+    "thunder": "Sấm sét",
+    "heavy thunder": "Sấm sét lớn",
+    "light sleet showers": "Mưa rào nhẹ",
+    "sleet showers": "Mưa rào",
+    "heavy sleet showers": "Mưa rào nặng hạt",
+    "light sleet rain": "Mưa nhỏ",
+    "sleet rain": "Mưa mưa",
+    "heavy sleet rain": "Mưa lớn",
+    "fog": "răng"
+  },
+  "unit abbreviations": {
+    "C": "C",
+    "F": "F",
+    "mm": "mm",
+    "in": "in",
+    "m/s": "m/s",
+    "km/h": "km/h",
+    "mph": "mph",
+    "Bft": "Bft",
+    "kn": "kn",
+    "hPa": "hPa",
+    "inHg": "inHg",
+    "mmHg": "mmHg",
+    "mbar": "mbar"
+  },
+  "parameter abbreviations": {
+    "weather symbol": "tình trạng",
+    "temperature": "tạm",
+    "wind direction": "gió",
+    "wind speed": "tốc độ",
+    "humidity": "độ ẩm"
+  },
+  "warnings": {
+    "for": "cho",
+    "valid from": "Có hiệu lực từ",
+    "to": "đến",
+    "issued by": "Do",
+    "at": "tại",
+    "no warnings set": "KHÔNG CÓ CẢNH BÁO",
+    "warning feed error": "CẢNH BÁO CẢM ỨNG CẢM ỨNG"
+  }
+}

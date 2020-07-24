@@ -13,6 +13,7 @@
   "settings": {
     "en": "English",
     "ky": "Кыргызча",
+    "vi": "Tiếng Việt",
     "about": "About",
     "settings": "Settings",
     "language": "Language",
@@ -34,7 +35,7 @@
     "heavy rain": "Heavy rain",
     "light snow showers": "Light snow showers",
     "snow showers": "Snow showers",
-    "heavy snow showers": "Heavey snow showers",
+    "heavy snow showers": "Heavy snow showers",
     "light snowfall": "Light snowfall",
     "snowfall": "Snowfall",
     "heavy snowfall": "Heavy snowfall",
