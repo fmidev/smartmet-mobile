@@ -51,6 +51,15 @@
     "heavy sleet rain": "нөшөрлөп жааган жамгыр",
     "fog": "туман"
   },
+  "weekday abbreviations": {
+    "monday": "ДҮЙ",
+    "tuesday": "ШЕЙ",
+    "wednesday": "ШАР",
+    "thursday": "БЕЙ",
+    "friday": "ЖУМ",
+    "saturday": "ИШЕ",
+    "sunday": "ЖЕК"
+  },
   "unit abbreviations": {
     "C": "C",
     "F": "F",

@@ -51,6 +51,15 @@
     "heavy sleet rain": "Heavy sleet rain",
     "fog": "Fog"
   },
+  "weekday abbreviations": {
+    "monday": "MON",
+    "tuesday": "TUE",
+    "wednesday": "WED",
+    "thursday": "THU",
+    "friday": "FRI",
+    "saturday": "SAT",
+    "sunday": "SUN"
+  },
   "unit abbreviations": {
     "C": "C",
     "F": "F",

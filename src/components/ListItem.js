@@ -4,7 +4,8 @@ import { translate } from 'react-i18next';
 import {
   View, Text, StyleSheet, Image, TouchableWithoutFeedback, FlatList,
 } from 'react-native';
-import moment from 'moment-with-locales-es6';
+import moment from 'moment';
+import momentLocales from 'moment-with-locales-es6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Images from '../assets/images';
 import { converter, getWindDirectionArrow } from '../components/Helper'
@@ -45,11 +46,11 @@ export class ListItem extends React.Component {
 
   getCollapsableContentData = () => {
     const collapsableContentArr = []
-    const itemDay = moment(this.props.item.item.time).format('YYYYMMDD')
+    const itemDay = momentLocales(this.props.item.item.time).format('YYYYMMDD')
 
     this.props.tsDataObj.data.forEach(element => {
 
-      if (moment(element.utctime).isSameOrAfter(this.props.nextHourDivisibleByThreeFromServerTime.format('YYYYMMDDTHHmm'), 'hour') && (element.time).includes(itemDay)) {
+      if (momentLocales(element.utctime).isSameOrAfter(this.props.nextHourDivisibleByThreeFromServerTime.format('YYYYMMDDTHHmm'), 'hour') && (element.time).includes(itemDay)) {
         const collapsableItemObj = {}
         collapsableItemObj.time = element.time
         collapsableItemObj.smartsymbol = element.smartsymbol
@@ -72,7 +73,7 @@ export class ListItem extends React.Component {
     return (
       <View style={styles.collapsableContent} >
         <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={{ fontWeight: 'bold', color: 'black' }}>{moment(item.time).format('HH:mm')}</Text>
+          <Text style={{ fontWeight: 'bold', color: 'black' }}>{momentLocales(item.time).format('HH:mm')}</Text>
         </View>
 
         <Image
@@ -120,14 +121,16 @@ export class ListItem extends React.Component {
   render() {
     const { t } = this.props;
     const IconComponent = Ionicons;
-    moment.locale(i18n.language)
+    momentLocales.locale(i18n.language)
     return (
       <View style={styles.listItemContainer} >
         <TouchableWithoutFeedback onPress={this.toggleListItem}>
           <View style={styles.listItem} >
             <View style={{ alignItems: 'center', flex: 1 }}>
-              <Text style={{ fontWeight: 'bold', color: 'black' }}>{moment(this.props.item.item.time).format('ddd').toUpperCase()}</Text>
-              <Text style={{ fontWeight: 'bold' }}>{moment(this.props.item.item.time).format('DD')}</Text>
+              <Text style={{ fontWeight: 'bold', color: 'black' }}>
+                {`${t('weekday abbreviations:' + moment(this.props.item.item.time).format('dddd').toLowerCase())}`}
+              </Text>
+              <Text style={{ fontWeight: 'bold' }}>{momentLocales(this.props.item.item.time).format('DD')}</Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingBottom: 10, paddingLeft: 6, paddingRight: 2 }}>

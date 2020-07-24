@@ -3,7 +3,8 @@ import Config from 'react-native-config';
 import { translate } from 'react-i18next';
 import i18n from 'i18next';
 import { connect } from 'react-redux';
-import moment from 'moment-with-locales-es6';
+import moment from 'moment';
+import momentLocales from 'moment-with-locales-es6';
 import {
   View, Text, StyleSheet, Image, FlatList, TouchableHighlight,
 } from 'react-native';
@@ -223,7 +224,7 @@ export class HomeScreen extends React.Component {
       <View style={styles.topContainer}>
 
         <View style={styles.dateTextContainer}>
-          <Text style={styles.dateText}>{moment(this.props.tsDataObj.localAnalysisTime).format('LLLL')}</Text>
+          <Text style={styles.dateText}>{momentLocales(this.props.tsDataObj.localAnalysisTime).format('LLLL')}</Text>
         </View>
 
         {/* <Text style={{ textAlign: 'center', color: 'red' }}>{this.props.tsDataObj.coords.lat + ', ' + this.props.tsDataObj.coords.lon}</Text> */}
@@ -275,11 +276,11 @@ export class HomeScreen extends React.Component {
             </View>
             <View>
               <Text style={styles.celestialText}>
-                {moment(mainInfoData.sunrise).format('LT')}
+                {momentLocales(mainInfoData.sunrise).format('LT')}
                 {' '}
   -
                 {' '}
-                {moment(mainInfoData.sunset).format('LT')}
+                {momentLocales(mainInfoData.sunset).format('LT')}
               </Text>
             </View>
           </View>
@@ -318,7 +319,7 @@ export class HomeScreen extends React.Component {
                     this.props.warningsBarData.map((element, i) => {
                       return (
                         <View key={i} style={styles.warningBarContainer}>
-                          <Text style={styles.warningDayText}>{moment(element.time).format('ddd').toUpperCase()}</Text>
+                          <Text style={styles.warningDayText}>{`${t('weekday abbreviations:' + moment(element.time).format('dddd').toLowerCase())}`}</Text>
                           <View style={styles.warningBarColorContainer}>
                             {
                               element.bars.map((barElement, k) => {
@@ -356,15 +357,15 @@ export class HomeScreen extends React.Component {
 
   getListData() {
     const listData = [];
-    const dataTimeUtc = moment(this.props.tsDataObj.data[0].utctime)
-    const dataTimeLocal = moment(this.props.tsDataObj.data[0].time)
-    const utcLocalDiff = moment.duration(dataTimeLocal.diff(dataTimeUtc));
+    const dataTimeUtc = momentLocales(this.props.tsDataObj.data[0].utctime)
+    const dataTimeLocal = momentLocales(this.props.tsDataObj.data[0].time)
+    const utcLocalDiff = momentLocales.duration(dataTimeLocal.diff(dataTimeUtc));
     let listLength = 0;
     const nextHourDivisibleByThreeFromServerTimeLocal = this.props.tsDataObj.nextHourDivisibleByThreeFromServerTime.clone();
     nextHourDivisibleByThreeFromServerTimeLocal.add(utcLocalDiff, 'hours')
 
     this.props.tsDataObj.data.forEach((element) => {
-      if (parseInt(element.time.substring(9, 11)) === 18 && moment(element.time).isSameOrAfter(nextHourDivisibleByThreeFromServerTimeLocal.format('YYYYMMDDTHHmm'), 'day') && listLength < Config.WEEKDAY_LIST_LENGTH) {
+      if (parseInt(element.time.substring(9, 11)) === 18 && momentLocales(element.time).isSameOrAfter(nextHourDivisibleByThreeFromServerTimeLocal.format('YYYYMMDDTHHmm'), 'day') && listLength < Config.WEEKDAY_LIST_LENGTH) {
         listData.push(element);
         listLength++;
       }
@@ -416,7 +417,7 @@ export class HomeScreen extends React.Component {
   }
 
   render() {
-    moment.locale(i18n.language)
+    momentLocales.locale(i18n.language)
     if (this.props.tsLoading) {
       return this.renderLoading();
     }
@@ -437,4 +438,4 @@ const mapStateToProps = (state) => {
   return { tsLoading, tsError, tsDataObj, warningsLoading, warningsBarData, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
-export default withNavigation(connect(mapStateToProps, { tsFetch, tsFetchUpdate, warningsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'unit abbreviations'], { wait: true })(HomeScreen)));
+export default withNavigation(connect(mapStateToProps, { tsFetch, tsFetchUpdate, warningsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'weekday abbreviations', 'unit abbreviations'], { wait: true })(HomeScreen)));

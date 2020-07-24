@@ -51,6 +51,15 @@
     "heavy sleet rain": "Mưa lớn",
     "fog": "răng"
   },
+  "weekday abbreviations": {
+    "monday": "THỨ",
+    "tuesday": "NGÀ",
+    "wednesday": "THỨ",
+    "thursday": "NĂM",
+    "friday": "SÁU",
+    "saturday": "BẢY",
+    "sunday": "CHỦ"
+  },
   "unit abbreviations": {
     "C": "C",
     "F": "F",
