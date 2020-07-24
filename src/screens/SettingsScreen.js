@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { HeaderBackButton } from 'react-navigation-stack';
 import { translate } from 'react-i18next';
 import i18n from 'i18next';
@@ -65,11 +65,13 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     paddingTop: 15,
+    paddingBottom: 15,
     paddingLeft: 10,
     textTransform: 'capitalize',
   },
   listItemRBSheetTitle: {
     fontSize: 14,
+    marginLeft: 10,
   }
 });
 
@@ -107,64 +109,64 @@ export class SettingsScreen extends React.Component {
     return (
 
       <View style={styles.container} >
-        <Text style={styles.header}>
-          {t('settings:language')}
-        </Text>
-        {
-          availableLanguages.map((currentLang, i) => (
-            <ListItem
-              key={i}
-              title={<Text style={styles.listItemLanguages} >{t('settings:' + currentLang)}</Text>
-              }
-              bottomDivider
-              checkmark={appLanguage === currentLang}
-              onPress={() => this.onChangeLang(currentLang)}
-            />
-          ))
-        }
-        < Text style={styles.header} >
-          {t('settings:units')}
-        </Text >
-        <FlatList
-          data={UNITS}
-          renderItem={({ item }) =>
-            <TouchableOpacity onPress={() => this[RBSheet + item.parameterName].open()}>
-              <View style={styles.units} >
-                <Text style={styles.settingslistitem} >  {t('settings:' + item.parameterName)} </Text>
-                <Text style={styles.settingslistitemAbb} >{t('unit abbreviations:' + this.props.parameterUnitAbbMap[item.parameterName])}</Text>
-                <RBSheet
-                  ref={ref => {
-                    this[RBSheet + item.parameterName] = ref;
-                  }}
-                  height={300}
-                >
-                  <View>
-                    <Text style={styles.rbTitle}>  {t('settings:' + item.parameterName)} </Text>
-
-                    {
-                      item.unitTypes.map((currentUnitAbb) => (
-                        <ListItem
-                          key={currentUnitAbb.unitAbb}
-                          title={t('unit abbreviations:' + currentUnitAbb.unitAbb)}
-                          titleStyle={styles.listItemRBSheetTitle}
-                          bottomDivider
-                          onPress={() => { this[RBSheet + item.parameterName].close(); this.onChangeUnit(item.parameterName, currentUnitAbb.unitId); }}
-                        />
-                      ))
-                    }
-                  </View>
-                </RBSheet>
-              </View>
-            </TouchableOpacity>
+        <ScrollView>
+          <Text style={styles.header}>
+            {t('settings:language')}
+          </Text>
+          {
+            availableLanguages.map((currentLang, i) => (
+              <ListItem
+                key={i}
+                title={<Text style={styles.listItemLanguages} >{t('settings:' + currentLang)}</Text>
+                }
+                bottomDivider
+                checkmark={appLanguage === currentLang}
+                onPress={() => this.onChangeLang(currentLang)}
+              />
+            ))
           }
-          keyExtractor={(item) => item.parameterName}
-        />
-        <Text style={styles.header}>
-          {t('settings:about')}
-        </Text>
-        <Text style={styles.about}>
-          FMI 2020
-        </Text>
+          < Text style={styles.header} >
+            {t('settings:units')}
+          </Text >
+          <FlatList
+            data={UNITS}
+            renderItem={({ item }) =>
+              <TouchableOpacity onPress={() => this[RBSheet + item.parameterName].open()}>
+                <View style={styles.units} >
+                  <Text style={styles.settingslistitem} >  {t('settings:' + item.parameterName)} </Text>
+                  <Text style={styles.settingslistitemAbb} >{t('unit abbreviations:' + this.props.parameterUnitAbbMap[item.parameterName])}</Text>
+                  <RBSheet
+                    ref={ref => {
+                      this[RBSheet + item.parameterName] = ref;
+                    }}
+                    height={300}
+                  >
+                    <View>
+                      <Text style={styles.rbTitle}>  {t('settings:' + item.parameterName)} </Text>
+
+                      {
+                        item.unitTypes.map((currentUnitAbb) => (
+                          <ListItem
+                            key={currentUnitAbb.unitAbb}
+                            title={t('unit abbreviations:' + currentUnitAbb.unitAbb)}
+                            titleStyle={styles.listItemRBSheetTitle}
+                            bottomDivider
+                            onPress={() => { this[RBSheet + item.parameterName].close(); this.onChangeUnit(item.parameterName, currentUnitAbb.unitId); }}
+                          />
+                        ))
+                      }
+                    </View>
+                  </RBSheet>
+                </View>
+              </TouchableOpacity>
+            }
+            keyExtractor={(item) => item.parameterName}
+          />
+          <Text style={styles.header}>
+            {t('settings:about')}
+          </Text>
+          <Text style={styles.about}>FMI 2020</Text>
+        </ScrollView>
       </View >
     );
   }
