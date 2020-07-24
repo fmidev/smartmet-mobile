@@ -10,7 +10,14 @@ import vi from './vi.json';
 
 const resources = { en, ky, vi }
 const STORAGE_KEY = '@APP:languageCode';
-let systemLng = NativeModules.I18nManager.localeIdentifier.substr(0, NativeModules.I18nManager.localeIdentifier.indexOf('_'))
+
+let systemLng =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale ||
+    NativeModules.SettingsManager.settings.AppleLanguages[0]
+    : NativeModules.I18nManager.localeIdentifier;
+
+systemLng = systemLng.substr(0, systemLng.indexOf('_'));
 
 if (!_.has(resources, systemLng)) {
   systemLng = null;
