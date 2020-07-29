@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     marginLeft: Platform.OS === 'ios' ? 12 : 2,
     fontSize: 16,
     flexDirection: 'row',
-    width: Platform.OS === 'ios' ? 325 : 332,
+    marginRight: 40,
+    width: Platform.OS === 'ios' ? '83%' : '90%',
   },
   autocompleteContainer: {
     paddingTop: 1,

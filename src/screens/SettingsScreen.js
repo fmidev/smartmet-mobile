@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
-import { HeaderBackButton } from 'react-navigation-stack';
+import { HeaderBackButton, TransitionPresets } from 'react-navigation-stack';
 import { translate } from 'react-i18next';
 import i18n from 'i18next';
 import { ListItem } from 'react-native-elements';
@@ -80,6 +80,8 @@ export class SettingsScreen extends React.Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('settings:settings'),
     headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack(null)} />,
+    ...TransitionPresets.SlideFromRightIOS,
+    gestureDirection: 'horizontal-inverted',
   });
 
   async onChangeLang(lang) {
