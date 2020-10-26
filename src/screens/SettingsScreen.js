@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { View, ScrollView, Text, StyleSheet, TouchableOpacity, FlatList, Switch } from 'react-native';
 import { HeaderBackButton, TransitionPresets } from 'react-navigation-stack';
 import { translate } from 'react-i18next';
 import i18n from 'i18next';
@@ -31,6 +31,13 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 30,
     textAlign: 'center',
+  },
+  preferences: {
+    paddingTop: 15,
+    paddingLeft: 17,
+    paddingBottom: 15,
+    backgroundColor: '#FFF',
+    flexDirection: 'row',
   },
   units: {
     margin: 0.5,
@@ -164,6 +171,13 @@ export class SettingsScreen extends React.Component {
             }
             keyExtractor={(item) => item.parameterName}
           />
+          <Text style={styles.header}>
+            PREFERENCES
+          </Text>
+          <View style={styles.preferences}>
+            <Text style={styles.settingslistitem} >Dark Mode</Text>
+            <Switch style={styles.settingslistitemAbb} />
+          </View>
           <Text style={styles.header}>
             {t('settings:about')}
           </Text>
