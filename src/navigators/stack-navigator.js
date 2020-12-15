@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import { SettingsButton, SearchButton, LocationButton } from '../components/Header';
@@ -20,7 +20,12 @@ const Navigator = createStackNavigator(
       screen: BottomTabNavigator,
       headerMode: 'none',
       navigationOptions: ({ navigation }) => ({
+        headerTitleStyle: { alignSelf: 'center' },
         title: <HeaderTitle />,
+        headerStyle: {
+          height: 44,
+          paddingLeft: 200,
+        },
         headerLeft: () => (
           <SettingsButton
             onPress={() => navigation.navigate('Settings')}

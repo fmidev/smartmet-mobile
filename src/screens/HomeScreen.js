@@ -22,7 +22,7 @@ import { converter } from '../components/Helper'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: 'rgb(238,244,251)',
   },
   dateTextContainer: {
     marginTop: 15,
@@ -70,6 +70,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  horizontalLine: {
+    borderBottomColor: 'rgb(216,231,242)',
+    borderBottomWidth: 1,
+  },
   precipitationContainer: {
     justifyContent: 'center',
     paddingHorizontal: 16,
@@ -106,9 +110,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   warningContainer: {
-    flexDirection: 'row',
-    backgroundColor: 'rgb(29,36,89)',
+    backgroundColor: 'white',
     height: 70,
+    borderRadius: 8,
   },
   warningLoadingContainer: {
     flexDirection: 'row',
@@ -126,6 +130,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     color: 'white',
+  },
+  warningHeader: {
+    fontSize: 16,
+    color: 'rgb(48,49,147)',
+    fontWeight: 'bold'
   },
   weekdayBarContainer: {
     flexDirection: 'row',
@@ -145,7 +154,7 @@ const styles = StyleSheet.create({
   warningDayText: {
     flexDirection: 'row',
     fontSize: 10,
-    color: 'white',
+    color: 'rgb(48,49,147)',
     textAlign: 'center',
     fontWeight: 'bold',
   },
@@ -222,7 +231,6 @@ export class HomeScreen extends React.Component {
 
     return (
       <View style={styles.topContainer}>
-
         <View style={styles.dateTextContainer}>
           <Text style={styles.dateText}>{momentLocales(this.props.tsDataObj.localAnalysisTime).format('LLLL')}</Text>
         </View>
@@ -252,7 +260,7 @@ export class HomeScreen extends React.Component {
           </View>
 
         </View>
-
+        <View style={styles.horizontalLine}></View>
         <View style={styles.weatherDetailsContainer}>
 
           <View style={styles.precipitationContainer}>
@@ -309,7 +317,7 @@ export class HomeScreen extends React.Component {
               <View style={styles.warningLoadingContainer}>
 
                 <View style={styles.warningHeaderContainer}>
-                  <Text style={{ fontSize: 16, color: 'white', fontWeight: 'bold' }}>
+                  <Text style={styles.warningHeader}>
                     {`${t('common:warnings')}`}
                   </Text>
                 </View>
