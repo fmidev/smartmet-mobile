@@ -44,4 +44,6 @@ target 'SmartMetMobile' do
   # react-native-cli autolinking
   use_native_modules!
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
 end
