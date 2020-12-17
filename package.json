@@ -13,6 +13,7 @@
     "@react-native-community/geolocation": "2.0.2",
     "@react-native-community/masked-view": "0.1.6",
     "expo": "36.0.2",
+    "expo-font": "8.4.0",
     "i18next": "19.4.1",
     "lodash": "4.17.19",
     "moment": "2.24.0",

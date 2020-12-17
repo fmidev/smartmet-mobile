@@ -52,13 +52,13 @@
     "fog": "Fog"
   },
   "weekday abbreviations": {
-    "monday": "MON",
-    "tuesday": "TUE",
-    "wednesday": "WED",
-    "thursday": "THU",
-    "friday": "FRI",
-    "saturday": "SAT",
-    "sunday": "SUN"
+    "monday": "Mon",
+    "tuesday": "Tue",
+    "wednesday": "Wed",
+    "thursday": "Thu",
+    "friday": "Fri",
+    "saturday": "Sat",
+    "sunday": "Sun"
   },
   "unit abbreviations": {
     "C": "C",

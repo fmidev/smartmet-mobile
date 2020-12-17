@@ -9,17 +9,20 @@ import momentLocales from 'moment-with-locales-es6';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Images from '../assets/images';
 import { converter, getWindDirectionArrow } from '../components/Helper'
+import WindDirBg from '../assets/images/icons/windDirectionBgLightMode.svg';
 
 const styles = StyleSheet.create({
   listItemContainer: {
-    backgroundColor: 'lightgray',
+    paddingHorizontal: 15,
   },
   listItem: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 6,
-    margin: 0.5,
+    paddingVertical: 4,
+    borderBottomColor: 'rgb(216,231,242)',
+    borderBottomWidth: 0.9,
     backgroundColor: '#FFF',
     width: '100%',
     flexDirection: 'row',
@@ -30,7 +33,15 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
     paddingRight: 4,
     paddingBottom: 15,
-  }
+  },
+  listHeaderContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 18,
+  },
 });
 
 export class ListItem extends React.Component {
@@ -127,13 +138,15 @@ export class ListItem extends React.Component {
         <TouchableWithoutFeedback onPress={this.toggleListItem}>
           <View style={styles.listItem} >
             <View style={{ alignItems: 'center', flex: 1 }}>
-              <Text style={{ fontWeight: 'bold', color: 'black' }}>
+              <Text style={{ fontFamily: 'Roboto-Bold', color: 'rgb(48,49,147)', fontSize: 14 }}>
                 {`${t('weekday abbreviations:' + moment(this.props.item.item.time).format('dddd').toLowerCase())}`}
               </Text>
-              <Text style={{ fontWeight: 'bold' }}>{momentLocales(this.props.item.item.time).format('DD')}</Text>
+              <Text style={{ fontFamily: 'Roboto-Regular', color: 'rgb(48,49,147)', fontSize: 14 }}>
+                {momentLocales(this.props.item.item.time).format('DD')}
+              </Text>
             </View>
 
-            <View style={{ alignItems: 'center', flex: 1, paddingBottom: 10, paddingLeft: 6, paddingRight: 2 }}>
+            <View style={{ alignItems: 'center', flex: 1, paddingLeft: 6, paddingRight: 2 }}>
               <Image style={{ alignItems: 'center', flex: 1 }}
                 source={Images.symbols[this.props.item.item.smartsymbol]}
                 style={{ height: 50, width: 50, marginTop: 10 }}
@@ -141,28 +154,41 @@ export class ListItem extends React.Component {
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingHorizontal: 8 }}>
-              <Text style={{ color: 'black', fontWeight: 'bold' }}>{converter(this.props.parameterUnitMap['temperature'], this.props.item.item.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}°</Text>
+              <Text style={{ fontFamily: 'Roboto-Bold', color: 'rgb(48,49,147)', fontSize: 14 }}>{converter(this.props.parameterUnitMap['temperature'], this.props.item.item.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}°</Text>
             </View>
 
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ color: 'black', fontSize: 30, marginBottom: 6, paddingLeft: 5 }}>{getWindDirectionArrow(this.props.item.item.winddirection)}</Text>
+              <WindDirBg
+                style={{
+                  transform: [{ rotate: this.props.item.item.winddirection.toString() + 'deg' }]
+                }} width={30} height={30}
+              />
             </View>
 
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-              <Text style={{ color: 'black' }}>
+              <Text style={{ fontFamily: 'Roboto-Bold', color: 'rgb(48,49,147)', fontSize: 14 }}>
                 {converter(this.props.parameterUnitMap['wind'], this.props.item.item.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}
                 {' '}
+              </Text>
+              <Text style={{ fontFamily: 'Roboto-Regular', color: 'rgb(48,49,147)', fontSize: 14 }}>
                 {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}
               </Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1, paddingLeft: 8 }}>
-              <Text style={{ color: 'black' }}>{this.props.item.item.humidity.toFixed(0)}  %</Text>
+              <Text style={{ color: 'rgb(48,49,147)', fontSize: 14 }}>
+                <Text style={{ fontFamily: 'Roboto-Bold' }}>
+                  {this.props.item.item.humidity.toFixed(0)}
+                </Text>
+                <Text style={{ fontFamily: 'Roboto-Regular', color: 'rgb(48,49,147)', fontSize: 14 }}>
+                  {' %'}
+                </Text>
+              </Text>
             </View>
 
             <View style={{ alignItems: 'center', flex: 1 }}>
-              {this.state.isHidden && <IconComponent name="ios-arrow-dropdown-circle" size={25} color={'black'} />}
-              {!this.state.isHidden && <IconComponent name="ios-arrow-dropup-circle" size={25} color={'black'} />}
+              {this.state.isHidden && <IconComponent name="ios-arrow-dropdown-circle" size={26} color={'rgb(48,49,147)'} />}
+              {!this.state.isHidden && <IconComponent name="ios-arrow-dropup-circle" size={26} color={'rgb(48,49,147)'} />}
             </View>
 
           </View>

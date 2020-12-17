@@ -18,6 +18,14 @@ import { setLang } from '../actions/QueryParamActions';
 import Images from '../assets/images';
 import ListItem from '../components/ListItem';
 import { converter } from '../components/Helper'
+import RainDrop from '../assets/images/icons/rainLightMode.svg';
+import WindDirBg from '../assets/images/icons/windDirectionBgLightMode.svg';
+import SunsetSunrise from '../assets/images/icons/sunsetSunriseLightMode.svg';
+import ArrSunrise from '../assets/images/icons/arrowSunriseLightMode.svg'
+import ArrSunset from '../assets/images/icons/arrowSunsetLightMode.svg'
+import TemperatureTitle from '../assets/images/icons/temperatureTitleIconLightMode.svg'
+import WindTitle from '../assets/images/icons/windTitleIconLightMode.svg'
+import HumidityTitle from '../assets/images/icons/humidityTitleIconLightMode.svg'
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(238,244,251)',
   },
   dateTextContainer: {
-    marginTop: 15,
+    marginTop: 4,
     marginBottom: 10,
     alignSelf: 'center',
   },
@@ -37,35 +45,30 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center',
   },
   temperature: {
-    fontSize: 50,
-    color: 'black',
+    fontSize: 70,
+    color: 'rgb(48,49,147)',
+    fontFamily: 'Roboto-Light'
   },
   feelsLike: {
-    fontSize: 12,
-    color: 'black',
-    position: 'absolute',
-    bottom: 0,
+    fontFamily: 'Roboto-Regular',
+    fontSize: 15,
+    color: 'rgb(48,49,147)',
   },
   symbolWeatherdescriptionContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  symbolDescription: {
-    fontSize: 12,
-    color: 'black',
-    bottom: 0,
-  },
   dateText: {
-    color: 'black',
+    color: 'rgb(48,49,147)',
+    fontFamily: 'Roboto-Regular',
+    fontSize: 13,
   },
   weatherDetailsContainer: {
-    marginTop: 35,
-    marginBottom: 10,
-    paddingHorizontal: 22,
+    marginTop: 15,
+    marginBottom: 14,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -73,37 +76,61 @@ const styles = StyleSheet.create({
   horizontalLine: {
     borderBottomColor: 'rgb(216,231,242)',
     borderBottomWidth: 1,
+    paddingBottom: 17,
   },
-  precipitationContainer: {
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-    marginRight: 5,
+  RainDropContainer: {
+    marginLeft: 10,
   },
   celestialContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingLeft: 50,
+    paddingRight: 70,
   },
   celestialSymbol: {
-    paddingRight: 7,
+    justifyContent: 'center',
+  },
+  celestialArrows: {
+    justifyContent: 'center',
+    paddingHorizontal: 3,
+  },
+  celestialTimes: {
+    justifyContent: 'center',
+  },
+  windContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  winddirContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    marginRight: 2,
   },
   windspeedContainer: {
-    justifyContent: 'center',
+    flex: 1,
+    alignItems: 'flex-end',
+    marginRight: 12,
+  },
+  windspeedText: {
+    fontSize: 14,
+    color: 'rgb(48,49,147)',
+    fontFamily: 'Roboto-Regular',
   },
   windarrowImgContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 14,
   },
   celestialText: {
-    color: 'black',
-    fontSize: 12,
+    color: 'rgb(48,49,147)',
+    fontWeight: 'bold',
+    fontSize: 14,
   },
   precipitationText: {
-    fontSize: 12,
-    color: 'black',
+    fontSize: 14,
+    color: 'rgb(48,49,147)',
+    fontFamily: 'Roboto-Regular',
   },
   flatListContainer: {
     flex: 1,
@@ -111,8 +138,9 @@ const styles = StyleSheet.create({
   },
   warningContainer: {
     backgroundColor: 'white',
-    height: 70,
+    height: 81,
     borderRadius: 8,
+    marginBottom: 14,
   },
   warningLoadingContainer: {
     flexDirection: 'row',
@@ -126,15 +154,14 @@ const styles = StyleSheet.create({
   },
   warningHeaderContainer: {
     flex: 1,
-    top: 5, left: 0, right: 0, bottom: 0,
+    top: 10, left: 20, right: 0, bottom: 0,
     position: 'absolute',
-    alignItems: 'center',
     color: 'white',
   },
   warningHeader: {
-    fontSize: 16,
+    fontSize: 14,
     color: 'rgb(48,49,147)',
-    fontWeight: 'bold'
+    fontFamily: 'Roboto-Bold'
   },
   weekdayBarContainer: {
     flexDirection: 'row',
@@ -143,6 +170,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 35,
     marginBottom: 7,
+    paddingHorizontal: 13,
   },
   warningBarContainer: {
     flex: 1,
@@ -153,25 +181,29 @@ const styles = StyleSheet.create({
   },
   warningDayText: {
     flexDirection: 'row',
-    fontSize: 10,
+    fontSize: 15,
     color: 'rgb(48,49,147)',
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold'
   },
   listHeaderContainer: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'lightgray',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 5,
-    paddingHorizontal: 18,
+    backgroundColor: 'white',
+    backgroundColor: 'rgb(238,244,251)',
+    borderTopEndRadius: 8,
+    borderTopLeftRadius: 8,
+    borderBottomColor: 'rgb(216,231,242)',
+    borderBottomWidth: 0.9,
   },
   listHeaderText: {
     textTransform: 'uppercase',
     fontSize: 10,
     color: 'black',
     paddingHorizontal: 10,
+  },
+  topContainer: {
+    paddingHorizontal: 15,
   }
 });
 
@@ -232,7 +264,11 @@ export class HomeScreen extends React.Component {
     return (
       <View style={styles.topContainer}>
         <View style={styles.dateTextContainer}>
-          <Text style={styles.dateText}>{momentLocales(this.props.tsDataObj.localAnalysisTime).format('LLLL')}</Text>
+          <Text style={styles.dateText}>
+            <Text>{momentLocales(this.props.tsDataObj.localAnalysisTime).format('dddd')}, </Text>
+            <Text>{momentLocales(this.props.tsDataObj.localAnalysisTime).format('ll')}, </Text>
+            <Text style={{ fontFamily: "Roboto-Bold" }}>{momentLocales(this.props.tsDataObj.localAnalysisTime).format('LT')}</Text>
+          </Text>
         </View>
 
         {/* <Text style={{ textAlign: 'center', color: 'red' }}>{this.props.tsDataObj.coords.lat + ', ' + this.props.tsDataObj.coords.lon}</Text> */}
@@ -242,13 +278,15 @@ export class HomeScreen extends React.Component {
           <View style={styles.temperatureFeelsLikeContainer}>
             <Text style={styles.temperature}>
               {converter(this.props.parameterUnitMap['temperature'], mainInfoData.temperature).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
-              {' '}
-                °{this.props.parameterUnitAbbMap['temperature']}
+              °
             </Text>
             <Text style={styles.feelsLike}>
-              {`${t('common:feels like')} °`}
-              {' '}
-              {converter(this.props.parameterUnitMap['temperature'], mainInfoData.feelslike).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}
+              <Text>
+                {`${t('common:feels like')} `}
+              </Text>
+              <Text style={{ fontWeight: "bold" }}>
+                {converter(this.props.parameterUnitMap['temperature'], mainInfoData.feelslike).toFixed(this.props.parameterUnitPrecisionMap['temperature'])}°
+              </Text>
             </Text>
           </View>
 
@@ -256,22 +294,28 @@ export class HomeScreen extends React.Component {
             <View>
               <Image style={{ width: 120, height: 120 }} source={Images.symbols[mainInfoData.smartsymbol]} />
             </View>
-            <Text style={styles.symbolDescription}>{`${t('weather:' + mainInfoData.weather)} `} </Text>
           </View>
 
         </View>
         <View style={styles.horizontalLine}></View>
         <View style={styles.weatherDetailsContainer}>
 
+          <View style={styles.RainDropContainer}>
+            <RainDrop width={28} height={28} />
+          </View>
+
           <View style={styles.precipitationContainer}>
             <Text>
-              <Image style={{ width: 18, height: 18 }} source={require('../assets/images/precipitation-icon.png')} />
               <Text style={styles.precipitationText}>
-                {mainInfoData.humidity.toFixed(0)}
+                <Text style={{ fontFamily: 'Roboto-Bold' }}>
+                  {mainInfoData.humidity.toFixed(0)}
+                </Text>
                 {' '}
 %
                 {'\n'}
-                {converter(this.props.parameterUnitMap['precipitation'], mainInfoData.precipitation1h).toFixed(this.props.parameterUnitPrecisionMap['precipitation'])}
+                <Text style={{ fontWeight: 'bold' }}>
+                  {converter(this.props.parameterUnitMap['precipitation'], mainInfoData.precipitation1h).toFixed(this.props.parameterUnitPrecisionMap['precipitation'])}
+                </Text>
                 {' '}
                 {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['precipitation'])}`}
               </Text>
@@ -280,39 +324,43 @@ export class HomeScreen extends React.Component {
 
           <View style={styles.celestialContainer}>
             <View style={styles.celestialSymbol}>
-              <Image style={{ width: 25, height: 25 }} source={require('../assets/images/celestial-status-icon.png')} />
+              <SunsetSunrise width={28} height={28} />
             </View>
-            <View>
+            <View style={styles.celestialArrows}>
+              <ArrSunrise width={14} height={18} />
+              <ArrSunset width={14} height={18} />
+            </View>
+            <View style={styles.celestialTimes}>
               <Text style={styles.celestialText}>
                 {momentLocales(mainInfoData.sunrise).format('LT')}
-                {' '}
-  -
-                {' '}
+                {'\n'}
                 {momentLocales(mainInfoData.sunset).format('LT')}
               </Text>
             </View>
           </View>
 
-          <View style={styles.windspeedContainer}>
-            <View style={styles.windarrowImgContainer}
-            >
-              <Image
+          <View style={styles.windContainer}>
+            <View style={styles.winddirContainer}>
+              <WindDirBg
                 style={{
-                  flex: 1,
-                  width: 40,
-                  height: 40,
                   transform: [{ rotate: mainInfoData.winddirection.toString() + 'deg' }]
-                }}
-                source={require('../assets/images/winddir-icon.png')}
+                }} width={30} height={30}
               />
-              <Text style={{ position: 'absolute', fontSize: 12, color: 'black' }}>{converter(this.props.parameterUnitMap['wind'], mainInfoData.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}</Text>
+            </View>
+            <View style={styles.windspeedContainer}>
+              <Text style={styles.windspeedText}>
+                <Text style={{ fontWeight: 'bold' }}>
+                  {converter(this.props.parameterUnitMap['wind'], mainInfoData.windspeedms).toFixed(this.props.parameterUnitPrecisionMap['wind'])}
+                </Text>
+                {'\n'}
+                {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}
+              </Text>
             </View>
           </View>
-
         </View>
 
         <TouchableHighlight onPress={() => { this.props.navigation.navigate({ routeName: 'Warnings', }); }}>
-          <View style={styles.warningContainer}>
+          <View elevation={10} style={styles.warningContainer}>
             {!this.props.warningsLoading ? (
               <View style={styles.warningLoadingContainer}>
 
@@ -332,7 +380,7 @@ export class HomeScreen extends React.Component {
                             {
                               element.bars.map((barElement, k) => {
                                 return (
-                                  <View key={k} style={{ width: barElement.width, height: 4, backgroundColor: barElement.color, }} />
+                                  <View key={k} style={{ width: barElement.width, height: 5, backgroundColor: barElement.color, }} />
                                 );
 
                               })
@@ -347,16 +395,15 @@ export class HomeScreen extends React.Component {
             ) : (
                 this.renderLoading()
               )}
-
           </View>
         </TouchableHighlight>
 
         <View style={styles.listHeaderContainer}>
-          <Text style={styles.listHeaderText}>{`${t('parameter abbreviations:weather symbol')}`}</Text>
-          <Text style={styles.listHeaderText}>{`${t('parameter abbreviations:temperature')}`}</Text>
-          <Text style={styles.listHeaderText}>{`${t('parameter abbreviations:wind direction')}`}</Text>
-          <Text style={styles.listHeaderText}>{`${t('parameter abbreviations:wind speed')}`}</Text>
-          <Text style={styles.listHeaderText}>{`${t('parameter abbreviations:humidity')}`}</Text>
+          <View style={{ marginRight: 1.5, alignItems: 'center', backgroundColor: 'white', borderTopLeftRadius: 8, width: '31%' }}></View>
+          <View style={{ marginRight: 1.5, alignItems: 'center', backgroundColor: 'white', width: '12%' }}><TemperatureTitle height={20} /></View>
+          <View style={{ marginRight: 1.5, alignItems: 'center', backgroundColor: 'white', width: '27%' }}><WindTitle height={20} /></View>
+          <View style={{ marginRight: 1.5, alignItems: 'center', backgroundColor: 'white', width: '14%' }}><HumidityTitle height={20} /></View>
+          <View style={{ backgroundColor: 'white', alignItems: 'center', borderTopEndRadius: 8, flex: 1, width: '16%' }}></View>
         </View>
 
       </View >

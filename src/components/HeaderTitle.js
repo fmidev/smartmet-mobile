@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
   location: {
-    fontSize: 18,
+    fontSize: 15,
     color: 'rgb(48,49,147)',
     alignSelf: 'center',
+    fontFamily: 'Roboto-Medium',
   },
 });
 
