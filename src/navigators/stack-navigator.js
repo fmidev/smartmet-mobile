@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 
 const Navigator = createStackNavigator(
   {
-    Home: {
+    Weather: {
       screen: BottomTabNavigator,
       headerMode: 'none',
       navigationOptions: ({ navigation }) => ({

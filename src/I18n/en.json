@@ -6,7 +6,7 @@
     "server error": "SERVER ERROR"
   },
   "navigation": {
-    "home": "Home",
+    "weather": "Weather",
     "warnings": "Warnings",
     "maps": "Maps"
   },

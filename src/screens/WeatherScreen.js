@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
 });
 
 
-export class HomeScreen extends React.Component {
+export class WeatherScreen extends React.Component {
   async onChangeLang(lang) {
     i18n.changeLanguage(lang);
     try {
@@ -493,4 +493,4 @@ const mapStateToProps = (state) => {
   return { tsLoading, tsError, tsDataObj, warningsLoading, warningsBarData, parameterUnitMap, parameterUnitAbbMap, parameterUnitPrecisionMap };
 };
 
-export default withNavigation(connect(mapStateToProps, { tsFetch, tsFetchUpdate, warningsFetch, settingsInit, setLang })(translate(['home', 'common', 'day', 'weekday abbreviations', 'unit abbreviations'], { wait: true })(HomeScreen)));
+export default withNavigation(connect(mapStateToProps, { tsFetch, tsFetchUpdate, warningsFetch, settingsInit, setLang })(translate(['weather', 'common', 'day', 'weekday abbreviations', 'unit abbreviations'], { wait: true })(WeatherScreen)));

@@ -1,7 +1,7 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import SettingsScreen from '../screens/SettingsScreen';
 import SearchScreen from '../screens/SearchScreen';
-import HomeScreen from '../screens/HomeScreen';
+import WeatherScreen from '../screens/WeatherScreen';
 import WarningsScreen from '../screens/WarningsScreen';
 import MapsScreen from '../screens/MapsScreen';
 
@@ -24,9 +24,9 @@ export const SearchNavigator = createStackNavigator(
 );
 
 
-export const HomeNavigator = createStackNavigator(
+export const WeatherNavigator = createStackNavigator(
   {
-    Home: HomeScreen,
+    Weather: WeatherScreen,
   },
   {
     defaultNavigationOptions: { header: () => false },
