@@ -24,7 +24,6 @@ const Navigator = createStackNavigator(
         title: <HeaderTitle />,
         headerStyle: {
           height: 44,
-          paddingLeft: 200,
         },
         headerLeft: () => (
           <SettingsButton
