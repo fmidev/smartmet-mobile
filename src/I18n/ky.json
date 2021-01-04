@@ -23,6 +23,17 @@
     "wind": "шамал",
     "pressure": "басым"
   },
+  "weather symbols": {
+    "weather symbols": "Аба-ырайы белгилери"
+  },
+  "about the application": {
+    "about the application": "Колдонмо жөнүндө",
+    "content": "FMI 2021"
+  },
+  "feedback": {
+    "feedback": "Пикир",
+    "content": "Биздин кызматтарды жакшыртууга жардам бергениңиз үчүн чоң рахмат. Биз алган бардык пикирлерди иштеп чыгабыз, бирок жеке жооп берүүгө кепилдик бере албайбыз."
+  },
   "weather": {
     "sunny": "ачык",
     "partly cloudy": "Булуттуу",

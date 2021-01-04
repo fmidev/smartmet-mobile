@@ -1,7 +1,8 @@
 import {
-  View, SafeAreaView, Text, StyleSheet, TouchableOpacity,
+  View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import React from 'react';
+import { translate } from 'react-i18next';
 import FmiLogo from '../assets/images/fmiLogoNega.svg';
 import SettingsActiveLightMode from '../assets/images/icons/settingsActiveLightMode.svg';
 import WeatherActiveLightMode from '../assets/images/icons/weatherActiveLightMode.svg';
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
 
 export class SideMenu extends React.Component {
   render() {
+    const { t } = this.props;
     return (
       <View style={styles.container}>
 
@@ -58,28 +60,28 @@ export class SideMenu extends React.Component {
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Settings')}>
           <View style={styles.iconTextContainer}>
             <SettingsActiveLightMode />
-            <Text style={styles.itemText}>Settings</Text>
+            <Text style={styles.itemText}>{t('settings:settings')}</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Symbols')}>
           <View style={styles.iconTextContainer}>
             <WeatherActiveLightMode />
-            <Text style={styles.itemText}>Weather symbols</Text>
+            <Text style={styles.itemText}>{t('weather symbols:weather symbols')}</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => this.props.navigation.navigate('About')}>
           <View style={styles.iconTextContainer}>
             <InfoActiveLightMode />
-            <Text style={styles.itemText}>About the application</Text>
+            <Text style={styles.itemText}>{t('about the application:about the application')}</Text>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Feedback')}>
           <View style={styles.iconTextContainer}>
             <FeedbackActiveLightMode />
-            <Text style={styles.itemText}>Feedback</Text>
+            <Text style={styles.itemText}>{t('feedback:feedback')}</Text>
           </View>
         </TouchableOpacity>
 
@@ -96,4 +98,4 @@ export class SideMenu extends React.Component {
   }
 }
 
-export default SideMenu;
+export default translate(['weather symbols', 'about the application', 'feedback'], { wait: true })(SideMenu);

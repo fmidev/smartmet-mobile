@@ -23,6 +23,17 @@
     "wind": "Wind",
     "pressure": "Pressure"
   },
+  "weather symbols": {
+    "weather symbols": "Weather symbols"
+  },
+  "about the application": {
+    "about the application": "About the application",
+    "content": "FMI 2021"
+  },
+  "feedback": {
+    "feedback": "Feedback",
+    "content": "Thank you for helping us improve our services. We will process all feedback we receive but cannot guarantee a personal reply."
+  },
   "weather": {
     "sunny": "Sunny",
     "partly cloudy": "Partly cloudy",

@@ -23,6 +23,17 @@
     "wind": "Gió",
     "pressure": "Sức ép"
   },
+  "weather symbols": {
+    "weather symbols": "Ký hiệu thời tiết"
+  },
+  "about the application": {
+    "about the application": "Về ứng dụng",
+    "content": "FMI 2021"
+  },
+  "feedback": {
+    "feedback": "Phản hồi",
+    "content": "Cảm ơn bạn đã giúp chúng tôi cải thiện dịch vụ của mình. Chúng tôi sẽ xử lý tất cả các phản hồi mà chúng tôi nhận được nhưng không thể đảm bảo trả lời cá nhân."
+  },
   "weather": {
     "sunny": "Nắng",
     "partly cloudy": "Một phần mây",
