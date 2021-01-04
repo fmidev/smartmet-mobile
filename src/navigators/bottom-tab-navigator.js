@@ -1,12 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import {
-  WeatherNavigator,
-  WarningsNavigator,
-  MapsNavigator,
-} from './screen-stack-navigators';
+import WeatherScreen from '../screens/WeatherScreen';
+import WarningsScreen from '../screens/WarningsScreen';
 import { translate } from 'react-i18next';
-
 import WeatherLightMode from '../assets/images/icons/weatherLightMode.svg';
 import WarningsLightMode from '../assets/images/icons/warningsLightMode.svg';
 import MapLightMode from '../assets/images/icons/mapLightMode.svg';
@@ -42,21 +38,21 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
 const BottomTabNavigator = createBottomTabNavigator(
   {
     Weather: {
-      screen: WeatherNavigator,
-      navigationOptions: ({ screenProps }) => ({
+      screen: WeatherScreen,
+      navigationOptions: ({ }) => ({
         tabBarOptions: tabBarOptions
       })
     },
     Warnings: {
-      screen: WarningsNavigator,
-      navigationOptions: ({ screenProps }) => ({
+      screen: WarningsScreen,
+      navigationOptions: ({ }) => ({
         tabBarOptions: tabBarOptions
       })
     },
     /*
     Maps: {
       screen: MapsNavigator,
-      navigationOptions: ({ screenProps }) => ({
+      navigationOptions: ({}) => ({
         tabBarOptions: tabBarOptions
       })
     }

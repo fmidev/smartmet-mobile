@@ -86,7 +86,7 @@ export class SettingsScreen extends React.Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('settings:settings'),
-    headerLeft: () => <HeaderBackButton onPress={() => navigation.goBack(null)} />,
+    headerLeft: () => <HeaderBackButton onPress={() => navigation.navigate('Home')} />,
     ...TransitionPresets.SlideFromRightIOS,
     gestureDirection: 'horizontal-inverted',
   });
