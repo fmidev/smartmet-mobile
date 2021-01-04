@@ -7,6 +7,8 @@ import { SettingsButton, SearchButton, LocationButton } from '../components/Head
 import BottomTabNavigator from './bottom-tab-navigator';
 import SettingsScreen from '../screens/SettingsScreen';
 import SymbolsScreen from '../screens/SymbolsScreen';
+import AboutScreen from '../screens/AboutScreen';
+import FeedbackScreen from '../screens/FeedbackScreen';
 import SearchScreen from '../screens/SearchScreen';
 import WarningsScreen from '../screens/WarningsScreen';
 import HeaderTitle from '../components/HeaderTitle';
@@ -68,11 +70,29 @@ const symbolsStack = createStackNavigator(
   },
 );
 
+const aboutStack = createStackNavigator(
+  {
+    About: {
+      screen: AboutScreen,
+    },
+  },
+);
+
+const feedbackStack = createStackNavigator(
+  {
+    Feedback: {
+      screen: FeedbackScreen,
+    },
+  },
+);
+
 const Drawer = createDrawerNavigator(
   {
     Home: { screen: mainNavigator },
     Settings: { screen: settingsStack },
     Symbols: { screen: symbolsStack },
+    About: { screen: aboutStack },
+    Feedback: { screen: feedbackStack },
   },
   {
     contentComponent: (props) => <SideMenu {...props} />,
