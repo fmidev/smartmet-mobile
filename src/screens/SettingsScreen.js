@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text, StyleSheet, TouchableOpacity, FlatList, Switch } from 'react-native';
-import { HeaderBackButton, TransitionPresets } from 'react-navigation-stack';
+import { View, ScrollView, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { translate } from 'react-i18next';
 import i18n from 'i18next';
 import { ListItem } from 'react-native-elements';
@@ -12,17 +11,21 @@ import { tsFetchUpdate } from '../actions/TimeSeriesActions';
 import { UNITS } from '../Constants';
 import { connect } from 'react-redux';
 import { asyncStorageSetItem } from '../components/Helper'
+import ArrowLeftLightMode from '../assets/images/icons/arrowLeftLightMode.svg'
+import ArrowRightLightMode from '../assets/images/icons/arrowRightLightMode.svg'
+import CheckActiveLightMode from '../assets/images/icons/checkActiveLightMode.svg'
 
 const styles = StyleSheet.create({
   container: {
-    color: 'black',
+    backgroundColor: '#FFF'
   },
   header: {
-    color: 'black',
-    paddingTop: 7,
-    paddingLeft: 10,
-    paddingBottom: 7,
-    textTransform: 'uppercase',
+    backgroundColor: 'rgb(238,244,251)',
+    color: 'rgb(48,49,147)',
+    fontFamily: 'Roboto-Medium',
+    fontSize: 16,
+    paddingVertical: 20,
+    paddingLeft: 20,
   },
   about: {
     color: 'black',
@@ -39,11 +42,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     flexDirection: 'row',
   },
-  units: {
-    margin: 0.5,
-    paddingTop: 15,
+  flatlistItem: {
+    margin: 4,
     paddingLeft: 10,
-    paddingBottom: 15,
+    paddingVertical: 7,
     backgroundColor: '#FFF',
     width: '100%',
     flex: 1,
@@ -51,15 +53,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 0,
   },
-  listItemLanguages: {
-    marginLeft: 4,
-    color: 'black',
+  languageListitem: {
+    color: 'rgb(48,49,147)',
     fontSize: 16,
+    paddingLeft: 10,
+    flex: 1,
+  },
+  listIconRightEnd: {
+    paddingRight: 20,
   },
   settingslistitem: {
-    color: 'black',
+    color: 'rgb(48,49,147)',
     fontSize: 16,
     textTransform: 'capitalize',
+    paddingLeft: 6,
   },
   settingslistitemAbb: {
     color: 'cornflowerblue',
@@ -86,9 +93,11 @@ export class SettingsScreen extends React.Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('settings:settings'),
-    headerLeft: () => <HeaderBackButton onPress={() => navigation.navigate('Home')} />,
-    ...TransitionPresets.SlideFromRightIOS,
-    gestureDirection: 'horizontal-inverted',
+    headerLeft: (
+      <TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeftLightMode />
+      </TouchableOpacity>
+    )
+
   });
 
   async onChangeLang(lang) {
@@ -111,6 +120,19 @@ export class SettingsScreen extends React.Component {
     });
   }
 
+  renderSeparator = () => (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(216,231,242)',
+        height: 1,
+        marginHorizontal: 20,
+      }}
+    />
+  );
+
   render() {
     const { t } = this.props;
     const availableLanguages = Object.keys(i18n.translator.resourceStore.data);
@@ -122,26 +144,59 @@ export class SettingsScreen extends React.Component {
           <Text style={styles.header}>
             {t('settings:language')}
           </Text>
-          {
-            availableLanguages.map((currentLang, i) => (
-              <ListItem
-                key={i}
-                title={<Text style={styles.listItemLanguages} >{t('settings:' + currentLang)}</Text>
-                }
-                bottomDivider
-                checkmark={appLanguage === currentLang}
-                onPress={() => this.onChangeLang(currentLang)}
-              />
-            ))
-          }
+
+
+          <FlatList
+            data={availableLanguages}
+            ItemSeparatorComponent={this.renderSeparator}
+            renderItem={({ item }) => {
+              return (
+
+                <TouchableOpacity onPress={() => this.onChangeLang(item)}>
+                  <View style={styles.flatlistItem} >
+                    <Text style={styles.languageListitem} >{t('settings:' + item)}</Text>
+                    {appLanguage === item ? <View style={styles.listIconRightEnd}><CheckActiveLightMode width={25} /></View> : null}
+                  </View>
+                </TouchableOpacity>
+
+
+              )
+            }}
+            keyExtractor={(item, index) => index}
+          />
+
+          < Text style={styles.header} >
+            Allow location access
+          </Text >
+
+
+          <FlatList
+            data={['Never', 'While using the app', 'Always']}
+            ItemSeparatorComponent={this.renderSeparator}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity onPress={() => this.onChangeLang(item)}>
+                  <View style={styles.flatlistItem} >
+                    <Text style={styles.languageListitem} >{t('settings:' + item)}</Text>
+                    {appLanguage === item ? <View style={styles.listIconRightEnd}><CheckActiveLightMode width={25} /></View> : null}
+                  </View>
+                </TouchableOpacity>
+              )
+            }}
+            keyExtractor={(item, index) => index}
+          />
+
+
+
           < Text style={styles.header} >
             {t('settings:units')}
           </Text >
           <FlatList
             data={UNITS}
+            ItemSeparatorComponent={this.renderSeparator}
             renderItem={({ item }) =>
               <TouchableOpacity onPress={() => this[RBSheet + item.parameterName].open()}>
-                <View style={styles.units} >
+                <View style={styles.flatlistItem} >
                   <Text style={styles.settingslistitem} >  {t('settings:' + item.parameterName)} </Text>
                   <Text style={styles.settingslistitemAbb} >{t('unit abbreviations:' + this.props.parameterUnitAbbMap[item.parameterName])}</Text>
                   <RBSheet
@@ -172,16 +227,46 @@ export class SettingsScreen extends React.Component {
             keyExtractor={(item) => item.parameterName}
           />
           <Text style={styles.header}>
-            PREFERENCES
+            Appearance
           </Text>
-          <View style={styles.preferences}>
-            <Text style={styles.settingslistitem} >Dark Mode</Text>
-            <Switch style={styles.settingslistitemAbb} />
-          </View>
-          <Text style={styles.header}>
-            {t('settings:about')}
-          </Text>
-          <Text style={styles.about}>FMI 2020</Text>
+
+          <FlatList
+            data={['Light mode', 'Dark mode', 'Automatic']}
+            ItemSeparatorComponent={this.renderSeparator}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity onPress={() => this.onChangeLang(item)}>
+                  <View style={styles.flatlistItem} >
+                    <Text style={styles.languageListitem} >{t('settings:' + item)}</Text>
+                    {appLanguage === item ? <View style={styles.listIconRightEnd}><CheckActiveLightMode width={25} /></View> : null}
+                  </View>
+                </TouchableOpacity>
+              )
+            }}
+            keyExtractor={(item, index) => index}
+          />
+
+
+          <Text style={styles.header}></Text>
+
+
+          <FlatList
+            data={['Terms of use', 'About the app']}
+            ItemSeparatorComponent={this.renderSeparator}
+            renderItem={({ item }) => {
+              return (
+                <TouchableOpacity onPress={() => this.onChangeLang(item)}>
+                  <View style={styles.flatlistItem} >
+                    <Text style={styles.languageListitem} >{t('settings:' + item)}</Text>
+                    <View style={styles.listIconRightEnd}><ArrowRightLightMode width={25} /></View>
+                  </View>
+                </TouchableOpacity>
+              )
+            }}
+            keyExtractor={(item, index) => index}
+          />
+
+
         </ScrollView>
       </View >
     );

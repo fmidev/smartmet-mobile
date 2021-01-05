@@ -14,6 +14,17 @@ import WarningsScreen from '../screens/WarningsScreen';
 import HeaderTitle from '../components/HeaderTitle';
 import SideMenu from '../components/SideMenu';
 
+const headerStyle = {
+  headerTitleStyle: {
+    fontSize: 17,
+    color: 'rgb(48,49,147)',
+    fontFamily: 'Roboto-Medium',
+  },
+  headerStyle: {
+    height: 44,
+  }
+};
+
 const mainNavigator = createStackNavigator(
   {
     Home: {
@@ -22,9 +33,8 @@ const mainNavigator = createStackNavigator(
       navigationOptions: ({ navigation }) => ({
         headerTitleStyle: { alignSelf: 'center' },
         title: <HeaderTitle />,
-        headerStyle: {
-          height: 44,
-        },
+        headerTitleStyle: headerStyle.headerTitleStyle,
+        headerStyle: headerStyle.headerStyle,
         headerLeft: () => (
           <SettingsButton
             onPress={() => navigation.openDrawer()}
@@ -49,6 +59,7 @@ const mainNavigator = createStackNavigator(
       screen: SearchScreen,
     },
   },
+  { headerLayoutPreset: 'center' },
   {
     initialRouteName: 'Home',
   },
@@ -58,32 +69,52 @@ const settingsStack = createStackNavigator(
   {
     Settings: {
       screen: SettingsScreen,
+      navigationOptions: ({ }) => ({
+        headerTitleStyle: headerStyle.headerTitleStyle,
+        headerStyle: headerStyle.headerStyle
+      }),
     },
   },
+  { headerLayoutPreset: 'center' }
 );
 
 const symbolsStack = createStackNavigator(
   {
     Symbols: {
       screen: SymbolsScreen,
+      navigationOptions: ({ }) => ({
+        headerTitleStyle: headerStyle.headerTitleStyle,
+        headerStyle: headerStyle.headerStyle
+      }),
     },
   },
+  { headerLayoutPreset: 'center' }
 );
 
 const aboutStack = createStackNavigator(
   {
     About: {
       screen: AboutScreen,
+      navigationOptions: ({ }) => ({
+        headerTitleStyle: headerStyle.headerTitleStyle,
+        headerStyle: headerStyle.headerStyle
+      }),
     },
   },
+  { headerLayoutPreset: 'center' }
 );
 
 const feedbackStack = createStackNavigator(
   {
     Feedback: {
       screen: FeedbackScreen,
+      navigationOptions: ({ }) => ({
+        headerTitleStyle: headerStyle.headerTitleStyle,
+        headerStyle: headerStyle.headerStyle
+      }),
     },
   },
+  { headerLayoutPreset: 'center' }
 );
 
 const Drawer = createDrawerNavigator(
