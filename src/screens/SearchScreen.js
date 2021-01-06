@@ -12,21 +12,10 @@ import { setPlace } from '../actions/QueryParamActions';
 import ArrowLeft from '../components/ArrowLeft';
 import SearchInputLightMode from '../assets/images/icons/searchInputLightMode.svg';
 import CloseBlueLightMode from '../assets/images/icons/closeBlueLightMode.svg';
+import ArrowRightLightMode from '../assets/images/icons/arrowRightLightMode.svg';
 
 console.log('Platform.OS', Platform.OS)
 const styles = StyleSheet.create({
-  /*
-  textInput: {
-    backgroundColor: '#E6E8E9',
-    borderRadius: 2,
-    color: 'black',
-    marginLeft: Platform.OS === 'ios' ? 12 : 2,
-    fontSize: 16,
-    flexDirection: 'row',
-    marginRight: 40,
-    width: Platform.OS === 'ios' ? '83%' : '90%',
-  },
-  */
   container: {
     flex: 1,
     backgroundColor: "white"
@@ -57,25 +46,33 @@ const styles = StyleSheet.create({
     color: '#424242',
     borderRadius: 8,
   },
+  arrowRightEnd: {
+    flex: 1,
+    paddingRight: 10,
+    alignItems: 'flex-end',
+  },
+  horizontalLine: {
+    borderBottomColor: 'rgb(216,231,242)',
+    borderBottomWidth: 1,
+    paddingBottom: 17,
+  },
   autocompleteContainer: {
     paddingTop: 1,
   },
   resultItem: {
-    margin: 1,
-    paddingTop: 15,
+    paddingVertical: 8,
     paddingLeft: 18,
-    paddingBottom: 15,
     backgroundColor: '#FFF',
-    width: '100%',
     flex: 1,
-    alignSelf: 'center',
+    alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 0,
   },
   resultItemText: {
-    color: 'black',
-    fontSize: 16,
-  }
+    color: 'rgb(48,49,147)',
+    fontSize: 15,
+    fontFamily: 'Roboto-Regular'
+  },
 });
 
 export class SearchScreen extends React.Component {
@@ -98,20 +95,6 @@ export class SearchScreen extends React.Component {
     this.props.autocompleteFetch(pressedKey, i18n.language);
   }
 
-  /*
-  static navigationOptions = ({ navigation }) => {
-    const { params = {} } = navigation.state;
-    return {
-      header: () => (
-        <View style={styles.header}>
-          <HeaderBackButton onPress={() => navigation.goBack(null)} />
-          <TextInput style={styles.textInput} autoFocus={true} onKeyPress={(e) => params.handleKeyPress(e.nativeEvent.key)} />
-        </View>
-      ),
-    }
-  };
-  */
-
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('search:search'),
     headerLeft: (<TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeft /></TouchableOpacity>)
@@ -122,6 +105,19 @@ export class SearchScreen extends React.Component {
     this.props.tsFetchUpdate().then(() => this.props.warningsFetch());
     this.props.navigation.goBack();
   }
+
+  renderSeparator = () => (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgb(216,231,242)',
+        height: 1,
+        marginHorizontal: 20,
+      }}
+    />
+  );
 
   render() {
 
@@ -150,6 +146,8 @@ export class SearchScreen extends React.Component {
           </TouchableOpacity>
         </View>
 
+        <View style={styles.horizontalLine}></View>
+
         <View style={styles.autocompleteContainer}>
           <FlatList
             keyboardShouldPersistTaps={'handled'}
@@ -158,10 +156,12 @@ export class SearchScreen extends React.Component {
               <TouchableWithoutFeedback onPress={() => { this.navigatePreviousScreen({ lat: item.lat, lon: item.lon }) }}>
                 <View style={styles.resultItem} >
                   <Text style={styles.resultItemText} >{item.name}</Text>
+                  <View style={styles.arrowRightEnd}><ArrowRightLightMode width={25} /></View>
                 </View>
               </TouchableWithoutFeedback>
             }
             keyExtractor={item => item.name}
+            ItemSeparatorComponent={this.renderSeparator}
           />
         </View>
 
