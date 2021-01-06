@@ -129,6 +129,8 @@ export class SearchScreen extends React.Component {
       return this.renderError();
     }
 
+    const { params = {} } = this.props.navigation.state;
+
     return (
 
       <View style={styles.container}>
@@ -141,13 +143,14 @@ export class SearchScreen extends React.Component {
             autoFocus={true}
             onKeyPress={(e) => params.handleKeyPress(e.nativeEvent.key)}
             underlineColorAndroid="transparent"
+            ref={input => { this.textInput = input }}
           />
-          <CloseBlueLightMode style={styles.clearButton}></CloseBlueLightMode>
+          <TouchableOpacity onPress={() => { this.props.autocompleteInit(); this.textInput.clear() }}>
+            <CloseBlueLightMode style={styles.clearButton} ></CloseBlueLightMode>
+          </TouchableOpacity>
         </View>
 
-
         <View style={styles.autocompleteContainer}>
-
           <FlatList
             keyboardShouldPersistTaps={'handled'}
             data={this.props.acDataObj}
@@ -160,7 +163,6 @@ export class SearchScreen extends React.Component {
             }
             keyExtractor={item => item.name}
           />
-
         </View>
 
       </View >

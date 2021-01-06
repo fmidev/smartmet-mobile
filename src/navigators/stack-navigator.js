@@ -61,7 +61,8 @@ const mainNavigator = createStackNavigator(
       screen: SearchScreen,
       navigationOptions: ({ }) => ({
         headerTitleStyle: headerStyle.headerTitleStyle,
-        headerStyle: headerStyle.headerStyle
+        headerStyle: headerStyle.headerStyle,
+        animationEnabled: false,
       }),
     },
   },
