@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   arrowRightEnd: {
     flex: 1,
-    paddingRight: 10,
+    paddingRight: 20,
     alignItems: 'flex-end',
   },
   horizontalLine: {
