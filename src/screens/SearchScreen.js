@@ -135,7 +135,7 @@ export class SearchScreen extends React.Component {
           <SearchInputLightMode style={styles.searchIcon}></SearchInputLightMode>
           <TextInput
             style={styles.input}
-            placeholder="SEARCH"
+            placeholder="Search"
             autoFocus={true}
             onKeyPress={(e) => params.handleKeyPress(e.nativeEvent.key)}
             underlineColorAndroid="transparent"

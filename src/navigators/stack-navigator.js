@@ -36,7 +36,7 @@ const mainNavigator = createStackNavigator(
         headerTitleStyle: { alignSelf: 'center' },
         title: <HeaderTitle />,
         headerTitleStyle: headerStyle.headerTitleStyle,
-        headerStyle: headerStyle.headerStyle,
+        headerStyle: { height: 44 },
         headerLeft: () => (
           <SettingsButton
             onPress={() => navigation.openDrawer()}

@@ -21,6 +21,10 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: 'rgb(238,244,251)',
+    borderTopColor: 'rgb(216,231,242)',
+    borderBottomColor: 'rgb(216,231,242)',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
     color: 'rgb(48,49,147)',
     fontFamily: 'Roboto-Medium',
     fontSize: 16,
@@ -162,29 +166,6 @@ export class SettingsScreen extends React.Component {
           />
 
           < Text style={styles.header} >
-            Allow location access
-          </Text >
-
-
-          <FlatList
-            data={['Never', 'While using the app', 'Always']}
-            ItemSeparatorComponent={this.renderSeparator}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity onPress={() => this.onChangeLang(item)}>
-                  <View style={styles.flatlistItem} >
-                    <Text style={styles.languageListitem} >{t('settings:' + item)}</Text>
-                    {appLanguage === item ? <View style={styles.listIconRightEnd}><CheckActiveLightMode width={25} /></View> : null}
-                  </View>
-                </TouchableOpacity>
-              )
-            }}
-            keyExtractor={(item, index) => index}
-          />
-
-
-
-          < Text style={styles.header} >
             {t('settings:units')}
           </Text >
           <FlatList
@@ -222,25 +203,8 @@ export class SettingsScreen extends React.Component {
             }
             keyExtractor={(item) => item.parameterName}
           />
-          <Text style={styles.header}>
-            Appearance
-          </Text>
 
-          <FlatList
-            data={['Light mode', 'Dark mode', 'Automatic']}
-            ItemSeparatorComponent={this.renderSeparator}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity onPress={() => this.onChangeLang(item)}>
-                  <View style={styles.flatlistItem} >
-                    <Text style={styles.languageListitem} >{t('settings:' + item)}</Text>
-                    {appLanguage === item ? <View style={styles.listIconRightEnd}><CheckActiveLightMode width={25} /></View> : null}
-                  </View>
-                </TouchableOpacity>
-              )
-            }}
-            keyExtractor={(item, index) => index}
-          />
+          < Text style={styles.header} ></Text >
 
         </ScrollView>
       </View >
