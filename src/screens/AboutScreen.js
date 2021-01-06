@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
-import { HeaderBackButton } from 'react-navigation-stack';
+import { Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { translate } from 'react-i18next';
+import ArrowLeft from '../components/ArrowLeft'
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +14,7 @@ export class AboutScreen extends React.Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('about the application:about the application'),
-    headerLeft: () => <HeaderBackButton onPress={() => navigation.navigate('Home')} />,
+    headerLeft: (<TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeft /></TouchableOpacity>)
   });
 
   render() {

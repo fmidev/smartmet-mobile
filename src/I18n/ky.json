@@ -10,6 +10,10 @@
     "warnings": "Эскертүүлөр",
     "maps": "Карталар"
   },
+  "search": {
+    "search": "Издөө",
+    "search results": "Издөө жыйынтыктары"
+  },
   "settings": {
     "en": "English",
     "ky": "Кыргызча",

@@ -10,6 +10,10 @@
     "warnings": "Cảnh báo",
     "maps": "Bản đồ"
   },
+  "search": {
+    "search": "Tìm kiếm",
+    "search results": "Kết quả tìm kiếm"
+  },
   "settings": {
     "en": "English",
     "ky": "Кыргызча",

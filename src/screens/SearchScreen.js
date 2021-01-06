@@ -1,25 +1,21 @@
 import React from 'react';
 import {
-  View, Platform, Text, StyleSheet, TextInput, FlatList, TouchableWithoutFeedback,
+  View, Platform, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, TouchableWithoutFeedback,
 } from 'react-native';
 import i18n from 'i18next';
 import { connect } from 'react-redux';
-import { HeaderBackButton } from 'react-navigation-stack';
 import { ErrorView } from '../components';
 import { autocompleteInit, autocompleteFetch } from '../actions/AutocompleteActions';
 import { tsFetchUpdate } from '../actions/TimeSeriesActions';
 import { warningsFetch } from '../actions/WarningsActions';
 import { setPlace } from '../actions/QueryParamActions';
+import ArrowLeft from '../components/ArrowLeft';
+import SearchInputLightMode from '../assets/images/icons/searchInputLightMode.svg';
+import CloseBlueLightMode from '../assets/images/icons/closeBlueLightMode.svg';
+
 console.log('Platform.OS', Platform.OS)
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    paddingTop: Platform.OS === 'ios' ? 45 : 10,
-    height: Platform.OS === 'ios' ? 'auto' : 60,
-    paddingBottom: 10,
-    paddingRight: 30,
-  },
+  /*
   textInput: {
     backgroundColor: '#E6E8E9',
     borderRadius: 2,
@@ -29,6 +25,37 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginRight: 40,
     width: Platform.OS === 'ios' ? '83%' : '90%',
+  },
+  */
+  container: {
+    flex: 1,
+    backgroundColor: "white"
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgb(238,244,251)',
+    height: 40,
+    borderRadius: 5,
+    marginLeft: 15,
+    marginRight: 15,
+  },
+  searchIcon: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  clearButton: {
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    backgroundColor: 'rgb(238,244,251)',
+    color: '#424242',
+    borderRadius: 8,
   },
   autocompleteContainer: {
     paddingTop: 1,
@@ -71,6 +98,7 @@ export class SearchScreen extends React.Component {
     this.props.autocompleteFetch(pressedKey, i18n.language);
   }
 
+  /*
   static navigationOptions = ({ navigation }) => {
     const { params = {} } = navigation.state;
     return {
@@ -82,6 +110,12 @@ export class SearchScreen extends React.Component {
       ),
     }
   };
+  */
+
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    title: screenProps.t('search:search'),
+    headerLeft: (<TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeft /></TouchableOpacity>)
+  });
 
   navigatePreviousScreen = (coords) => {
     this.props.setPlace(coords)
@@ -96,22 +130,41 @@ export class SearchScreen extends React.Component {
     }
 
     return (
-      <View style={styles.autocompleteContainer}>
 
-        <FlatList
-          keyboardShouldPersistTaps={'handled'}
-          data={this.props.acDataObj}
-          renderItem={({ item }) =>
-            <TouchableWithoutFeedback onPress={() => { this.navigatePreviousScreen({ lat: item.lat, lon: item.lon }) }}>
-              <View style={styles.resultItem} >
-                <Text style={styles.resultItemText} >{item.name}</Text>
-              </View>
-            </TouchableWithoutFeedback>
-          }
-          keyExtractor={item => item.name}
-        />
+      <View style={styles.container}>
 
-      </View>
+        <View style={styles.searchContainer}>
+          <SearchInputLightMode style={styles.searchIcon}></SearchInputLightMode>
+          <TextInput
+            style={styles.input}
+            placeholder="SEARCH"
+            autoFocus={true}
+            onKeyPress={(e) => params.handleKeyPress(e.nativeEvent.key)}
+            underlineColorAndroid="transparent"
+          />
+          <CloseBlueLightMode style={styles.clearButton}></CloseBlueLightMode>
+        </View>
+
+
+        <View style={styles.autocompleteContainer}>
+
+          <FlatList
+            keyboardShouldPersistTaps={'handled'}
+            data={this.props.acDataObj}
+            renderItem={({ item }) =>
+              <TouchableWithoutFeedback onPress={() => { this.navigatePreviousScreen({ lat: item.lat, lon: item.lon }) }}>
+                <View style={styles.resultItem} >
+                  <Text style={styles.resultItemText} >{item.name}</Text>
+                </View>
+              </TouchableWithoutFeedback>
+            }
+            keyExtractor={item => item.name}
+          />
+
+        </View>
+
+      </View >
+
     );
   }
 }

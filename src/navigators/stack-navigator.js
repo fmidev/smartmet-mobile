@@ -22,6 +22,8 @@ const headerStyle = {
   },
   headerStyle: {
     height: 44,
+    elevation: 0,
+    shadowOpacity: 0,
   }
 };
 
@@ -57,6 +59,10 @@ const mainNavigator = createStackNavigator(
     },
     Search: {
       screen: SearchScreen,
+      navigationOptions: ({ }) => ({
+        headerTitleStyle: headerStyle.headerTitleStyle,
+        headerStyle: headerStyle.headerStyle
+      }),
     },
   },
   { headerLayoutPreset: 'center' },

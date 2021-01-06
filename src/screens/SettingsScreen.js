@@ -11,9 +11,9 @@ import { tsFetchUpdate } from '../actions/TimeSeriesActions';
 import { UNITS } from '../Constants';
 import { connect } from 'react-redux';
 import { asyncStorageSetItem } from '../components/Helper'
-import ArrowLeftLightMode from '../assets/images/icons/arrowLeftLightMode.svg'
-import ArrowRightLightMode from '../assets/images/icons/arrowRightLightMode.svg'
 import CheckActiveLightMode from '../assets/images/icons/checkActiveLightMode.svg'
+import ArrowLeft from '../components/ArrowLeft'
+
 
 const styles = StyleSheet.create({
   container: {
@@ -65,15 +65,15 @@ const styles = StyleSheet.create({
   settingslistitem: {
     color: 'rgb(48,49,147)',
     fontSize: 16,
-    textTransform: 'capitalize',
-    paddingLeft: 6,
+    paddingLeft: 0,
   },
   settingslistitemAbb: {
-    color: 'cornflowerblue',
+    color: 'rgb(58,102,227)',
     fontSize: 16,
+    fontFamily: 'Roboto-Bold',
     textAlign: 'right',
     flex: 1,
-    paddingRight: 15,
+    paddingRight: 25,
   },
   rbTitle: {
     color: 'black',
@@ -93,11 +93,7 @@ export class SettingsScreen extends React.Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('settings:settings'),
-    headerLeft: (
-      <TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeftLightMode />
-      </TouchableOpacity>
-    )
-
+    headerLeft: (<TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeft /></TouchableOpacity>)
   });
 
   async onChangeLang(lang) {
@@ -198,7 +194,7 @@ export class SettingsScreen extends React.Component {
               <TouchableOpacity onPress={() => this[RBSheet + item.parameterName].open()}>
                 <View style={styles.flatlistItem} >
                   <Text style={styles.settingslistitem} >  {t('settings:' + item.parameterName)} </Text>
-                  <Text style={styles.settingslistitemAbb} >{t('unit abbreviations:' + this.props.parameterUnitAbbMap[item.parameterName])}</Text>
+                  <Text style={styles.settingslistitemAbb} >{item.parameterName === 'temperature' ? '°' : null}{t('unit abbreviations:' + this.props.parameterUnitAbbMap[item.parameterName])}</Text>
                   <RBSheet
                     ref={ref => {
                       this[RBSheet + item.parameterName] = ref;
@@ -245,27 +241,6 @@ export class SettingsScreen extends React.Component {
             }}
             keyExtractor={(item, index) => index}
           />
-
-
-          <Text style={styles.header}></Text>
-
-
-          <FlatList
-            data={['Terms of use', 'About the app']}
-            ItemSeparatorComponent={this.renderSeparator}
-            renderItem={({ item }) => {
-              return (
-                <TouchableOpacity onPress={() => this.onChangeLang(item)}>
-                  <View style={styles.flatlistItem} >
-                    <Text style={styles.languageListitem} >{t('settings:' + item)}</Text>
-                    <View style={styles.listIconRightEnd}><ArrowRightLightMode width={25} /></View>
-                  </View>
-                </TouchableOpacity>
-              )
-            }}
-            keyExtractor={(item, index) => index}
-          />
-
 
         </ScrollView>
       </View >
