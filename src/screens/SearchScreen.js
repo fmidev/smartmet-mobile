@@ -3,6 +3,7 @@ import {
   View, Platform, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, TouchableWithoutFeedback,
 } from 'react-native';
 import i18n from 'i18next';
+import { translate } from 'react-i18next';
 import { connect } from 'react-redux';
 import { ErrorView } from '../components';
 import { autocompleteInit, autocompleteFetch } from '../actions/AutocompleteActions';
@@ -121,6 +122,8 @@ export class SearchScreen extends React.Component {
 
   render() {
 
+    const { t } = this.props;
+
     if (this.props.error) {
       return this.renderError();
     }
@@ -135,7 +138,7 @@ export class SearchScreen extends React.Component {
           <SearchInputLightMode style={styles.searchIcon}></SearchInputLightMode>
           <TextInput
             style={styles.input}
-            placeholder="Search"
+            placeholder={t('search:search')}
             autoFocus={true}
             onKeyPress={(e) => params.handleKeyPress(e.nativeEvent.key)}
             underlineColorAndroid="transparent"
@@ -177,4 +180,4 @@ const mapStateToProps = (state) => {
   return { loading, error, pattern, acDataObj };
 };
 
-export default connect(mapStateToProps, { autocompleteInit, autocompleteFetch, tsFetchUpdate, warningsFetch, setPlace })(SearchScreen);
+export default connect(mapStateToProps, { autocompleteInit, autocompleteFetch, tsFetchUpdate, warningsFetch, setPlace })(translate(['search'], { wait: true })(SearchScreen));
