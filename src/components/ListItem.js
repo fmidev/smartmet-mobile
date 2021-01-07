@@ -89,63 +89,66 @@ export class ListItem extends React.Component {
     return collapsableContentArr
   }
 
-  renderCollapsableContent = (item) => {
+  renderCollapsableContent = (item, index) => {
     const { t } = this.props;
     // console.log('renderCollapsableContent') // TODO: Check is this normal behaviour 
 
     return (
       <View style={styles.collapsableContent} >
-        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={styles.collapsableContentText}>{momentLocales(item.time).format('HH:mm')}</Text>
-        </View>
+        <View style={index === this.getCollapsableContentData().length - 1 ? { borderRightWidth: 1, borderColor: 'rgb(216,231,242)' } : { borderRightWidth: 0 }}  >
 
-        <Image
-          source={Images.symbols[item.smartsymbol]}
-          style={{ height: 50, width: 50, marginTop: 6 }}
-        />
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+            <Text style={styles.collapsableContentText}>{momentLocales(item.time).format('HH:mm')}</Text>
+          </View>
 
-        <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
-          <Text style={styles.collapsableContentText}>{item.temperature}°</Text>
-        </View>
-
-        <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
           <Image
-            source={require('../assets/images/feels-the-same.png')}
+            source={Images.symbols[item.smartsymbol]}
             style={{ height: 50, width: 50, marginTop: 6 }}
           />
-          <Text style={styles.collapsableContentText}>{item.feelslike}°</Text>
-        </View>
 
-        <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
-          <WindDirBg
-            style={{
-              transform: [{ rotate: item.winddirection.toString() + 'deg' }]
-            }} width={30} height={30}
-          />
-        </View>
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
+            <Text style={styles.collapsableContentText}>{item.temperature}°</Text>
+          </View>
 
-        <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
-          <Text style={styles.collapsableContentText}>
-            {item.windspeedms}
-            {' '}
-            <Text style={{ fontWeight: 'normal' }}>{`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}</Text>
-          </Text>
-        </View>
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
+            <Image
+              source={require('../assets/images/feels-the-same.png')}
+              style={{ height: 50, width: 50, marginTop: 6 }}
+            />
+            <Text style={styles.collapsableContentText}>{item.feelslike}°</Text>
+          </View>
 
-        <View style={{ alignItems: 'center', flex: 1, flexDirection: 'row', paddingTop: 10 }}>
-          <View style={{ marginRight: -5, }}><RainDrop width={25} /></View>
-          <Text style={styles.collapsableContentText}>{item.humidity}
-            <Text style={{ fontWeight: 'normal' }}> %</Text>
-          </Text>
-        </View>
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
+            <WindDirBg
+              style={{
+                transform: [{ rotate: item.winddirection.toString() + 'deg' }]
+              }} width={30} height={30}
+            />
+          </View>
 
-        <View style={{ alignItems: 'center', flex: 1, paddingTop: 0 }}>
-          <Text style={styles.collapsableContentText}>{item.precipitation1h}
-            <Text style={{ fontWeight: 'normal' }}> {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['precipitation'])}`} </Text>
-          </Text>
-        </View>
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+            <Text style={styles.collapsableContentText}>
+              {item.windspeedms}
+              {' '}
+              <Text style={{ fontWeight: 'normal' }}>{`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}</Text>
+            </Text>
+          </View>
 
-      </View >
+          <View style={{ alignItems: 'center', flex: 1, flexDirection: 'row', paddingTop: 10 }}>
+            <View style={{ marginRight: -5, }}><RainDrop width={25} /></View>
+            <Text style={styles.collapsableContentText}>{item.humidity}
+              <Text style={{ fontWeight: 'normal' }}> %</Text>
+            </Text>
+          </View>
+
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 0 }}>
+            <Text style={styles.collapsableContentText}>{item.precipitation1h}
+              <Text style={{ fontWeight: 'normal' }}> {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['precipitation'])}`} </Text>
+            </Text>
+          </View>
+
+        </View >
+      </View>
     )
 
   }
@@ -220,7 +223,7 @@ export class ListItem extends React.Component {
         {!this.state.isHidden && <View>
           <FlatList
             data={this.getCollapsableContentData()}
-            renderItem={({ item }) => this.renderCollapsableContent(item)}
+            renderItem={({ item, index }) => this.renderCollapsableContent(item, index)}
             keyExtractor={(item) => item.time}
             horizontal={true}
             scrollEnabled
