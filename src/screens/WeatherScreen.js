@@ -26,6 +26,7 @@ import ArrSunset from '../assets/images/icons/arrowSunsetLightMode.svg'
 import TemperatureTitle from '../assets/images/icons/temperatureTitleIconLightMode.svg'
 import WindTitle from '../assets/images/icons/windTitleIconLightMode.svg'
 import HumidityTitle from '../assets/images/icons/humidityTitleIconLightMode.svg'
+const WEEKDAY_LIST_FORECAST_HOUR = 18;
 
 const styles = StyleSheet.create({
   container: {
@@ -420,7 +421,7 @@ export class WeatherScreen extends React.Component {
     nextHourDivisibleByThreeFromServerTimeLocal.add(utcLocalDiff, 'hours')
 
     this.props.tsDataObj.data.forEach((element) => {
-      if (parseInt(element.time.substring(9, 11)) === 18 && momentLocales(element.time).isSameOrAfter(nextHourDivisibleByThreeFromServerTimeLocal.format('YYYYMMDDTHHmm'), 'day') && listLength < Config.WEEKDAY_LIST_LENGTH) {
+      if (parseInt(element.time.substring(9, 11)) === WEEKDAY_LIST_FORECAST_HOUR && momentLocales(element.time).isSameOrAfter(nextHourDivisibleByThreeFromServerTimeLocal.format('YYYYMMDDTHHmm'), 'day') && listLength < Config.WEEKDAY_LIST_LENGTH) {
         listData.push(element);
         listLength++;
       }
