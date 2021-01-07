@@ -40,11 +40,14 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
+    fontFamily: 'Roboto-Regular',
+    fontSize: 15,
+    borderBottomColor: 'transparent',
     paddingTop: 10,
     paddingRight: 10,
     paddingBottom: 10,
     backgroundColor: 'rgb(238,244,251)',
-    color: '#424242',
+    color: 'rgb(48,49,153)',
     borderRadius: 8,
   },
   arrowRightEnd: {
@@ -137,8 +140,10 @@ export class SearchScreen extends React.Component {
         <View style={styles.searchContainer}>
           <SearchInputLightMode style={styles.searchIcon}></SearchInputLightMode>
           <TextInput
+            underlineColorAndroid='transparent'
             style={styles.input}
             placeholder={t('search:search')}
+            placeholderTextColor="rgb(48,49,153)"
             autoFocus={true}
             onKeyPress={(e) => params.handleKeyPress(e.nativeEvent.key)}
             underlineColorAndroid="transparent"
