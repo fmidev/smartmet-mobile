@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   flatlistItem: {
     margin: 4,
     paddingLeft: 10,
-    paddingVertical: 7,
+    paddingVertical: 6.5,
     backgroundColor: '#FFF',
     width: '100%',
     flex: 1,
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   },
   listIconRightEnd: {
     paddingRight: 20,
+    maxHeight: 10,
   },
   settingslistitem: {
     color: 'rgb(48,49,147)',
@@ -155,7 +156,7 @@ export class SettingsScreen extends React.Component {
                 <TouchableOpacity onPress={() => this.onChangeLang(item)}>
                   <View style={styles.flatlistItem} >
                     <Text style={styles.languageListitem} >{t('settings:' + item)}</Text>
-                    {appLanguage === item ? <View style={styles.listIconRightEnd}><CheckActiveLightMode width={25} /></View> : null}
+                    {appLanguage === item ? <View style={styles.listIconRightEnd}><CheckActiveLightMode /></View> : null}
                   </View>
                 </TouchableOpacity>
 
