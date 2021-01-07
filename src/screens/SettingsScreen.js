@@ -31,36 +31,16 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingLeft: 20,
   },
-  about: {
-    color: 'black',
-    backgroundColor: 'white',
-    paddingTop: 30,
-    paddingLeft: 10,
-    paddingBottom: 30,
-    textAlign: 'center',
-  },
-  preferences: {
-    paddingTop: 15,
-    paddingLeft: 17,
-    paddingBottom: 15,
-    backgroundColor: '#FFF',
-    flexDirection: 'row',
-  },
   flatlistItem: {
     margin: 4,
-    paddingLeft: 10,
     paddingVertical: 6.5,
     backgroundColor: '#FFF',
-    width: '100%',
-    flex: 1,
-    alignSelf: 'center',
     flexDirection: 'row',
-    borderRadius: 0,
   },
-  languageListitem: {
+  languageListitemText: {
+    paddingLeft: 16,
     color: 'rgb(48,49,147)',
     fontSize: 16,
-    paddingLeft: 10,
     flex: 1,
   },
   listIconRightEnd: {
@@ -68,9 +48,9 @@ const styles = StyleSheet.create({
     maxHeight: 10,
   },
   settingslistitem: {
+    paddingLeft: 8,
     color: 'rgb(48,49,147)',
     fontSize: 16,
-    paddingLeft: 0,
   },
   settingslistitemAbb: {
     color: 'rgb(58,102,227)',
@@ -158,7 +138,7 @@ export class SettingsScreen extends React.Component {
 
                 <TouchableOpacity onPress={() => this.onChangeLang(item)}>
                   <View style={styles.flatlistItem} >
-                    <Text style={styles.languageListitem} >{t('settings:' + item)}</Text>
+                    <Text style={styles.languageListitemText} >{t('settings:' + item)}</Text>
                     {appLanguage === item ? <View style={styles.listIconRightEnd}><CheckActiveLightMode /></View> : null}
                   </View>
                 </TouchableOpacity>
