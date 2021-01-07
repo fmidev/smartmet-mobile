@@ -111,11 +111,11 @@ export class ListItem extends React.Component {
             <Text style={styles.collapsableContentText}>{item.temperature}°</Text>
           </View>
 
-          <View style={{ flex: 1, paddingTop: 8 }}>
-            <FeelsLikeLightMode></FeelsLikeLightMode>
-            <View style={{ position: 'absolute', top: 35, bottom: 0, left: 14, right: 0 }} >
+          <View style={{ alignItems: 'center', paddingTop: 8 }}>
+            <FeelsLikeLightMode />
+            <Text style={{ position: 'absolute', top: 35, }}>
               <Text style={styles.collapsableContentText}>{item.feelslike}°</Text>
-            </View>
+            </Text>
           </View>
 
           <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
