@@ -81,15 +81,18 @@ const styles = StyleSheet.create({
     paddingRight: 25,
   },
   rbTitle: {
-    color: 'black',
+    color: 'rgb(48,49,147)',
     fontSize: 16,
+    fontFamily: 'Roboto-Medium',
     paddingTop: 15,
     paddingBottom: 15,
     paddingLeft: 10,
     textTransform: 'capitalize',
   },
   listItemRBSheetTitle: {
-    fontSize: 14,
+    color: 'rgb(48,49,147)',
+    fontSize: 15,
+    fontFamily: 'Roboto-Regular',
     marginLeft: 10,
   }
 });
@@ -182,6 +185,12 @@ export class SettingsScreen extends React.Component {
                       this[RBSheet + item.parameterName] = ref;
                     }}
                     height={300}
+                    customStyles={{
+                      container: {
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10
+                      }
+                    }}
                   >
                     <View>
                       <Text style={styles.rbTitle}>  {t('settings:' + item.parameterName)} </Text>
