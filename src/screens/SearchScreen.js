@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   resultItem: {
     paddingVertical: 8,
-    paddingLeft: 18,
+    paddingLeft: 20,
     backgroundColor: '#FFF',
     flex: 1,
     alignItems: 'center',
