@@ -11,6 +11,7 @@ import Images from '../assets/images';
 import { converter } from '../components/Helper';
 import WindDirBg from '../assets/images/icons/windDirectionBgLightMode.svg';
 import RainDrop from '../assets/images/icons/rainLightMode.svg';
+import FeelsLikeLightMode from '../assets/images/icons/feelsLikeLightMode.svg';
 
 const styles = StyleSheet.create({
   listItemContainer: {
@@ -97,7 +98,7 @@ export class ListItem extends React.Component {
       <View style={styles.collapsableContent} >
         <View style={index === this.getCollapsableContentData().length - 1 ? { borderRightWidth: 1, borderColor: 'rgb(216,231,242)' } : { borderRightWidth: 0 }}  >
 
-          <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 10 }}>
             <Text style={styles.collapsableContentText}>{momentLocales(item.time).format('HH:mm')}</Text>
           </View>
 
@@ -106,16 +107,15 @@ export class ListItem extends React.Component {
             style={{ height: 50, width: 50, marginTop: 6 }}
           />
 
-          <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 4 }}>
             <Text style={styles.collapsableContentText}>{item.temperature}°</Text>
           </View>
 
-          <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
-            <Image
-              source={require('../assets/images/feels-the-same.png')}
-              style={{ height: 50, width: 50, marginTop: 6 }}
-            />
-            <Text style={styles.collapsableContentText}>{item.feelslike}°</Text>
+          <View style={{ flex: 1, paddingTop: 8 }}>
+            <FeelsLikeLightMode></FeelsLikeLightMode>
+            <View style={{ position: 'absolute', top: 35, bottom: 0, left: 14, right: 0 }} >
+              <Text style={styles.collapsableContentText}>{item.feelslike}°</Text>
+            </View>
           </View>
 
           <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
@@ -126,7 +126,7 @@ export class ListItem extends React.Component {
             />
           </View>
 
-          <View style={{ alignItems: 'center', flex: 1, paddingTop: 20 }}>
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 5 }}>
             <Text style={styles.collapsableContentText}>
               {item.windspeedms}
               {' '}
@@ -134,7 +134,7 @@ export class ListItem extends React.Component {
             </Text>
           </View>
 
-          <View style={{ alignItems: 'center', flex: 1, flexDirection: 'row', paddingTop: 10 }}>
+          <View style={{ alignItems: 'center', flex: 1, flexDirection: 'row', paddingTop: 15 }}>
             <View style={{ marginRight: -5, }}><RainDrop width={25} /></View>
             <Text style={styles.collapsableContentText}>{item.humidity}
               <Text style={{ fontWeight: 'normal' }}> %</Text>
