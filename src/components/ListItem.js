@@ -113,7 +113,7 @@ export class ListItem extends React.Component {
 
           <View style={{ alignItems: 'center', paddingTop: 8 }}>
             <FeelsLikeLightMode />
-            <Text style={{ position: 'absolute', top: 35, }}>
+            <Text style={{ position: 'absolute', top: 33, }}>
               <Text style={styles.collapsableContentText}>{item.feelslike}°</Text>
             </Text>
           </View>
