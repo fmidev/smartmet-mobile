@@ -91,7 +91,7 @@ const symbolsStack = createStackNavigator(
       screen: SymbolsScreen,
       navigationOptions: ({ }) => ({
         headerTitleStyle: headerStyle.headerTitleStyle,
-        headerStyle: headerStyle.headerStyle
+        headerStyle: { height: 44 },
       }),
     },
   },

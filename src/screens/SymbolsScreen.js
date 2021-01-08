@@ -5,16 +5,21 @@ import ArrowLeft from '../components/ArrowLeft'
 import Images from '../assets/images';
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    paddingLeft: 10,
+  },
   headerContainer: {
     flexDirection: "row",
   },
   headerText: {
     paddingHorizontal: 15,
     paddingTop: 15,
-    fontFamily: 'Roboto-Regular',
+    fontFamily: 'Roboto-Bold',
     color: 'rgb(48,49,147)',
   },
   descriptionText: {
+    flex: 1,
     paddingHorizontal: 15,
     fontFamily: 'Roboto-Regular',
     color: 'rgb(48,49,147)',
@@ -49,7 +54,7 @@ export class SymbolsScreen extends React.Component {
     const { t } = this.props;
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={styles.container}>
         <FlatList
           data={symbolData}
           ListHeaderComponent={() => this.renderHeader()}
@@ -59,8 +64,6 @@ export class SymbolsScreen extends React.Component {
                 style={{
                   width: 50,
                   height: 50,
-                  borderWidth: 2,
-                  borderColor: '#d35647',
                   resizeMode: 'contain',
                   margin: 8
                 }}
@@ -69,8 +72,6 @@ export class SymbolsScreen extends React.Component {
                 style={{
                   width: 50,
                   height: 50,
-                  borderWidth: 2,
-                  borderColor: '#d35647',
                   resizeMode: 'contain',
                   margin: 8
                 }}
