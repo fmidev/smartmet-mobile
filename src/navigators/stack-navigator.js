@@ -117,7 +117,7 @@ const feedbackStack = createStackNavigator(
       screen: FeedbackScreen,
       navigationOptions: ({ }) => ({
         headerTitleStyle: headerStyle.headerTitleStyle,
-        headerStyle: headerStyle.headerStyle
+        headerStyle: { height: 44 },
       }),
     },
   },
