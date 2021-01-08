@@ -1,14 +1,33 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { translate } from 'react-i18next';
 import ArrowLeft from '../components/ArrowLeft'
+import Images from '../assets/images';
 
 const styles = StyleSheet.create({
-  container: {
-    color: 'black',
+  headerContainer: {
+    flexDirection: "row",
   },
-
+  headerText: {
+    paddingHorizontal: 15,
+    paddingTop: 15,
+    fontFamily: 'Roboto-Regular',
+    color: 'rgb(48,49,147)',
+  },
+  descriptionText: {
+    paddingHorizontal: 15,
+    fontFamily: 'Roboto-Regular',
+    color: 'rgb(48,49,147)',
+  },
 });
+
+let symbolData = []
+
+Object.entries(Images.symbols).map(([key, value]) => {
+  if (key < 100) {
+    symbolData.push({ daySrc: value.src, nightSrc: Images.symbols[parseInt(key) + 100].src, description: value.description })
+  }
+})
 
 export class SymbolsScreen extends React.Component {
 
@@ -17,10 +36,50 @@ export class SymbolsScreen extends React.Component {
     headerLeft: (<TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeft /></TouchableOpacity>)
   });
 
+  renderHeader() {
+    return (
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}> Light</Text>
+        <Text style={styles.headerText}> Dark</Text>
+      </View>
+    )
+  }
+
   render() {
     const { t } = this.props;
+
     return (
-      <Text>{`${t('weather symbols:weather symbols')} `}</Text>
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={symbolData}
+          ListHeaderComponent={() => this.renderHeader()}
+          renderItem={({ item }) => (
+            <View style={{ flexDirection: "row", alignItems: 'center', }}>
+              <Image source={item.daySrc}
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderWidth: 2,
+                  borderColor: '#d35647',
+                  resizeMode: 'contain',
+                  margin: 8
+                }}
+              />
+              <Image source={item.nightSrc}
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderWidth: 2,
+                  borderColor: '#d35647',
+                  resizeMode: 'contain',
+                  margin: 8
+                }}
+              />
+              <Text style={styles.descriptionText}>{item.description}</Text>
+            </View>
+          )}
+        />
+      </View>
     );
   }
 }

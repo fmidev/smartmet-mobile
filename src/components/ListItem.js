@@ -103,7 +103,7 @@ export class ListItem extends React.Component {
           </View>
 
           <Image
-            source={Images.symbols[item.smartsymbol]}
+            source={Images.symbols[item.smartsymbol].src}
             style={{ height: 50, width: 50, marginTop: 6 }}
           />
 
@@ -174,7 +174,7 @@ export class ListItem extends React.Component {
 
               <View style={{ alignItems: 'center', flex: 1, paddingLeft: 6, paddingRight: 2 }}>
                 <Image style={{ alignItems: 'center', flex: 1 }}
-                  source={Images.symbols[this.props.item.item.smartsymbol]}
+                  source={Images.symbols[this.props.item.item.smartsymbol].src}
                   style={{ height: 50, width: 50, marginTop: 10 }}
                 />
               </View>

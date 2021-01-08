@@ -293,7 +293,7 @@ export class WeatherScreen extends React.Component {
 
           <View style={styles.symbolWeatherdescriptionContainer}>
             <View>
-              <Image style={{ width: 120, height: 120 }} source={Images.symbols[mainInfoData.smartsymbol]} />
+              <Image style={{ width: 120, height: 120 }} source={Images.symbols[mainInfoData.smartsymbol].src} />
             </View>
           </View>
 
