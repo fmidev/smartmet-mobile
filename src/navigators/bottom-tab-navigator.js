@@ -8,20 +8,22 @@ import WarningsLightMode from '../assets/images/icons/warningsLightMode.svg';
 import MapLightMode from '../assets/images/icons/mapLightMode.svg';
 const iconColorActive = 'rgb(58,102,227)';
 const iconColor = 'rgb(48,49,147)';
-const iconMarginTop = 8;
+const iconMarginTop = (Platform.OS === 'android') ? 5 : 0;
 const tabBarOptions = {
+  safeAreaInset: { bottom: 'never', top: 'never' },
   activeTintColor: iconColorActive,
   inactiveTintColor: iconColor,
   labelStyle: {
     fontSize: 13,
     fontFamily: 'Roboto-Medium',
     alignSelf: 'center',
-    textAlignVertical: 'top',
     flex: 1,
-    marginTop: -7,
-
+    marginTop: (Platform.OS === 'android') ? 5 : 0,
   },
-  style: { height: 82 }
+  style: {
+    paddingVertical: 7,
+    height: (Platform.OS === 'android') ? 65 : 62
+  }
 }
 
 const getTabBarIcon = (navigation, focused, tintColor) => {
