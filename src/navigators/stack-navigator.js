@@ -33,6 +33,7 @@ const mainNavigator = createStackNavigator(
       screen: BottomTabNavigator,
       headerMode: 'none',
       navigationOptions: ({ navigation }) => ({
+        headerTitleAlign: 'center',
         headerTitleStyle: { alignSelf: 'center' },
         title: <HeaderTitle />,
         headerTitleStyle: headerStyle.headerTitleStyle,
@@ -63,10 +64,10 @@ const mainNavigator = createStackNavigator(
         headerTitleStyle: headerStyle.headerTitleStyle,
         headerStyle: headerStyle.headerStyle,
         animationEnabled: false,
+        headerTitleAlign: 'center',
       }),
     },
   },
-  { headerLayoutPreset: 'center' },
   {
     initialRouteName: 'Home',
   },
@@ -78,11 +79,11 @@ const settingsStack = createStackNavigator(
       screen: SettingsScreen,
       navigationOptions: ({ }) => ({
         headerTitleStyle: headerStyle.headerTitleStyle,
-        headerStyle: headerStyle.headerStyle
+        headerStyle: headerStyle.headerStyle,
+        headerTitleAlign: 'center',
       }),
     },
   },
-  { headerLayoutPreset: 'center' }
 );
 
 const symbolsStack = createStackNavigator(
@@ -92,10 +93,10 @@ const symbolsStack = createStackNavigator(
       navigationOptions: ({ }) => ({
         headerTitleStyle: headerStyle.headerTitleStyle,
         headerStyle: { height: 44 },
+        headerTitleAlign: 'center',
       }),
     },
-  },
-  { headerLayoutPreset: 'center' }
+  }
 );
 
 const aboutStack = createStackNavigator(
@@ -104,11 +105,11 @@ const aboutStack = createStackNavigator(
       screen: AboutScreen,
       navigationOptions: ({ }) => ({
         headerTitleStyle: headerStyle.headerTitleStyle,
-        headerStyle: headerStyle.headerStyle
+        headerStyle: headerStyle.headerStyle,
+        headerTitleAlign: 'center',
       }),
     },
-  },
-  { headerLayoutPreset: 'center' }
+  }
 );
 
 const feedbackStack = createStackNavigator(
@@ -118,10 +119,10 @@ const feedbackStack = createStackNavigator(
       navigationOptions: ({ }) => ({
         headerTitleStyle: headerStyle.headerTitleStyle,
         headerStyle: { height: 44 },
+        headerTitleAlign: 'center',
       }),
     },
   },
-  { headerLayoutPreset: 'center' }
 );
 
 const Drawer = createDrawerNavigator(

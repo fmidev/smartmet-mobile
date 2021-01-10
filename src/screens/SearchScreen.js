@@ -101,7 +101,7 @@ export class SearchScreen extends React.Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('search:search'),
-    headerLeft: (<TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeft /></TouchableOpacity>)
+    headerLeft: () => (<TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeft /></TouchableOpacity>)
   });
 
   navigatePreviousScreen = (coords) => {

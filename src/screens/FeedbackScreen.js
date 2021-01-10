@@ -22,7 +22,7 @@ export class FeedbackScreen extends React.Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('feedback:feedback'),
-    headerLeft: (<TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeft /></TouchableOpacity>)
+    headerLeft: () => (<TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeft /></TouchableOpacity>)
   });
 
   render() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { translate } from 'react-i18next';
 import i18n from 'i18next';
 import { ListItem } from 'react-native-elements';
@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 import { asyncStorageSetItem } from '../components/Helper'
 import CheckActiveLightMode from '../assets/images/icons/checkActiveLightMode.svg'
 import ArrowLeft from '../components/ArrowLeft'
-
 
 const styles = StyleSheet.create({
   container: {
@@ -81,7 +80,7 @@ export class SettingsScreen extends React.Component {
 
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: screenProps.t('settings:settings'),
-    headerLeft: (<TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeft /></TouchableOpacity>)
+    headerLeft: () => (<TouchableOpacity onPress={() => navigation.goBack(null)} style={{ paddingLeft: 10, }}><ArrowLeft /></TouchableOpacity>)
   });
 
   async onChangeLang(lang) {
@@ -124,79 +123,74 @@ export class SettingsScreen extends React.Component {
     return (
 
       <View style={styles.container} >
-        <ScrollView>
-          <Text style={styles.header}>
-            {t('settings:language')}
-          </Text>
 
+        <Text style={styles.header}>
+          {t('settings:language')}
+        </Text>
 
-          <FlatList
-            data={availableLanguages}
-            ItemSeparatorComponent={this.renderSeparator}
-            renderItem={({ item }) => {
-              return (
-
-                <TouchableOpacity onPress={() => this.onChangeLang(item)}>
-                  <View style={styles.flatlistItem} >
-                    <Text style={styles.languageListitemText} >{t('settings:' + item)}</Text>
-                    {appLanguage === item ? <View style={styles.listIconRightEnd}><CheckActiveLightMode /></View> : null}
-                  </View>
-                </TouchableOpacity>
-
-
-              )
-            }}
-            keyExtractor={(item, index) => index}
-          />
-
-          < Text style={styles.header} >
-            {t('settings:units')}
-          </Text >
-          <FlatList
-            data={UNITS}
-            ItemSeparatorComponent={this.renderSeparator}
-            renderItem={({ item }) =>
-              <TouchableOpacity onPress={() => this[RBSheet + item.parameterName].open()}>
+        <FlatList
+          data={availableLanguages}
+          ItemSeparatorComponent={this.renderSeparator}
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity onPress={() => this.onChangeLang(item)}>
                 <View style={styles.flatlistItem} >
-                  <Text style={styles.settingslistitem} >  {t('settings:' + item.parameterName)} </Text>
-                  <Text style={styles.settingslistitemAbb} >{item.parameterName === 'temperature' ? '°' : null}{t('unit abbreviations:' + this.props.parameterUnitAbbMap[item.parameterName])}</Text>
-                  <RBSheet
-                    ref={ref => {
-                      this[RBSheet + item.parameterName] = ref;
-                    }}
-                    height={300}
-                    customStyles={{
-                      container: {
-                        borderTopLeftRadius: 10,
-                        borderTopRightRadius: 10
-                      }
-                    }}
-                  >
-                    <View>
-                      <Text style={styles.rbTitle}>  {t('settings:' + item.parameterName)} </Text>
-
-                      {
-                        item.unitTypes.map((currentUnitAbb) => (
-                          <ListItem
-                            key={currentUnitAbb.unitAbb}
-                            title={t('unit abbreviations:' + currentUnitAbb.unitAbb)}
-                            titleStyle={styles.listItemRBSheetTitle}
-                            bottomDivider
-                            onPress={() => { this[RBSheet + item.parameterName].close(); this.onChangeUnit(item.parameterName, currentUnitAbb.unitId); }}
-                          />
-                        ))
-                      }
-                    </View>
-                  </RBSheet>
+                  <Text style={styles.languageListitemText} >{t('settings:' + item)}</Text>
+                  {appLanguage === item ? <View style={styles.listIconRightEnd}><CheckActiveLightMode /></View> : null}
                 </View>
               </TouchableOpacity>
-            }
-            keyExtractor={(item) => item.parameterName}
-          />
+            )
+          }}
+          keyExtractor={item => item.toString()}
+        />
 
-          < Text style={styles.header} ></Text >
+        < Text style={styles.header} >
+          {t('settings:units')}
+        </Text >
+        <FlatList
+          data={UNITS}
+          ItemSeparatorComponent={this.renderSeparator}
+          renderItem={({ item }) =>
+            <TouchableOpacity onPress={() => this[RBSheet + item.parameterName].open()}>
+              <View style={styles.flatlistItem} >
+                <Text style={styles.settingslistitem} >  {t('settings:' + item.parameterName)} </Text>
+                <Text style={styles.settingslistitemAbb} >{item.parameterName === 'temperature' ? '°' : null}{t('unit abbreviations:' + this.props.parameterUnitAbbMap[item.parameterName])}</Text>
+                <RBSheet
+                  ref={ref => {
+                    this[RBSheet + item.parameterName] = ref;
+                  }}
+                  height={300}
+                  customStyles={{
+                    container: {
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10
+                    }
+                  }}
+                >
+                  <View>
+                    <Text style={styles.rbTitle}>  {t('settings:' + item.parameterName)} </Text>
 
-        </ScrollView>
+                    {
+                      item.unitTypes.map((currentUnitAbb) => (
+                        <ListItem
+                          key={currentUnitAbb.unitAbb}
+                          title={t('unit abbreviations:' + currentUnitAbb.unitAbb)}
+                          titleStyle={styles.listItemRBSheetTitle}
+                          bottomDivider
+                          onPress={() => { this[RBSheet + item.parameterName].close(); this.onChangeUnit(item.parameterName, currentUnitAbb.unitId); }}
+                        />
+                      ))
+                    }
+                  </View>
+                </RBSheet>
+              </View>
+            </TouchableOpacity>
+          }
+          keyExtractor={(item) => item.parameterName}
+        />
+
+        < Text style={styles.header} ></Text>
+
       </View >
     );
   }
