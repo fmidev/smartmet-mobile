@@ -22,8 +22,6 @@ const headerStyle = {
   },
   headerStyle: {
     height: 44,
-    elevation: 0,
-    shadowOpacity: 0,
   }
 };
 
@@ -37,7 +35,7 @@ const mainNavigator = createStackNavigator(
         headerTitleStyle: { alignSelf: 'center' },
         title: <HeaderTitle />,
         headerTitleStyle: headerStyle.headerTitleStyle,
-        headerStyle: { height: 44 },
+        headerStyle: headerStyle.headerStyle,
         headerLeft: () => (
           <SettingsButton
             onPress={() => navigation.openDrawer()}
@@ -62,7 +60,11 @@ const mainNavigator = createStackNavigator(
       screen: SearchScreen,
       navigationOptions: ({ }) => ({
         headerTitleStyle: headerStyle.headerTitleStyle,
-        headerStyle: headerStyle.headerStyle,
+        headerStyle: {
+          height: 44,
+          elevation: 0,
+          shadowOpacity: 0,
+        },
         animationEnabled: false,
         headerTitleAlign: 'center',
       }),
@@ -79,7 +81,11 @@ const settingsStack = createStackNavigator(
       screen: SettingsScreen,
       navigationOptions: ({ }) => ({
         headerTitleStyle: headerStyle.headerTitleStyle,
-        headerStyle: headerStyle.headerStyle,
+        headerStyle: {
+          height: 44,
+          elevation: 0,
+          shadowOpacity: 0,
+        },
         headerTitleAlign: 'center',
       }),
     },
@@ -92,7 +98,7 @@ const symbolsStack = createStackNavigator(
       screen: SymbolsScreen,
       navigationOptions: ({ }) => ({
         headerTitleStyle: headerStyle.headerTitleStyle,
-        headerStyle: { height: 44 },
+        headerStyle: headerStyle.headerStyle,
         headerTitleAlign: 'center',
       }),
     },
@@ -118,7 +124,7 @@ const feedbackStack = createStackNavigator(
       screen: FeedbackScreen,
       navigationOptions: ({ }) => ({
         headerTitleStyle: headerStyle.headerTitleStyle,
-        headerStyle: { height: 44 },
+        headerStyle: headerStyle.headerStyle,
         headerTitleAlign: 'center',
       }),
     },
