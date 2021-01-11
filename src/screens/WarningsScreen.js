@@ -4,7 +4,7 @@ import { translate } from 'react-i18next';
 import i18n from 'i18next';
 import _ from 'lodash';
 import {
-  View, StyleSheet, FlatList,
+  View, Text, StyleSheet, FlatList,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { LoadingView, ErrorView, WarningsErrorView, WarningsNotSetView } from '../components';
@@ -15,14 +15,36 @@ import { tsFetch } from '../actions/TimeSeriesActions';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: 'rgb(238,244,251)',
   },
   flatListContainer: {
     flex: 1,
   },
+  headerContainer: {
+    alignItems: 'center',
+    paddingTop: 23,
+    paddingBottom: 25,
+    marginBottom: 0,
+    backgroundColor: 'rgb(238,244,251)',
+    borderTopColor: 'rgb(216,231,242)',
+    borderBottomColor: 'rgb(216,231,242)',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+  },
+  headerText: {
+    color: 'rgb(48,49,147)',
+    fontFamily: 'Roboto-Medium',
+    fontSize: 17,
+  },
+  headerTime: {
+    color: 'rgb(48,49,147)',
+    fontFamily: 'Roboto-Regular',
+    fontSize: 13,
+  },
 });
 
 export class WarningsScreen extends React.Component {
+
   renderLoading() {
     return (
       <LoadingView />
@@ -84,6 +106,13 @@ export class WarningsScreen extends React.Component {
 
     return (
       <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>
+            Warnings, 5 days
+          </Text>
+          <Text style={styles.headerTime}>Warnings updated 11.7.2020 20:25</Text>
+        </View>
+
         <View style={styles.flatListContainer}>
           <FlatList
             style={{ flex: 1 }}

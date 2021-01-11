@@ -14,8 +14,7 @@ const styles = StyleSheet.create({
   listItemContainer: {
     flexDirection: 'row',
     flex: 1,
-    height: 65,
-    marginTop: 1,
+    height: 85,
     marginBottom: 1,
     backgroundColor: 'white',
   },
@@ -29,8 +28,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontWeight: 'bold',
-    color: 'black',
+    fontFamily: 'Roboto-Bold',
+    fontSize: 13,
+    color: 'rgb(48,49,147)'
   },
   dropButtonContainer: {
     top: 0,
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'lightgray',
+    backgroundColor: 'rgb(216,231,242)',
   },
   flatListContainer: {
     flex: 1,
@@ -93,25 +93,26 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   collapsableContentText: {
-    color: 'black',
-    fontSize: 16,
+    color: 'rgb(48,49,147)',
+    fontFamily: 'Roboto-Regular',
+    fontSize: 15,
     paddingVertical: 18,
   },
   collapsableContentArea: {
-    fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold',
+    fontSize: 15,
     paddingVertical: 5,
-    color: 'black',
-    fontSize: 14,
+    color: 'rgb(48,49,147)',
   },
   collapsableContentTime: {
-    fontStyle: 'italic',
-    color: 'black',
-    fontSize: 14,
+    fontFamily: 'Roboto-Italic',
+    fontSize: 15,
+    color: 'rgb(48,49,147)',
   },
   collapsableContentSender: {
-    fontStyle: 'italic',
-    color: 'black',
-    fontSize: 14,
+    fontFamily: 'Roboto-Italic',
+    fontSize: 15,
+    color: 'rgb(48,49,147)',
     paddingBottom: 7,
   },
 });
@@ -142,8 +143,8 @@ export class WarningsListItem extends React.Component {
 
               <View style={styles.dropButtonContainer}>
                 <View style={styles.dropButton}>
-                  {this.state.isHidden && <IconComponent name="ios-arrow-dropdown-circle" size={25} color="black" />}
-                  {!this.state.isHidden && <IconComponent name="ios-arrow-dropup-circle" size={25} color="black" />}
+                  {this.state.isHidden && <IconComponent name="ios-arrow-dropdown-circle" size={26} color={'rgb(48,49,147)'} />}
+                  {!this.state.isHidden && <IconComponent name="ios-arrow-dropup-circle" size={26} color={'rgb(58,102,227)'} />}
                 </View>
               </View>
 
