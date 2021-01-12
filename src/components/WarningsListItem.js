@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    top: 3,
+    top: 6,
     left: 0,
     right: 0,
     bottom: 0,
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   dropButtonContainer: {
     top: 0,
     left: 0,
-    right: 8,
+    right: 15,
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
   },
   warningLoadingContainer: {
     top: 8,
-    paddingHorizontal: 45,
-    width: '90%',
+    paddingHorizontal: 65,
+
     flexGrow: 1,
   },
   warningBarColorContainer: {
@@ -76,16 +76,16 @@ const styles = StyleSheet.create({
   },
   warningBarContainer: {
     flex: 1,
-    paddingHorizontal: 8,
+    paddingHorizontal: 1,
     textAlign: 'center',
 
   },
   warningDayText: {
     flexDirection: 'row',
-    fontSize: 10,
-    color: 'black',
+    fontSize: 13,
+    color: 'rgb(48,49,147)',
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'Roboto-Medium',
   },
   collapsableContentContainer: {
     backgroundColor: 'rgb(222,236,246)',
@@ -158,7 +158,7 @@ export class WarningsListItem extends React.Component {
                   {
                     this.props.item.item.styling.map((element, i) => (
                       <View key={i} style={styles.warningBarContainer}>
-                        <Text style={styles.warningDayText}>{moment(element.time).format('ddd').toUpperCase()}</Text>
+                        <Text style={styles.warningDayText}>{moment(element.time).format('ddd')}</Text>
                         <View style={styles.warningBarColorContainer}>
                           {
                             element.bars.map((barElement, k) => (
