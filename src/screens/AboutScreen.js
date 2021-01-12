@@ -1,13 +1,21 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { translate } from 'react-i18next';
 import ArrowLeft from '../components/ArrowLeft'
 
 const styles = StyleSheet.create({
   container: {
-    color: 'black',
+    flex: 1,
+    backgroundColor: 'white',
+    paddingTop: 20,
+    paddingHorizontal: 10,
+    height: '100%',
+    alignItems: 'center',
   },
-
+  contentText: {
+    fontFamily: 'Roboto-Regular',
+    color: 'rgb(48,49,147)',
+  },
 });
 
 export class AboutScreen extends React.Component {
@@ -20,7 +28,9 @@ export class AboutScreen extends React.Component {
   render() {
     const { t } = this.props;
     return (
-      <Text>{`${t('about the application:content')} `}</Text>
+      <View style={styles.container}>
+        <Text style={styles.contentText}>{`${t('about the application:content')} `}the Finnish Meteorological Institute.</Text>
+      </View>
     );
   }
 }
