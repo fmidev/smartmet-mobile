@@ -96,6 +96,15 @@ export class WarningsScreen extends React.Component {
     });
   }
 
+  renderHeader() {
+    return (
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>Warnings, 5 days</Text>
+        <Text style={styles.headerTime}>Updated {momentLocales(this.props.warningsFetchTime).local().format('l')} {momentLocales(this.props.warningsFetchTime).local().format('LT')}</Text>
+      </View>
+    )
+  }
+
   renderFlatList() {
     const { t } = this.props;
     if (this.props.navigation.state.params) {
@@ -107,13 +116,6 @@ export class WarningsScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>
-            Warnings, 5 days
-          </Text>
-          <Text style={styles.headerTime}>Updated {momentLocales(this.props.warningsFetchTime).local().format('l')} {momentLocales(this.props.warningsFetchTime).local().format('LT')}</Text>
-        </View>
-
         <View style={styles.flatListContainer}>
           <FlatList
             style={{ flex: 1 }}
@@ -121,6 +123,7 @@ export class WarningsScreen extends React.Component {
             renderItem={(item) => <WarningsListItem item={item} />}
             keyExtractor={(item) => item.id}
             scrollEnabled
+            ListHeaderComponent={() => this.renderHeader()}
             onRefresh={() => this.onRefresh()}
             refreshing={this.props.warningsLoading}
             ListEmptyComponent={<WarningsNotSetView t={t} />}
