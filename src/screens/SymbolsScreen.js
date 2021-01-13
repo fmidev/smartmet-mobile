@@ -137,6 +137,7 @@ export class SymbolsScreen extends React.Component {
         <FlatList
           data={symbolData}
           ListHeaderComponent={() => this.renderHeader()}
+          keyExtractor={(item) => item.description}
           renderItem={({ item }) => (
             <View style={{ flexDirection: "row", alignItems: 'center', }}>
               <Image source={item.daySrc}
