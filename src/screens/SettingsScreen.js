@@ -203,10 +203,10 @@ export class SettingsScreen extends React.Component {
 
                     {
                       item.unitTypes.map((currentUnitAbb) => (
-                        <View>
+                        <View key={currentUnitAbb.unitId} >
                           <ListItem
                             containerStyle={{ paddingVertical: 12 }}
-                            key={currentUnitAbb.unitAbb}
+                            key={currentUnitAbb.unitId}
                             leftElement={() => (
                               <View>
                                 <Text style={styles.listItemRBSheetTitle}>
