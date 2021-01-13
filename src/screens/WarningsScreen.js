@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
+import momentLocales from 'moment-with-locales-es6';
 import i18n from 'i18next';
 import _ from 'lodash';
 import {
@@ -110,7 +111,7 @@ export class WarningsScreen extends React.Component {
           <Text style={styles.headerText}>
             Warnings, 5 days
           </Text>
-          <Text style={styles.headerTime}>Warnings updated 11.7.2020 20:25</Text>
+          <Text style={styles.headerTime}>Updated {momentLocales(this.props.warningsFetchTime).local().format('l')} {momentLocales(this.props.warningsFetchTime).local().format('LT')}</Text>
         </View>
 
         <View style={styles.flatListContainer}>
@@ -149,6 +150,7 @@ const mapStateToProps = (state) => ({
   tsError: state.tsDataObj.tsError,
   warningsLoading: state.warningsObj.warningsLoading,
   warningsError: state.warningsObj.warningsError,
+  warningsFetchTime: state.warningsObj.warningsFetchTime,
   warningsObj: state.warningsObj.warningsObj,
 });
 

@@ -35,8 +35,8 @@ export const warningsFetch = () => (dispatch, getState) => {
 
   checkCap(point).then((response) => {
 
-    setResponseTimes(response, warningsHolder);
-    const payload = [getStyling(warningsHolder), getStylingList(setResponseTimes(response, warningsHolder), warningTimes)];
+    setResponseTimes(response[0], warningsHolder);
+    const payload = [getStyling(warningsHolder), getStylingList(setResponseTimes(response[0], warningsHolder), warningTimes), response[1]];
 
     dispatch({
       type: WARNINGS_FETCH_SUCCESS,
@@ -57,8 +57,8 @@ export const warningsFetch = () => (dispatch, getState) => {
 function checkCap(point) {
   return new Promise((resolve, reject) => {
     getCapFeed()
-      .then((responseText) => {
-        parseString(responseText, (err, result) => {
+      .then((capObj) => {
+        parseString(capObj.xml, (err, result) => {
           if (err) {
             reject(err);
           } else {
@@ -101,14 +101,14 @@ function checkCap(point) {
                           });
 
                           if (counter === result.feed.entry.length) {
-                            resolve(warningObject);
+                            resolve([warningObject, capObj.fetchTime]);
                           }
                         })
                         .catch(() => {
                           // console.log('point is NOT within polygon');
                           counter += 1;
                           if (counter === result.feed.entry.length) {
-                            resolve(warningObject);
+                            resolve([warningObject, capObj.fetchTime]);
                           }
                         });
                     } else {

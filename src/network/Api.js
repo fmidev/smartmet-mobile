@@ -44,9 +44,13 @@ export function getAutocomplete(pattern, lang) {
 }
 
 export function getCapFeed() {
+  let fetchTime
   return fetch(capFeedUrl)
-    .then((response) => {
+    .then(function (response) {
+      fetchTime = response.headers.get('Date');
       return response.text()
+    }).then(function (xml) {
+      return { xml: xml, fetchTime: fetchTime }
     })
 }
 

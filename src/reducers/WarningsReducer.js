@@ -21,6 +21,7 @@ export default (state = INITIAL_STATE, action) => {
         warningsLoading: false,
         warningsBarData: action.payload[0],
         warningsObj: action.payload[1],
+        warningsFetchTime: action.payload[2],
       };
 
     case WARNINGS_FETCH_FAIL:
