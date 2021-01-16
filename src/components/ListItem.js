@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 6,
-    paddingVertical: 4,
+    paddingVertical: 10,
     borderBottomColor: 'rgb(216,231,242)',
     borderBottomWidth: 0.9,
     width: '100%',
@@ -186,7 +186,7 @@ export class ListItem extends React.Component {
               <View style={{ alignItems: 'center', flex: 1, paddingLeft: 6, paddingRight: 2 }}>
                 <Image style={{ alignItems: 'center', flex: 1 }}
                   source={Images.symbols[this.props.item.item.smartsymbol].src}
-                  style={{ height: 50, width: 50, marginTop: 10 }}
+                  style={{ height: 50, width: 50, }}
                 />
               </View>
 
