@@ -16,23 +16,22 @@
 default_platform(:android)
 
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
+  desc "Build Release"
+  lane :build_aab do |options|
+    should_publish = options.fetch(:should_publish, false)
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
-  end
+    gradle(
+      task: "clean bundleRelease",
+      print_command: false,
+    )
 
-  desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
+    if should_publish
+      supply_params = {
+        track: "alpha",
+        # defaults to completed
+        release_status: "draft",
+      }
+      supply(supply_params)
+    end
   end
 end
