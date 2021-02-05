@@ -6,7 +6,7 @@ on:
         required: true
         default: 'false'
       locale:
-        description: 'Language code (uppercase ie. FI)'
+        description: 'Language code (available: [FI, KG])'
         required: true
         default: 'FI'
 
