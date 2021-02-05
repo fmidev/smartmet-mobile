@@ -2,68 +2,68 @@ on:
   workflow_dispatch:
     inputs:
       publish:
-        description: 'Publish to Google Play'
+        description: "Publish to Google Play"
         required: true
-        default: 'false'
+        default: "false"
       locale:
-        description: 'Language code (available: [FI, KG])'
+        description: "Language code (available: [FI, KG])"
         required: true
-        default: 'FI'
+        default: "FI"
 
 name: Build Android
-  jobs:
-    build:
-      runs-on: ubuntu-latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-      strategy:
-        matrix:
-          node-version: [12.19.0]
+    strategy:
+      matrix:
+        node-version: [12.19.0]
 
-      steps:
-        - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-        - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v1
-          with:
-            node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-        - name: Set up Ruby 2.6
-          uses: actions/setup-ruby@v1
-          with:
-            ruby-version: 2.6.x
+      - name: Set up Ruby 2.6
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6.x
 
-        - name: Install Dependencies
-          run: yarn install
+      - name: Install Dependencies
+        run: yarn install
 
-        - name: Install Ruby Dependencies
-          run: gem install bundler && bundle install
-          working-directory: android
+      - name: Install Ruby Dependencies
+        run: gem install bundler && bundle install
+        working-directory: android
 
-        - name: Decode Environment Variables
-          if: ${{ github.event.inputs.locale === 'FI'}}
-          run: |
-            echo $DOT_ENV | base64 --decode > .env
-          env:
-            DOT_ENV: ${{ secrets.DOT_ENV_FI }}
+      - name: Decode Environment Variables
+        if: ${{ github.event.inputs.locale === 'FI'}}
+        run: |
+          echo $DOT_ENV | base64 --decode > .env
+        env:
+          DOT_ENV: ${{ secrets.DOT_ENV_FI }}
 
-        - name: Decode Environment Variables
-          if: ${{ github.event.inputs.locale === 'KG'}}
-          run: |
-            echo $DOT_ENV | base64 --decode > .env
-          env:
-            DOT_ENV: ${{ secrets.DOT_ENV_KG }}
+      - name: Decode Environment Variables
+        if: ${{ github.event.inputs.locale === 'KG'}}
+        run: |
+          echo $DOT_ENV | base64 --decode > .env
+        env:
+          DOT_ENV: ${{ secrets.DOT_ENV_KG }}
 
-        - name: Fastlane Build AAB
-          env:
-            ANDROID_RELEASE_STORE_FILE: ${{ secrets.ANDROID_RELEASE_STORE_FILE }}
-            ANDROID_RELEASE_STORE_PASSWORD: ${{ secrets.ANDROID_RELEASE_STORE_PASSWORD }}
-            ANDROID_RELEASE_KEY_ALIAS: ${{ secrets.ANDROID_RELEASE_KEY_ALIAS }}
-            ANDROID_RELEASE_KEY_PASSWORD: ${{ secrets.ANDROID_RELEASE_KEY_PASSWORD }}
-          run: bundle exec fastlane build_aab should_publish:false
-          working-directory: android
+      - name: Fastlane Build AAB
+        env:
+          ANDROID_RELEASE_STORE_FILE: ${{ secrets.ANDROID_RELEASE_STORE_FILE }}
+          ANDROID_RELEASE_STORE_PASSWORD: ${{ secrets.ANDROID_RELEASE_STORE_PASSWORD }}
+          ANDROID_RELEASE_KEY_ALIAS: ${{ secrets.ANDROID_RELEASE_KEY_ALIAS }}
+          ANDROID_RELEASE_KEY_PASSWORD: ${{ secrets.ANDROID_RELEASE_KEY_PASSWORD }}
+        run: bundle exec fastlane build_aab should_publish:false
+        working-directory: android
 
-        - name: Upload AAB
-          uses: actions/upload-artifact@v2
-          with:
-            name: app-release.aab
-            path: android/app/build/outputs/bundle/release/
+      - name: Upload AAB
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release.aab
+          path: android/app/build/outputs/bundle/release/
