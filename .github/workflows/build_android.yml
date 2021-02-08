@@ -59,7 +59,8 @@ jobs:
           ANDROID_RELEASE_STORE_PASSWORD: ${{ secrets.ANDROID_RELEASE_STORE_PASSWORD }}
           ANDROID_RELEASE_KEY_ALIAS: ${{ secrets.ANDROID_RELEASE_KEY_ALIAS }}
           ANDROID_RELEASE_KEY_PASSWORD: ${{ secrets.ANDROID_RELEASE_KEY_PASSWORD }}
-        run: bundle exec fastlane build_aab should_publish:false
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SUPPLY_JSON_KEY }}
+        run: bundle exec fastlane build_aab should_publish:${{ github.event.inputs.publish }}
         working-directory: android
 
       - name: Upload AAB

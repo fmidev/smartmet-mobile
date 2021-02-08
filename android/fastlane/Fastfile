@@ -13,6 +13,8 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+AAB_PATH ="./app/build/outputs/budnle/release/app-release.aab"
+
 default_platform(:android)
 
 platform :android do
@@ -27,9 +29,17 @@ platform :android do
 
     if should_publish
       supply_params = {
+        package_name: "com.smartmetmobile"
         track: "alpha",
         # defaults to completed
         release_status: "draft",
+        aab: AAB_PATH,
+        skip_upload_metadata: true,
+        skip_upload_images: true,
+        # changle logs could be included later
+        skip_upload_changelogs: true,
+        skip_upload_screenshots: true,
+        SUPPLY_JSON_KEY_DATA: ENV["SUPPLY_JSON_KEY_DATA"]
       }
       supply(supply_params)
     end
