@@ -99,7 +99,7 @@ def enableProguardInReleaseBuilds = false
 def areUploadKeystoreEnvsSet =  System.getenv("ANDROID_RELEASE_STORE_FILE") != null &&
                                 System.getenv("ANDROID_RELEASE_STORE_PASSWORD") != null &&
                                 System.getenv("ANDROID_RELEASE_KEY_ALIAS") != null &&
-                                System.getenv("MYAPPP_RELEASE_KEY_PASSWORD") != null
+                                System.getenv("ANDROID_RELEASE_KEY_PASSWORD") != null
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystorePropertiesFileExists = keystorePropertiesFile.exists()
 def keystoreProperties = new Properties()
