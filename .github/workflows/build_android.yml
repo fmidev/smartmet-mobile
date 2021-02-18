@@ -40,14 +40,14 @@ jobs:
         working-directory: android
 
       - name: Decode Environment Variables
-        if: ${{ github.event.inputs.locale === 'FI'}}
+        if: ${{ github.event.inputs.locale == 'FI'}}
         run: |
           echo $DOT_ENV | base64 --decode > .env
         env:
           DOT_ENV: ${{ secrets.DOT_ENV_FI }}
 
       - name: Decode Environment Variables
-        if: ${{ github.event.inputs.locale === 'KG'}}
+        if: ${{ github.event.inputs.locale == 'KG'}}
         run: |
           echo $DOT_ENV | base64 --decode > .env
         env:
