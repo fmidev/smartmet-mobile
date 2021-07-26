@@ -53,6 +53,12 @@ jobs:
         env:
           DOT_ENV: ${{ secrets.DOT_ENV_KG }}
 
+      - name: Validate Google Supple Json Key
+        env:
+          SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SUPPLY_JSON_KEY }}
+        run: bundle exec fastlane validate
+        working-directory: android
+
       - name: Fastlane Build AAB
         env:
           ANDROID_RELEASE_STORE_FILE: ${{ secrets.ANDROID_RELEASE_STORE_FILE }}

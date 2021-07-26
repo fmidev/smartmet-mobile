@@ -44,4 +44,8 @@ platform :android do
       supply(supply_params)
     end
   end
+
+  lane :validate do
+    validate_play_store_json_key(json_key_data:ENV["SUPPLY_JSON_KEY_DATA"])
+  end
 end
