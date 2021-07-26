@@ -39,7 +39,7 @@ platform :android do
         # changle logs could be included later
         skip_upload_changelogs: true,
         skip_upload_screenshots: true,
-        SUPPLY_JSON_KEY_DATA: ENV["SUPPLY_JSON_KEY_DATA"]
+        json_key_data: ENV["SUPPLY_JSON_KEY_DATA"]
       }
       supply(supply_params)
     end
