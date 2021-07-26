@@ -13,7 +13,7 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-AAB_PATH ="./app/build/outputs/budnle/release/app-release.aab"
+AAB_PATH ="./app/build/outputs/bundle/release/app-release.aab"
 
 default_platform(:android)
 
