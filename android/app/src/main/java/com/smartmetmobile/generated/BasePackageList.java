@@ -1,4 +1,4 @@
-package com.smartmetmobile.generated;
+package fi.fmi.smartmetmobile.generated;
 
 import java.util.Arrays;
 import java.util.List;

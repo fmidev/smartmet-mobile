@@ -21,6 +21,11 @@ or alternatively using `brew cask install fastlane`
 fastlane android build_aab
 ```
 Build Release
+### android validate
+```
+fastlane android validate
+```
+
 
 ----
 

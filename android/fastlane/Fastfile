@@ -29,7 +29,7 @@ platform :android do
 
     if should_publish
       supply_params = {
-        package_name: "com.smartmetmobile",
+        package_name: "fi.fmi.smartmetmobile",
         track: "alpha",
         # defaults to completed
         release_status: "draft",

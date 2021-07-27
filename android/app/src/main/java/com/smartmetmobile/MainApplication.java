@@ -1,4 +1,4 @@
-package com.smartmetmobile;
+package fi.fmi.smartmetmobile;
 
 import android.app.Application;
 
@@ -8,7 +8,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.smartmetmobile.generated.BasePackageList;
+import fi.fmi.smartmetmobile.generated.BasePackageList;
 
 import org.unimodules.adapters.react.ReactAdapterPackage;
 import org.unimodules.adapters.react.ModuleRegistryAdapter;

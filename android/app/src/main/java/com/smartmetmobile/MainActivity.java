@@ -1,4 +1,4 @@
-package com.smartmetmobile;
+package fi.fmi.smartmetmobile;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
