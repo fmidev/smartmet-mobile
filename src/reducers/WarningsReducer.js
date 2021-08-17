@@ -20,7 +20,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         warningsLoading: false,
         warningsBarData: action.payload[0],
-        warningsObj: action.payload[1],
+        warningsObj: action.payload[1] || {},
         warningsFetchTime: action.payload[2],
       };
 
