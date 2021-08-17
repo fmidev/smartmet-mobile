@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import momentLocales from 'moment-with-locales-es6';
 import {
-  View, Text, StyleSheet, Image, FlatList, TouchableHighlight,
+  View, Text, StyleSheet, Image, FlatList, TouchableOpacity,
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { LoadingView } from '../components';
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
   celestialContainer: {
     flex: 1,
     flexDirection: 'row',
-    paddingLeft: 50,
-    paddingRight: 70,
+    paddingLeft: 30,
+    paddingRight: 30,
   },
   celestialSymbol: {
     justifyContent: 'center',
@@ -312,7 +312,7 @@ export class WeatherScreen extends React.Component {
                   {mainInfoData.humidity.toFixed(0)}
                 </Text>
                 {' '}
-%
+                %
                 {'\n'}
                 <Text style={{ fontWeight: 'bold' }}>
                   {converter(this.props.parameterUnitMap['precipitation'], mainInfoData.precipitation1h).toFixed(this.props.parameterUnitPrecisionMap['precipitation'])}
@@ -360,7 +360,7 @@ export class WeatherScreen extends React.Component {
           </View>
         </View>
 
-        <TouchableHighlight onPress={() => { this.props.navigation.navigate({ routeName: 'Warnings', }); }}>
+        <TouchableOpacity activeOpacity={1} onPress={() => { this.props.navigation.navigate({ routeName: 'Warnings', }); }}>
           <View elevation={10} style={styles.warningContainer}>
             {!this.props.warningsLoading ? (
               <View style={styles.warningLoadingContainer}>
@@ -394,10 +394,10 @@ export class WeatherScreen extends React.Component {
                 </View>
               </View>
             ) : (
-                this.renderLoading()
-              )}
+              this.renderLoading()
+            )}
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
         <View style={styles.listHeaderContainer}>
           <View style={{ marginRight: 1.5, alignItems: 'center', backgroundColor: 'white', borderTopLeftRadius: 8, width: '31%' }}></View>
