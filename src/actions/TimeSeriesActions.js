@@ -4,7 +4,7 @@ import { getTimeSeries } from '../network/Api';
 
 const getPosition = function (options) {
   return new Promise(function (resolve, reject) {
-    Geolocation.getCurrentPosition(resolve, reject, { timeout: 20000, enableHighAccuracy: true });
+    Geolocation.getCurrentPosition(resolve, reject, { timeout: 20000, enableHighAccuracy: false });
   });
 }
 
