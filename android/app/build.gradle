@@ -122,8 +122,8 @@ android {
         applicationId "fi.fmi.smartmetmobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "1.2"
+        versionCode 4
+        versionName "1.3"
         manifestPlaceholders = [GOOGLE_API_KEY: project.env.get('GOOGLE_API_KEY').toString()]
     }
     splits {
