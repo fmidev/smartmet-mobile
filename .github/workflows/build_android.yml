@@ -42,14 +42,14 @@ jobs:
       - name: Decode Environment Variables
         if: ${{ github.event.inputs.locale == 'FI'}}
         run: |
-          echo $DOT_ENV | base64 --decode > .env
+          cp $DOT_ENV .env
         env:
           DOT_ENV: ${{ secrets.DOT_ENV_FI }}
 
       - name: Decode Environment Variables
         if: ${{ github.event.inputs.locale == 'KG'}}
         run: |
-          echo $DOT_ENV | base64 --decode > .env
+          cp $DOT_ENV .env
         env:
           DOT_ENV: ${{ secrets.DOT_ENV_KG }}
 
