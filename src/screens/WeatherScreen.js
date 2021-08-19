@@ -26,7 +26,7 @@ import ArrSunset from '../assets/images/icons/arrowSunsetLightMode.svg'
 import TemperatureTitle from '../assets/images/icons/temperatureTitleIconLightMode.svg'
 import WindTitle from '../assets/images/icons/windTitleIconLightMode.svg'
 import HumidityTitle from '../assets/images/icons/humidityTitleIconLightMode.svg'
-const WEEKDAY_LIST_FORECAST_HOUR = 15;
+const WEEKDAY_LIST_FORECAST_HOUR = 18;
 
 const styles = StyleSheet.create({
   container: {
