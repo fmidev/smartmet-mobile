@@ -53,6 +53,9 @@ jobs:
         env:
           DOT_ENV: ${{ secrets.DOT_ENV_KG }}
 
+      - name: Write .env content to stdout
+        run: cat .env
+
       - name: Validate Google Supple Json Key
         env:
           SUPPLY_JSON_KEY_DATA: ${{ secrets.GOOGLE_SUPPLY_JSON_KEY }}
