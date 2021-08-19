@@ -85,14 +85,6 @@ export class ListItem extends React.Component {
         collapsableContentArr.push(collapsableItemObj);
       }
     });
-
-    if (moment(collapsableContentArr[0].time).format('H') !== 0) {
-      let blurredItemAmount = parseInt(moment(collapsableContentArr[0].time).format('H')) / 3
-      for (let i = 0; i < blurredItemAmount; i++) {
-        collapsableContentArr.unshift({});
-      }
-    }
-
     return collapsableContentArr
   }
 
@@ -101,67 +93,62 @@ export class ListItem extends React.Component {
     // console.log('renderCollapsableContent') // TODO: Check is this normal behaviour 
 
     return (
-      Object.keys(item).length !== 0 ? (
-        <View style={styles.collapsableContent} >
-          <View style={index === this.getCollapsableContentData().length - 1 ? { paddingRight: 4, borderRightWidth: 1, borderColor: 'rgb(216,231,242)' } : { borderRightWidth: 0 }}  >
+      <View style={styles.collapsableContent} >
+        <View style={index === this.getCollapsableContentData().length - 1 ? { borderRightWidth: 1, borderColor: 'rgb(216,231,242)' } : { borderRightWidth: 0 }}  >
 
-            <View style={{ alignItems: 'center', flex: 1, paddingTop: 10, }}>
-              <Text style={styles.collapsableContentText}>{momentLocales(item.time).format('LT')}</Text>
-            </View>
-
-            <Image
-              source={Images.symbols[item.smartsymbol].src}
-              style={{ height: 50, width: 50, marginTop: 6 }}
-            />
-
-            <View style={{ alignItems: 'center', flex: 1, paddingTop: 4 }}>
-              <Text style={styles.collapsableContentText}>{item.temperature}°</Text>
-            </View>
-
-            <View style={{ alignItems: 'center', paddingTop: 8 }}>
-              <FeelsLikeLightMode />
-              <Text style={{ position: 'absolute', top: 33, }}>
-                <Text style={styles.collapsableContentText}>{item.feelslike}°</Text>
-              </Text>
-            </View>
-
-            <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
-              <WindDirBg
-                style={{
-                  transform: [{ rotate: item.winddirection.toString() + 'deg' }]
-                }} width={30} height={30}
-              />
-            </View>
-
-            <View style={{ alignItems: 'center', flex: 1, paddingTop: 5 }}>
-              <Text style={styles.collapsableContentText}>
-                {item.windspeedms}
-                {' '}
-                <Text style={{ fontWeight: 'normal' }}>{`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}</Text>
-              </Text>
-            </View>
-
-            <View style={{ alignItems: 'center', flex: 1, flexDirection: 'row', paddingTop: 15 }}>
-              <View style={{ marginRight: -5, }}><RainDrop width={25} /></View>
-              <Text style={styles.collapsableContentText}>{item.humidity}
-                <Text style={{ fontWeight: 'normal' }}> %</Text>
-              </Text>
-            </View>
-
-            <View style={{ alignItems: 'center', flex: 1, paddingTop: 0 }}>
-              <Text style={styles.collapsableContentText}>{item.precipitation1h}
-                <Text style={{ fontWeight: 'normal' }}> {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['precipitation'])}`} </Text>
-              </Text>
-            </View>
-
-          </View >
-        </View>
-      ) : (
-          <View style={{ borderWidth: 1, borderColor: 'rgb(216,231,242)' }} >
-            <Image source={require('../assets/images/blur.png')} style={{ width: 55, height: 300, }} blurRadius={3} />
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 10 }}>
+            <Text style={styles.collapsableContentText}>{momentLocales(item.time).format('HH:mm')}</Text>
           </View>
-        )
+
+          <Image
+            source={Images.symbols[item.smartsymbol].src}
+            style={{ height: 50, width: 50, marginTop: 6 }}
+          />
+
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 4 }}>
+            <Text style={styles.collapsableContentText}>{item.temperature}°</Text>
+          </View>
+
+          <View style={{ alignItems: 'center', paddingTop: 8 }}>
+            <FeelsLikeLightMode />
+            <Text style={{ position: 'absolute', top: 33, }}>
+              <Text style={styles.collapsableContentText}>{item.feelslike}°</Text>
+            </Text>
+          </View>
+
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 15 }}>
+            <WindDirBg
+              style={{
+                transform: [{ rotate: item.winddirection.toString() + 'deg' }]
+              }} width={30} height={30}
+            />
+          </View>
+
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 5 }}>
+            <Text style={styles.collapsableContentText}>
+              {item.windspeedms}
+              {' '}
+              <Text style={{ fontWeight: 'normal' }}>{`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['wind'])}`}</Text>
+            </Text>
+          </View>
+
+          <View style={{ alignItems: 'center', flex: 1, flexDirection: 'row', paddingTop: 15 }}>
+            <View style={{ marginRight: -5, }}><RainDrop width={25} /></View>
+            <Text style={styles.collapsableContentText}>{item.humidity}
+              <Text style={{ fontWeight: 'normal' }}> %</Text>
+            </Text>
+          </View>
+
+          <View style={{ alignItems: 'center', flex: 1, paddingTop: 0 }}>
+            <Text style={styles.collapsableContentText}>{item.precipitation1h}
+              <Text style={{ fontWeight: 'normal' }}> {`${t('unit abbreviations:' + this.props.parameterUnitAbbMap['precipitation'])}`} </Text>
+            </Text>
+          </View>
+
+        </View >
+      </View>
     )
+
   }
 
   render() {
@@ -186,7 +173,7 @@ export class ListItem extends React.Component {
               <View style={{ alignItems: 'center', flex: 1, paddingLeft: 6, paddingRight: 2 }}>
                 <Image style={{ alignItems: 'center', flex: 1 }}
                   source={Images.symbols[this.props.item.item.smartsymbol].src}
-                  style={{ height: 50, width: 50, }}
+                  style={{ height: 50, width: 50 }}
                 />
               </View>
 
