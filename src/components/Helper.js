@@ -42,3 +42,9 @@ export function getWindDirectionArrow(windDirection) {
   const directions = ['↓', '↙', '←', '↖', '↑', '↗', '→', '↘'];
   return directions[Math.round(windDirection / 45) % 8];
 }
+
+export function convertCoordinates(lat, lng) {
+  let latCardinal = lat >= 0 ? 'N' : 'S';
+  let lngCardinal = lng >= 0 ? 'E' : 'W';
+  return latCardinal + lat.toFixed(3) + ',' + lngCardinal + lng.toFixed(3)
+}

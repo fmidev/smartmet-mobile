@@ -1,5 +1,6 @@
 import Config from 'react-native-config';
 import moment from 'moment-with-locales-es6';
+import { convertCoordinates } from '../components/Helper';
 
 const timeseriesUrl = `${Config.API_URL}/timeseries?format=json&precision=full&param=time,utctime,name,temperature,feelslike,humidity,precipitation1h,windspeedms,winddirection,weather,sunrise,sunset,smartsymbol&starttime=data&timestep=data&endtime=data&producer=${Config.DATA_PRODUCER}`;
 
@@ -27,7 +28,7 @@ export function getTimeSeries(coords, lang) {
         lat: coords.lat,
         lon: coords.lon
       }
-      tsDataObj.placeName = responseJson[0].name;
+      tsDataObj.placeName = /[a-zA-Z]/g.test(responseJson[0].name) ? responseJson[0].name : convertCoordinates(coords.lat, coords.lon);
       tsDataObj.data = responseJson;
       return tsDataObj;
     }))
